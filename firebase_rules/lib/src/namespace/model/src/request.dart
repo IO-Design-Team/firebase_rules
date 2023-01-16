@@ -1,5 +1,4 @@
-import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_interface.dart';
-import 'package:firebase_rules/model.dart' as rules;
+import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// a map of JWT token claims.
@@ -7,7 +6,7 @@ abstract class RequestToken {
   RequestToken._();
 
   /// The email address associated with the account, if present
-  String get email;
+  RulesString get email;
 
   /// `true` if the user has verified they have access to the `email` address.
   ///
@@ -17,13 +16,13 @@ abstract class RequestToken {
   /// The phone number associated with the account, if present.
   ///
   /// Translates to `phone_number`
-  String get phoneNumber;
+  RulesString get phoneNumber;
 
   /// The user's display name, if set.
-  String get name;
+  RulesString get name;
 
   /// The user's Firebase UID. This is unique within a project.
-  String get sub;
+  RulesString get sub;
 
   /// A map of all the identities that are associated with this user's account.
   /// The keys of the map can be any of the following: `email`, `phone`,
@@ -34,7 +33,7 @@ abstract class RequestToken {
   /// first Google user ID associated with the account.
   ///
   /// Translates to `firebase.identities`
-  Map<String, List<String>> get identities;
+  RulesMap<RulesString, RulesList<RulesString>> get identities;
 
   /// The sign-in provider used to obtain this token. Can be one of the
   /// following strings: `custom`, `password`, `phone`, `anonymous`,
@@ -42,12 +41,12 @@ abstract class RequestToken {
   /// Translates to `firebase.sign_in_provider`
   ///
   /// Translates to `firebase.sign_in_provider`
-  String get signInProvider;
+  RulesString get signInProvider;
 
   /// The tenantId associated with the account, if present. e.g. `tenant2-m6tyz`
   ///
   /// Translates to `firebase.tenant`
-  String get tenant;
+  RulesString get tenant;
 }
 
 /// Request authentication context.
@@ -55,7 +54,7 @@ abstract class RequestAuth {
   RequestAuth._();
 
   /// the UID of the requesting user.
-  String get uid;
+  RulesString get uid;
 
   /// a map of JWT token claims.
   RequestToken get token;
@@ -90,7 +89,7 @@ abstract class RequestQuery {
   int get offset;
 
   /// query orderBy clause.
-  String get orderBy;
+  RulesString get orderBy;
 }
 
 /// The incoming request context.
@@ -104,17 +103,17 @@ abstract class Request<T> extends RulesType {
   RequestMethod get method;
 
   /// Path of the affected resource.
-  rules.Path get path;
+  Path get path;
 
   /// Map of query properties, when present.
   RequestQuery get query;
 
   /// The new resource value, present on write requests only.
-  rules.Resource<T> get resource;
+  Resource<T> get resource;
 
   /// When the request was received by the service.
   ///
   /// For Firestore write operations that include server-side timestamps, this
   /// time will be equal to the server timestamp.
-  Timestamp get time;
+  RulesTimestamp get time;
 }

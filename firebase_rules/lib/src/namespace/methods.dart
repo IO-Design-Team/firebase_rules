@@ -1,74 +1,46 @@
-import 'package:firebase_rules/src/namespace/model/bytes.dart';
-import 'package:firebase_rules/src/namespace/model/duration.dart';
-import 'package:firebase_rules/src/namespace/model/lat_lng.dart';
-import 'package:firebase_rules/src/namespace/model/timestamp.dart';
+import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:firebase_rules/src/rules_type.dart';
-
-/// A basic debug function that prints Security Rules language objects,
-/// variables and statement results as they are being evaluated by the Security
-/// Rules engine. The outputs of debug are written to firestore-debug.log.
-///
-/// The debug function can only be called inside Rules conditions.
-///
-/// debug function blocks are only executed by the Security Rules engine in the
-/// Firestore emulator, part of the Firebase Emulator Suite. The debug function
-/// has no effect in production.
-///
-/// Debug logfile entries are prepended by a string identifying the Rules
-/// language data type of the log output (for example, string_value, map_value).
-///
-/// Calls to debug can be nested.
-///
-/// Currently, the debug feature does not support the concept of logging levels
-/// (for example, INFO, WARN, ERROR).
-T debug<T>(T value) => throw UnimplementedError();
 
 /// Globally available duration functions. These functions are accessed using
 /// the duration. prefix.
-abstract class DurationMethods extends RulesType {
+abstract class DurationMethods {
   DurationMethods._();
 
   /// Absolute value of a duration.
-  Duration abs();
+  RulesDuration abs();
 
   /// Create a duration from hours, minutes, seconds, and nanoseconds.
-  Duration time(int hours, int minutes, int secs, int nanos);
+  RulesDuration time(int hours, int minutes, int secs, int nanos);
 
   /// Create a duration from a numeric magnitude and string unit.
-  Duration value(int magnitude, DurationUnit unit);
+  RulesDuration value(int magnitude, DurationUnit unit);
 }
 
-/// Access to [DurationMethods]
-DurationMethods get duration => throw UnimplementedError();
-
 /// Context specific variables and methods for Cloud Firestore security rules.
-abstract class FirestoreMethods extends RulesType {
+abstract class FirestoreMethods {
   FirestoreMethods._();
 
   // TODO: Inject database base path into these
 
   /// Check if a document exists.
-  bool exists(String path) => throw UnimplementedError();
+  bool exists(RulesString path);
 
   /// Check if a document exists, assuming the current request succeeds.
   /// Equivalent to getAfter(path) != null.
-  bool existsAfter(String path) => throw UnimplementedError();
+  bool existsAfter(RulesString path);
 
   /// Get the contents of a firestore document.
-  T get<T>(String path) => throw UnimplementedError();
+  T get<T>(RulesString path);
 
   /// Get the projected contents of a document. The document is returned as if the
   /// current request had succeeded. Useful for validating documents that are part
   /// of a batched write or transaction.
-  T getAfter<T>(String path) => throw UnimplementedError();
+  T getAfter<T>(RulesString path);
 }
-
-/// Access to [FirestoreMethods]
-FirestoreMethods get firestore => throw UnimplementedError();
 
 /// Globally available hashing functions. These functions are accessed using
 /// the hashing. prefix.
-abstract class HashingMethods extends RulesType {
+abstract class HashingMethods {
   HashingMethods._();
 
   /// Compute a hash using the CRC32 algorithm.
@@ -84,24 +56,18 @@ abstract class HashingMethods extends RulesType {
   Bytes sha256(dynamic input);
 }
 
-/// Access to [HashingMethods]
-HashingMethods get hashing => throw UnimplementedError();
-
 /// Globally available latitude-longitude functions. These functions are
 /// accessed using the latlng. prefix
-abstract class LatLngMethods extends RulesType {
+abstract class LatLngMethods {
   LatLngMethods._();
 
   /// Create a LatLng from floating point coordinates.
   LatLng value(double lat, double lng);
 }
 
-/// Access to [LatLngMethods]
-LatLngMethods get latlng => throw UnimplementedError();
-
 /// Globally available mathematical functions. These functions are accessed
 /// using the math. prefix and operate on numerical values.
-abstract class MathMethods extends RulesType {
+abstract class MathMethods {
   MathMethods._();
 
   /// Absolute value of a numeric value.
@@ -130,20 +96,78 @@ abstract class MathMethods extends RulesType {
   double sqrt(num value);
 }
 
-/// Access to [MathMethods]
-MathMethods get math => throw UnimplementedError();
-
 /// Globally available timestamp functions. These functions are accessed using
 /// the timestamp. prefix.
-abstract class TimestampMethods extends RulesType {
+abstract class TimestampMethods {
   TimestampMethods._();
 
   /// Make a timestamp from a year, month, and day.
-  Timestamp date(int year, int month, int day);
+  RulesTimestamp date(int year, int month, int day);
 
   /// Make a timestamp from an epoch time in milliseconds.
-  Timestamp value(int epochMillis);
+  RulesTimestamp value(int epochMillis);
 }
 
-/// Access to [TimestampMethods]
-TimestampMethods get timestamp => throw UnimplementedError();
+/// Globally available rules functions
+abstract class RulesMethods {
+  RulesMethods._();
+
+  /// Strings can be converted into booleans using the bool() function:
+  bool parseBool(RulesString value);
+
+  /// Create bytes from string
+  // TODO: Convert to string literal
+  Bytes parseBytes(RulesString value);
+
+  /// String and integer values can be converted to float values using the float()
+  /// function:
+  double parseFloat(Object value);
+
+  /// String and float values can be converted to integers using the int()
+  /// function:
+  int parseInt(Object value);
+
+  /// Boolean, integer, float, and null values can be converted into strings
+  /// using the string() function:
+  RulesString parseString(Object? value);
+
+  /// A basic debug function that prints Security Rules language objects,
+  /// variables and statement results as they are being evaluated by the Security
+  /// Rules engine. The outputs of debug are written to firestore-debug.log.
+  ///
+  /// The debug function can only be called inside Rules conditions.
+  ///
+  /// debug function blocks are only executed by the Security Rules engine in the
+  /// Firestore emulator, part of the Firebase Emulator Suite. The debug function
+  /// has no effect in production.
+  ///
+  /// Debug logfile entries are prepended by a string identifying the Rules
+  /// language data type of the log output (for example, string_value, map_value).
+  ///
+  /// Calls to debug can be nested.
+  ///
+  /// Currently, the debug feature does not support the concept of logging levels
+  /// (for example, INFO, WARN, ERROR).
+  T debug<T>(T value);
+
+  /// Access to [DurationMethods]
+  DurationMethods get duration;
+
+  /// Access to [FirestoreMethods]
+  FirestoreMethods get firestore;
+
+  /// Access to [HashingMethods]
+  HashingMethods get hashing;
+
+  /// Access to [LatLngMethods]
+  LatLngMethods get latlng;
+
+  /// Access to [MathMethods]
+  MathMethods get math;
+
+  /// Access to [TimestampMethods]
+  TimestampMethods get timestamp;
+}
+
+/// Access to [RulesMethods]
+RulesMethods get rules => throw UnimplementedError();

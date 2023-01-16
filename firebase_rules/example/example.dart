@@ -7,7 +7,7 @@ final matches = [
       Match<UsersPath, User>(
         rules: (users, request, resource) => [
           Rule([Operation.read], request.auth != null),
-          Rule([Operation.update], request.auth?.uid == users.userId),
+          Rule([Operation.update], request.auth?.uid == users.userId.rules),
         ],
       ),
       Match<ContentPath, Content>(
@@ -18,10 +18,10 @@ final matches = [
           ),
           Rule(
             [Operation.write],
-            firestore
-                .get<User>('/users/${request.auth?.uid}')
+            rules.firestore
+                .get<User>('/users/${request.auth?.uid}'.rules)
                 .contentIds
-                .rulesType
+                .rules
                 .contains(content.contentId),
           ),
         ],
@@ -38,14 +38,14 @@ abstract class Content {
   bool get public;
 }
 
-class UsersPath extends Path {
+class UsersPath extends FirebasePath {
   String get userId => throw UnimplementedError();
 
   @override
   String get path => '/users/$userId';
 }
 
-class ContentPath extends Path {
+class ContentPath extends FirebasePath {
   String get contentId => throw UnimplementedError();
 
   @override

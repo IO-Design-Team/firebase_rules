@@ -1,10 +1,11 @@
+import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// Directory-like pattern for the location of a resource.
 abstract class Path extends RulesType {
   /// Index operator
-  String operator [](dynamic value);
+  RulesString operator [](dynamic value);
 
   /// Bind key-value pairs in a map to a path.
-  String bind(Map<String, dynamic> map);
+  RulesString bind(RulesMap<String, dynamic> map);
 }

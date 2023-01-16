@@ -1,3 +1,4 @@
+import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// Type representing a sequence of bytes.
@@ -11,13 +12,9 @@ abstract class Bytes extends RulesType {
   /// sequence.
   ///
   /// Base64 encoding is performed per the base64url specification.
-  String toBase64();
+  RulesString toBase64();
 
   /// Returns the hexadecimal-encoded string corresponding to the provided Bytes
   /// sequence.
-  String toHexString();
+  RulesString toHexString();
 }
-
-/// Create bytes from string
-// TODO: Convert to string literal
-Bytes bytes(String value) => throw UnimplementedError();

@@ -1,32 +1,30 @@
-import 'dart:core' as core;
-
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// A set is an unordered collection. A set cannot contain duplicate items.
-abstract class Set<T> extends RulesType {
-  Set._();
+abstract class RulesSet<T> extends RulesType {
+  RulesSet._();
 
   /// Check if value v exists in set x.
-  core.bool contains(T value);
+  bool contains(T value);
 
   /// Returns a set that is the difference between the set calling difference()
   /// and the set passed to difference(). That is, returns a set containing the
   /// elements in the comparison set that are not in the specified set.
   ///
   /// If the sets are identical, returns an empty set (size() == 0).
-  Set<T> difference(Set<T> other);
+  RulesSet<T> difference(RulesSet<T> other);
 
   /// Test whether the set calling hasAll() contains all of the items in the
   /// comparison set passed to hasAll().
-  core.bool hasAll(Set<T> other);
+  bool hasAll(RulesSet<T> other);
 
   /// Test whether the set calling hasAny() contains any of the items in the set
   /// or list passed to hasAny().
-  core.bool hasAny(Set<T> other);
+  bool hasAny(RulesSet<T> other);
 
   /// Test whether the set calling hasOnly() contains only the items in the
   /// comparison set or list passed to hasOnly().
-  core.bool hasOnly(Set<T> other);
+  bool hasOnly(RulesSet<T> other);
 
   /// Returns a set that is the intersection between the set calling
   /// intersection() and the set passed to intersection(). That is, returns a
@@ -34,14 +32,13 @@ abstract class Set<T> extends RulesType {
   ///
   /// If the sets have no elements in common, returns an empty set
   /// (size() == 0).
-  Set<T> intersection(Set<T> other);
+  RulesSet<T> intersection(RulesSet<T> other);
 
   /// Returns the size of the set.
-  core.int size();
+  int size();
 
   /// Returns a set that is the union of the set calling union() and the set
   /// passed to union(). That is, returns a set that contains all elements from
   /// both sets.
-  Set<T> union(Set<T> other);
+  RulesSet<T> union(RulesSet<T> other);
 }
-

@@ -1,4 +1,4 @@
-import 'package:firebase_rules/model.dart' as rules;
+import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:meta/meta_meta.dart';
 
 /// Firebase Rules annotation
@@ -37,14 +37,14 @@ enum Service {
 }
 
 /// A callback that provides information about the current rules context
-typedef ContextualCallback<T, U extends Path, V> = List<T> Function(
+typedef ContextualCallback<T, U extends FirebasePath, V> = List<T> Function(
   U path,
-  rules.Request<V> request,
-  rules.Resource<V> resource,
+  Request<V> request,
+  Resource<V> resource,
 );
 
 /// A service path that provides access to path parameters
-abstract class Path {
+abstract class FirebasePath {
   /// The path string for code generation
   String get path;
 }
@@ -86,7 +86,7 @@ class Rule {
 }
 
 /// A firebase rules match statement
-class Match<T extends Path, U> {
+class Match<T extends FirebasePath, U> {
   /// Rules for this context
   final ContextualCallback<Rule, T, U>? rules;
 

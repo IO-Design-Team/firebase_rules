@@ -1,24 +1,21 @@
-import 'dart:core' as core;
-
-import 'package:firebase_rules/src/namespace/model/list.dart';
-import 'package:firebase_rules/src/namespace/model/set.dart';
+import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// Map type, used for simple key-value mappings.
-abstract class Map<K, V> extends RulesType {
-  Map._();
+abstract class RulesMap<K, V> extends RulesType {
+  RulesMap._();
 
   /// Index operator, get value at key name k
-  V? operator [](K k) => throw core.UnimplementedError();
+  V? operator [](K k);
 
   /// Check if key k exists in map x
   ///
   /// Translates to `k in x`
-  core.bool containsKey(K key) => throw core.UnimplementedError();
+  bool containsKey(K key);
 
   /// Return a rules.MapDiff representing the result of comparing the current
   /// Map to a comparison Map.
-  MapDiff<K, V> diff(Map<K, V> other) => throw core.UnimplementedError();
+  MapDiff<K, V> diff(RulesMap<K, V> other);
 
   /// Returns the value associated with a given search key string.
   ///
@@ -29,16 +26,16 @@ abstract class Map<K, V> extends RulesType {
   ///
   /// The function requires a default value to return if no match to the given
   /// search key is found.
-  V get(core.Object key, V defaultValue);
+  V get(Object key, V defaultValue);
 
   /// Get the list of keys in the map.
-  List<K> keys();
+  RulesList<K> keys();
 
   /// Get the number of entries in the map.
-  core.int size();
+  int size();
 
   /// Get the list of values in the map.
-  List<V> values();
+  RulesList<V> values();
 }
 
 /// The MapDiff type represents the result of comparing two rules.Map objects.
@@ -47,26 +44,25 @@ abstract class MapDiff<K, V> extends RulesType {
 
   /// Returns a rules.Set, which lists any keys that the Map calling diff()
   /// contains that the Map passed to diff() does not.
-  Set<K> addedKeys();
+  RulesSet<K> addedKeys();
 
   /// Returns a rules.Set, which lists any keys that have been added to,
   /// removed from or modified from the Map calling diff() compared to the Map
   /// passed to diff(). This function returns the set equivalent to the combined
   /// results of MapDiff.addedKeys(), MapDiff.removedKeys() and
   /// MapDiff.changedKeys().
-  Set<K> affectedKeys();
+  RulesSet<K> affectedKeys();
 
   /// Returns a rules.Set, which lists any keys that appear in both the Map
   /// calling diff() and the Map passed to diff(), but whose values are not
   /// equal.
-  Set<K> changedKeys();
+  RulesSet<K> changedKeys();
 
   /// Returns a rules.Set, which lists any keys that the Map calling diff()
   /// does not contain compared to the Map passed to diff().
-  Set<K> removedKeys();
+  RulesSet<K> removedKeys();
 
   /// Returns a rules.Set, which lists any keys that appear in both the Map
   /// calling diff() and the Map passed to diff(), and whose values are equal.
-  Set<K> unchangedKeys();
+  RulesSet<K> unchangedKeys();
 }
-
