@@ -1,23 +1,29 @@
+import 'dart:typed_data';
+
 /// Type representing a sequence of bytes.
 abstract class Bytes {
   Bytes._();
 
   /// Returns the number of bytes in a Bytes sequence.
-  int size() => throw UnimplementedError();
+  int size();
 
   /// Returns the Base64-encoded string corresponding to the provided Bytes
   /// sequence.
   ///
   /// Base64 encoding is performed per the base64url specification.
-  String toBase64() => throw UnimplementedError();
+  String toBase64();
 
   /// Returns the hexadecimal-encoded string corresponding to the provided Bytes
   /// sequence.
-  String toHexString() => throw UnimplementedError();
+  String toHexString();
 }
 
-/// Extension to access [Bytes] methods
-extension BytesExtension<T> on T {
+/// Create bytes from string
+// TODO: Convert to string literal
+Bytes bytes(String value) => throw UnimplementedError();
+
+/// Access to [Bytes] methods
+extension BytesExtension on Uint8List {
   /// Access to [Bytes] methods
-  Bytes asBytes() => throw UnimplementedError();
+  Bytes get f => throw UnimplementedError();
 }

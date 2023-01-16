@@ -21,6 +21,7 @@ final matches = [
             [Operation.write],
             rules.get<User>('/users/${request.auth?.uid}')
                 .contentIds
+                // TODO: Change to `in`
                 .contains(content.contentId),
           ),
         ],
