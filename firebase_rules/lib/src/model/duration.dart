@@ -1,15 +1,10 @@
+import 'package:firebase_rules/src/rules_type.dart';
+
+
+
 /// Duration with nanosecond accuracy.
-abstract class Duration {
+abstract class Duration extends RulesType {
   Duration._();
-
-  /// Absolute value of a duration.
-  Duration abs();
-
-  /// Create a duration from hours, minutes, seconds, and nanoseconds.
-  Duration time(int hours, int minutes, int secs, int nanos);
-
-  /// Create a duration from a numeric magnitude and string unit.
-  Duration value(int magnitude, DurationUnit unit);
 
   /// Get the nanoseconds portion (signed) of the duration from -999,999,999 to
   /// +999,999,999 inclusive.
@@ -20,7 +15,6 @@ abstract class Duration {
   int seconds();
 }
 
-Duration get duration => throw UnimplementedError();
 
 /// Unit of the duration.
 enum DurationUnit {

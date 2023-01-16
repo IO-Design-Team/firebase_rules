@@ -1,5 +1,6 @@
 import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_interface.dart';
 import 'package:firebase_rules/model.dart' as rules;
+import 'package:firebase_rules/src/rules_type.dart';
 
 /// a map of JWT token claims.
 abstract class RequestToken {
@@ -82,7 +83,7 @@ abstract class RequestQuery {
 }
 
 /// The incoming request context.
-abstract class Request<T> {
+abstract class Request<T> extends RulesType {
   Request._();
 
   /// Request authentication context.

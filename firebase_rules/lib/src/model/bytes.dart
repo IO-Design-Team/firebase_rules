@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
+import 'package:firebase_rules/src/rules_type.dart';
+
 /// Type representing a sequence of bytes.
-abstract class Bytes {
+abstract class Bytes extends RulesType {
   Bytes._();
 
   /// Returns the number of bytes in a Bytes sequence.
@@ -25,5 +27,5 @@ Bytes bytes(String value) => throw UnimplementedError();
 /// Access to [Bytes] methods
 extension BytesExtension on Uint8List {
   /// Access to [Bytes] methods
-  Bytes get f => throw UnimplementedError();
+  Bytes get rulesType => throw UnimplementedError();
 }

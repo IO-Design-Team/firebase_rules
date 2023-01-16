@@ -1,5 +1,4 @@
-import 'package:firebase_rules/firestore.dart';
-import 'package:firebase_rules/model.dart' as rules;
+import 'package:firebase_rules/firebase_rules.dart';
 
 @FirebaseRules(service: Service.firestore)
 final matches = [
@@ -19,7 +18,8 @@ final matches = [
           ),
           Rule(
             [Operation.write],
-            rules.get<User>('/users/${request.auth?.uid}')
+            firestore
+                .get<User>('/users/${request.auth?.uid}')
                 .contentIds
                 // TODO: Change to `in`
                 .contains(content.contentId),
