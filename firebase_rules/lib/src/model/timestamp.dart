@@ -7,6 +7,12 @@ import 'package:firebase_rules/src/rules_type.dart';
 abstract class Timestamp extends RulesType {
   Timestamp._();
 
+  /// Add a duration to this timestamp
+  operator +(Duration duration);
+
+  /// Subtract a duration from this timestamp
+  operator -(Duration duration);
+
   /// Timestamp value containing year, month, and day only.
   Timestamp date();
 
