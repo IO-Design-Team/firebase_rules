@@ -5,6 +5,25 @@ import 'package:firebase_rules/src/rules_type.dart';
 abstract class String extends RulesType {
   String._();
 
+  /// Strings can be lexicographically compared using the ==, !=, >, <, >= and
+  /// <= operators.
+  bool operator >(String other);
+
+  /// Strings can be lexicographically compared using the ==, !=, >, <, >= and
+  /// <= operators.
+  bool operator <(String other);
+
+  /// Strings can be lexicographically compared using the ==, !=, >, <, >= and
+  /// <= operators.
+  bool operator >=(String other);
+
+  /// Strings can be lexicographically compared using the ==, !=, >, <, >= and
+  /// <= operators.
+  bool operator <=(String other);
+
+  /// Strings can be concatenated using the + operator:
+  String operator +(String other);
+
   /// Sub-strings can be accessed using the index operator [].
   String operator [](int index);
 
