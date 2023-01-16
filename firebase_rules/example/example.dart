@@ -21,7 +21,7 @@ final matches = [
             firestore
                 .get<User>('/users/${request.auth?.uid}')
                 .contentIds
-                // TODO: Change to `in`
+                .rulesType
                 .contains(content.contentId),
           ),
         ],
@@ -42,12 +42,12 @@ class UsersPath extends Path {
   String get userId => throw UnimplementedError();
 
   @override
-  String get path => 'users/$userId';
+  String get path => '/users/$userId';
 }
 
 class ContentPath extends Path {
   String get contentId => throw UnimplementedError();
 
   @override
-  String get path => 'content/$contentId';
+  String get path => '/content/$contentId';
 }

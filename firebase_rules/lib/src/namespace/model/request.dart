@@ -10,12 +10,12 @@ abstract class RequestToken {
   String get email;
 
   /// `true` if the user has verified they have access to the `email` address.
-  /// 
+  ///
   /// Translates to `email_verified`
   bool get emailVerified;
 
   /// The phone number associated with the account, if present.
-  /// 
+  ///
   /// Translates to `phone_number`
   String get phoneNumber;
 
@@ -32,7 +32,7 @@ abstract class RequestToken {
   /// associated with the account. For example,
   /// `request.auth.token.firebase.identities["google.com"][0]` contains the
   /// first Google user ID associated with the account.
-  /// 
+  ///
   /// Translates to `firebase.identities`
   Map<String, List<String>> get identities;
 
@@ -40,12 +40,12 @@ abstract class RequestToken {
   /// following strings: `custom`, `password`, `phone`, `anonymous`,
   /// `google.com`, `facebook.com`, `github.com`, `twitter.com`.
   /// Translates to `firebase.sign_in_provider`
-  /// 
+  ///
   /// Translates to `firebase.sign_in_provider`
   String get signInProvider;
 
   /// The tenantId associated with the account, if present. e.g. `tenant2-m6tyz`
-  /// 
+  ///
   /// Translates to `firebase.tenant`
   String get tenant;
 }

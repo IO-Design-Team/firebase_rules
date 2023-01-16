@@ -1,7 +1,7 @@
-import 'package:firebase_rules/src/model/bytes.dart';
-import 'package:firebase_rules/src/model/duration.dart';
-import 'package:firebase_rules/src/model/lat_lng.dart';
-import 'package:firebase_rules/src/model/timestamp.dart';
+import 'package:firebase_rules/src/namespace/model/bytes.dart';
+import 'package:firebase_rules/src/namespace/model/duration.dart';
+import 'package:firebase_rules/src/namespace/model/lat_lng.dart';
+import 'package:firebase_rules/src/namespace/model/timestamp.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// A basic debug function that prints Security Rules language objects,

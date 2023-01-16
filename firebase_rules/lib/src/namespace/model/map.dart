@@ -1,7 +1,7 @@
 import 'dart:core' as core;
 
-import 'package:firebase_rules/src/model/list.dart';
-import 'package:firebase_rules/src/model/set.dart';
+import 'package:firebase_rules/src/namespace/model/list.dart';
+import 'package:firebase_rules/src/namespace/model/set.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// Map type, used for simple key-value mappings.
@@ -70,8 +70,3 @@ abstract class MapDiff<K, V> extends RulesType {
   Set<K> unchangedKeys();
 }
 
-/// Access to [Map] methods
-extension MapExtension<K, V> on core.Map<K, V> {
-  /// Access to [Map] methods
-  Map<K, V> get rulesType => throw core.UnimplementedError();
-}

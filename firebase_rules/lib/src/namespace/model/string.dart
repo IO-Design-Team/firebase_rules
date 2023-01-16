@@ -1,4 +1,4 @@
-import 'package:firebase_rules/src/model/bytes.dart';
+import 'package:firebase_rules/src/namespace/model/bytes.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// Primitive type representing a string value.
@@ -60,9 +60,3 @@ abstract class String extends RulesType {
 /// Boolean, integer, float, and null values can be converted into strings
 /// using the string() function:
 String string(Object? value) => throw UnimplementedError();
-
-/// Access to [String] methods
-extension StringExtension on String {
-  /// Access to [String] methods
-  String get rulesType => throw UnimplementedError();
-}

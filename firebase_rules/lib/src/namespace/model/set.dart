@@ -45,8 +45,3 @@ abstract class Set<T> extends RulesType {
   Set<T> union(Set<T> other);
 }
 
-/// Access to [Set] methods
-extension SetExtension<T> on core.Set<T> {
-  /// Access to [Set] methods
-  Set<T> get rulesType => throw core.UnimplementedError();
-}

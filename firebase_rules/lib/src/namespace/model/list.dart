@@ -1,6 +1,6 @@
 import 'dart:core' as core;
 
-import 'package:firebase_rules/src/model/set.dart';
+import 'package:firebase_rules/src/namespace/model/set.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// List type. Items are not necessarily homogenous.
@@ -50,8 +50,3 @@ abstract class List<T> extends RulesType {
   Set<T> toSet();
 }
 
-/// Access to [List] methods
-extension ListExtension<T> on core.List<T> {
-  /// Access to [List] methods
-  List<T> get rulesType => throw core.UnimplementedError();
-}

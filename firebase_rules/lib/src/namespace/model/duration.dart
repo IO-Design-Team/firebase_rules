@@ -1,7 +1,5 @@
 import 'package:firebase_rules/src/rules_type.dart';
 
-
-
 /// Duration with nanosecond accuracy.
 abstract class Duration extends RulesType {
   Duration._();
@@ -14,7 +12,6 @@ abstract class Duration extends RulesType {
   /// +315,576,000,000 inclusive.
   int seconds();
 }
-
 
 /// Unit of the duration.
 enum DurationUnit {

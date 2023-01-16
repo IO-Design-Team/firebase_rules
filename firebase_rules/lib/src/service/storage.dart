@@ -1,5 +1,17 @@
-import 'package:firebase_rules/src/model/timestamp.dart';
+import 'package:firebase_rules/src/namespace/model/timestamp.dart';
 import 'package:firebase_rules/src/rules_type.dart';
+
+import 'package:firebase_rules/firebase_rules.dart';
+
+/// Base firestore path
+class StoragePath extends Path {
+  /// The current database
+  String get bucket => throw UnimplementedError();
+
+  @override
+  String get path => '/b/$bucket/o';
+}
+
 
 /// The resource variable contains the metadata of a file being uploaded or the
 /// updated metadata for an existing file. This is related to the resource

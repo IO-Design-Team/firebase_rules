@@ -1,6 +1,6 @@
 import 'dart:core' as core;
 
-import 'package:firebase_rules/src/model/duration.dart';
+import 'package:firebase_rules/src/namespace/model/duration.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// A timestamp in UTC with nanosecond accuracy.
