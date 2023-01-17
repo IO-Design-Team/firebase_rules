@@ -1,7 +1,7 @@
 import 'package:firebase_rules/firebase_rules.dart';
 
 @FirebaseRules(service: Service.firestore)
-final matches = [
+final firestoreRules = [
   Match<FirestorePath, dynamic>(
     matches: (base, request, resource) => [
       Match<UsersPath, User>(

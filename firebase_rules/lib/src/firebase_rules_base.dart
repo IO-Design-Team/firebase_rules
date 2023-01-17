@@ -10,10 +10,14 @@ class FirebaseRules {
   /// The firebase service these rules are for
   final Service service;
 
+  /// The output destination for the generated rules file
+  final String? output;
+
   /// Constructor
   const FirebaseRules({
     this.rulesVersion = '2',
     required this.service,
+    this.output,
   });
 }
 
