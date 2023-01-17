@@ -1,8 +1,6 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
-library firebase_rules_generator;
+import 'package:build/build.dart';
+import 'package:source_gen/source_gen.dart';
 
-export 'src/firebase_rules_generator_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+/// Builds generators for `build_runner` to run
+Builder rules(BuilderOptions options) => LibraryBuilder(RulesGenerator(),
+    generatedExtension: '.openapi_generator');
