@@ -2,8 +2,8 @@ import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// a map of JWT token claims.
-abstract class RequestToken {
-  RequestToken._();
+abstract class RulesRequestToken {
+  RulesRequestToken._();
 
   /// The email address associated with the account, if present
   RulesString get email;
@@ -50,18 +50,18 @@ abstract class RequestToken {
 }
 
 /// Request authentication context.
-abstract class RequestAuth {
-  RequestAuth._();
+abstract class RulesRequestAuth {
+  RulesRequestAuth._();
 
   /// the UID of the requesting user.
   RulesString get uid;
 
   /// a map of JWT token claims.
-  RequestToken get token;
+  RulesRequestToken get token;
 }
 
 /// The request method.
-enum RequestMethod {
+enum RulesRequestMethod {
   /// get
   get,
 
@@ -79,8 +79,8 @@ enum RequestMethod {
 }
 
 /// Map of query properties, when present.
-abstract class RequestQuery {
-  RequestQuery._();
+abstract class RulesRequestQuery {
+  RulesRequestQuery._();
 
   /// query limit clause.
   int get limit;
@@ -93,23 +93,23 @@ abstract class RequestQuery {
 }
 
 /// The incoming request context.
-abstract class Request<T> extends RulesType {
-  Request._();
+abstract class RulesRequest<T> extends RulesType {
+  RulesRequest._();
 
   /// Request authentication context.
-  RequestAuth? get auth;
+  RulesRequestAuth? get auth;
 
   /// The request method.
-  RequestMethod get method;
+  RulesRequestMethod get method;
 
   /// Path of the affected resource.
-  Path get path;
+  RulesPath get path;
 
   /// Map of query properties, when present.
-  RequestQuery get query;
+  RulesRequestQuery get query;
 
   /// The new resource value, present on write requests only.
-  Resource<T> get resource;
+  RulesResource<T> get resource;
 
   /// When the request was received by the service.
   ///

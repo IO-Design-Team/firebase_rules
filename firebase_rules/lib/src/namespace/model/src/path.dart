@@ -2,7 +2,7 @@ import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// Directory-like pattern for the location of a resource.
-abstract class Path extends RulesType {
+abstract class RulesPath extends RulesType {
   /// Index operator
   RulesString operator [](dynamic value);
 

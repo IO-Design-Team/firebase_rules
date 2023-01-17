@@ -14,7 +14,7 @@ abstract class RulesDuration extends RulesType {
 }
 
 /// Unit of the duration.
-enum DurationUnit {
+enum RulesDurationUnit {
   /// Weeks
   weeks,
 
@@ -39,19 +39,19 @@ enum DurationUnit {
   @override
   String toString() {
     switch (this) {
-      case DurationUnit.weeks:
+      case RulesDurationUnit.weeks:
         return 'w';
-      case DurationUnit.days:
+      case RulesDurationUnit.days:
         return 'd';
-      case DurationUnit.hours:
+      case RulesDurationUnit.hours:
         return 'h';
-      case DurationUnit.minutes:
+      case RulesDurationUnit.minutes:
         return 'm';
-      case DurationUnit.seconds:
+      case RulesDurationUnit.seconds:
         return 's';
-      case DurationUnit.milliseconds:
+      case RulesDurationUnit.milliseconds:
         return 'ms';
-      case DurationUnit.nanoseconds:
+      case RulesDurationUnit.nanoseconds:
         return 'ns';
     }
   }

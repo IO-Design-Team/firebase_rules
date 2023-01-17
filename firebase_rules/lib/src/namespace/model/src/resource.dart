@@ -2,8 +2,8 @@ import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:firebase_rules/src/rules_type.dart';
 
 /// A firebase resource object
-abstract class Resource<T> extends RulesType {
-  Resource._();
+abstract class RulesResource<T> extends RulesType {
+  RulesResource._();
 
   /// The full document name, as a path.
   RulesString get name;

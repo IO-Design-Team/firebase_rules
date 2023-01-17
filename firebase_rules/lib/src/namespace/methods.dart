@@ -1,10 +1,9 @@
 import 'package:firebase_rules/src/namespace/model/model.dart';
-import 'package:firebase_rules/src/rules_type.dart';
 
 /// Globally available duration functions. These functions are accessed using
 /// the duration. prefix.
-abstract class DurationMethods {
-  DurationMethods._();
+abstract class RulesDurationMethods {
+  RulesDurationMethods._();
 
   /// Absolute value of a duration.
   RulesDuration abs();
@@ -13,12 +12,12 @@ abstract class DurationMethods {
   RulesDuration time(int hours, int minutes, int secs, int nanos);
 
   /// Create a duration from a numeric magnitude and string unit.
-  RulesDuration value(int magnitude, DurationUnit unit);
+  RulesDuration value(int magnitude, RulesDurationUnit unit);
 }
 
 /// Context specific variables and methods for Cloud Firestore security rules.
-abstract class FirestoreMethods {
-  FirestoreMethods._();
+abstract class RulesFirestoreMethods {
+  RulesFirestoreMethods._();
 
   // TODO: Inject database base path into these
 
@@ -40,35 +39,35 @@ abstract class FirestoreMethods {
 
 /// Globally available hashing functions. These functions are accessed using
 /// the hashing. prefix.
-abstract class HashingMethods {
-  HashingMethods._();
+abstract class RulesHashingMethods {
+  RulesHashingMethods._();
 
   /// Compute a hash using the CRC32 algorithm.
-  Bytes crc32(dynamic input);
+  RulesBytes crc32(dynamic input);
 
   /// Compute a hash using the CRC32C algorithm.
-  Bytes crc32c(dynamic input);
+  RulesBytes crc32c(dynamic input);
 
   /// Compute a hash using the MD5 algorithm.
-  Bytes md5(dynamic input);
+  RulesBytes md5(dynamic input);
 
   /// Compute a hash using the SHA-256 algorithm.
-  Bytes sha256(dynamic input);
+  RulesBytes sha256(dynamic input);
 }
 
 /// Globally available latitude-longitude functions. These functions are
 /// accessed using the latlng. prefix
-abstract class LatLngMethods {
-  LatLngMethods._();
+abstract class RulesLatLngMethods {
+  RulesLatLngMethods._();
 
   /// Create a LatLng from floating point coordinates.
-  LatLng value(double lat, double lng);
+  RulesLatLng value(double lat, double lng);
 }
 
 /// Globally available mathematical functions. These functions are accessed
 /// using the math. prefix and operate on numerical values.
-abstract class MathMethods {
-  MathMethods._();
+abstract class RulesMathMethods {
+  RulesMathMethods._();
 
   /// Absolute value of a numeric value.
   num abs(num value);
@@ -98,8 +97,8 @@ abstract class MathMethods {
 
 /// Globally available timestamp functions. These functions are accessed using
 /// the timestamp. prefix.
-abstract class TimestampMethods {
-  TimestampMethods._();
+abstract class RulesTimestampMethods {
+  RulesTimestampMethods._();
 
   /// Make a timestamp from a year, month, and day.
   RulesTimestamp date(int year, int month, int day);
@@ -117,7 +116,7 @@ abstract class RulesMethods {
 
   /// Create bytes from string
   // TODO: Convert to string literal
-  Bytes parseBytes(RulesString value);
+  RulesBytes parseBytes(RulesString value);
 
   /// String and integer values can be converted to float values using the float()
   /// function:
@@ -150,23 +149,23 @@ abstract class RulesMethods {
   /// (for example, INFO, WARN, ERROR).
   T debug<T>(T value);
 
-  /// Access to [DurationMethods]
-  DurationMethods get duration;
+  /// Access to [RulesDurationMethods]
+  RulesDurationMethods get duration;
 
-  /// Access to [FirestoreMethods]
-  FirestoreMethods get firestore;
+  /// Access to [RulesFirestoreMethods]
+  RulesFirestoreMethods get firestore;
 
-  /// Access to [HashingMethods]
-  HashingMethods get hashing;
+  /// Access to [RulesHashingMethods]
+  RulesHashingMethods get hashing;
 
-  /// Access to [LatLngMethods]
-  LatLngMethods get latlng;
+  /// Access to [RulesLatLngMethods]
+  RulesLatLngMethods get latlng;
 
-  /// Access to [MathMethods]
-  MathMethods get math;
+  /// Access to [RulesMathMethods]
+  RulesMathMethods get math;
 
-  /// Access to [TimestampMethods]
-  TimestampMethods get timestamp;
+  /// Access to [RulesTimestampMethods]
+  RulesTimestampMethods get timestamp;
 }
 
 /// Access to [RulesMethods]

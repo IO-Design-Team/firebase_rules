@@ -48,7 +48,7 @@ abstract class RulesString extends RulesType {
   List<RulesString> split(RulesString re);
 
   /// Returns the UTF-8 byte encoding of a string.
-  Bytes toUtf8();
+  RulesBytes toUtf8();
 
   /// Returns a version of the string with leading and trailing spaces removed.
   RulesString trim();
