@@ -6,8 +6,10 @@ import 'package:source_gen/source_gen.dart';
 class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
   @override
   generateForAnnotatedElement(
-      Element element, ConstantReader annotation, BuildStep buildStep) {
-    // TODO: implement generateForAnnotatedElement
-    throw UnimplementedError();
+    Element element,
+    ConstantReader annotation,
+    BuildStep buildStep,
+  ) {
+    
   }
 }
