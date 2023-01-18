@@ -21,6 +21,14 @@ class FirebaseRules {
   });
 }
 
+/// Firebase Rules function annotation
+@Target({TargetKind.function})
+class RulesFunction {
+  /// Constructor
+  const RulesFunction();
+}
+
+
 /// Firebase rules services
 enum Service {
   /// Firestore
