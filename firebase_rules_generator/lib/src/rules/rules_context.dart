@@ -32,7 +32,7 @@ class RulesContext {
         functions = {},
         indent = 0;
 
-  /// Dive deeper into the context with additional indentation, paths, and functions
+  /// Dive deeper into the context with additional paths, functions, and indentation
   RulesContext dive({Set<String>? paths, Set<String>? functions}) =>
       RulesContext._(
         library,
