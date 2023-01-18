@@ -3,11 +3,14 @@ import 'package:firebase_rules/firebase_rules.dart';
 
 /// Base firestore path
 class StoragePath extends FirebasePath {
+  /// The raw path used by code generation
+  static const rawPath = '/b/{bucket}/o';
+
   /// The current database
   String get bucket => throw UnimplementedError();
 
   @override
-  String get path => '/b/$bucket/o';
+  String get path => rawPath.replaceFirst('{bucket}', bucket);
 }
 
 /// The resource variable contains the metadata of a file being uploaded or the

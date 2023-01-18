@@ -1,51 +1,54 @@
-import 'dart:mirrors';
+import 'dart:async';
 
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase_rules.dart';
-import 'package:firebase_rules_generator/src/rules/src/match_generator.dart';
+import 'package:firebase_rules_generator/src/rules/visitor/match_visitor.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Generate Firebase rules from a list of [Match] objects
 class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
-  static final _matchClassName =
-      MirrorSystem.getName(reflectClass(Match().runtimeType).simpleName);
+  /// The library reader
+  LibraryReader? library;
 
   @override
-  Iterable<String> generateForAnnotatedElement(
+  FutureOr<String> generate(LibraryReader library, BuildStep buildStep) {
+    this.library = library;
+    return super.generate(library, buildStep);
+  }
+
+  @override
+  Stream<String> generateForAnnotatedElement(
     Element element,
     ConstantReader annotation,
     BuildStep buildStep,
-  ) sync* {
+  ) async* {
     if (!isValidElement(element)) {
       throw InvalidGenerationSourceError(
         'The annotated element must be a List<Match>',
         element: element,
       );
     }
+    final ast = await buildStep.resolver.astNodeFor(element);
+    final list = ast!.childEntities.whereType<ListLiteral>().single;
 
-    final tlve = element as TopLevelVariableElement;
-    final asdf = tlve.value
-    // final matches =
-
-    // for () {
-    //   final matchElement = match as ClassElement;
-    //   final matchGenerator = MatchGenerator(matchElement);
-    //   yield* matchGenerator.generate();
-    // }
+    for (final element in list.elements) {
+      yield visitMatch(library!, element);
+    }
   }
 
-  /// Check that
+  /// Check that the element is a List<Match>
   bool isValidElement(Element element) {
-    final tlve = element as TopLevelVariableElement;
-    if (!tlve.type.isDartCoreList) {
+    element as TopLevelVariableElement;
+    if (!element.type.isDartCoreList) {
       return false;
     }
-    final classElement = (tlve.type as ParameterizedType)
+    final classElement = (element.type as ParameterizedType)
         .typeArguments
         .single
         .element as ClassElement;
-    return classElement.name == _matchClassName;
+    return classElement.name == 'Match';
   }
 }
