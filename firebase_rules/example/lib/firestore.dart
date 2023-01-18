@@ -1,31 +1,39 @@
 import 'package:firebase_rules/firebase_rules.dart';
 
-List<Match> matches(base, request, resource) => [
-      Match<UsersPath, User>(
-        rules: (users, request, resource) => [
-          Rule([Operation.read], true),
-          Rule([Operation.update], true),
-        ],
-      ),
-      Match<ContentPath, Content>(
-        rules: (content, request, resource) => [
-          Rule(
-            [Operation.read],
-            request.auth != null && resource.data.public,
-          ),
-          Rule(
-            [Operation.write],
-            rules.firestore
-                .get<User>('/users/${request.auth?.uid}'.rules)
-                .contentIds
-                .rules
-                .contains(content.contentId),
-          ),
-        ],
-      ),
-    ];
+List<Match> matches(base, request, resource) {
+  bool isSignedIn() => request.auth != null;
+  bool isOwner(RulesString uid) {
+    final requestingUid = request.auth?.uid;
+    return requestingUid == uid;
+  }
 
-@FirebaseRules(service: Service.firestore)
+  return [
+    Match<UsersPath, User>(
+      rules: (users, request, resource) => [
+        Rule([Operation.read], isSignedIn()),
+        Rule([Operation.update], isOwner(users.userId.rules)),
+      ],
+    ),
+    Match<ContentPath, Content>(
+      rules: (content, request, resource) => [
+        Rule(
+          [Operation.read],
+          request.auth != null && resource.data.public,
+        ),
+        Rule(
+          [Operation.write],
+          rules.firestore
+              .get<User>('/users/${request.auth?.uid}'.rules)
+              .contentIds
+              .rules
+              .contains(content.contentId),
+        ),
+      ],
+    ),
+  ];
+}
+
+@FirebaseRules(service: Service.firestore, debug: true)
 final firestoreRules = [
   Match<FirestorePath, dynamic>(
     rules: (FirestorePath path, request, resource) => [

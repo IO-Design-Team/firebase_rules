@@ -10,14 +10,14 @@ class FirebaseRules {
   /// The firebase service these rules are for
   final Service service;
 
-  /// The output destination for the generated rules file
-  final String? output;
+  /// If true, print debug information
+  final bool debug;
 
   /// Constructor
   const FirebaseRules({
     this.rulesVersion = '2',
     required this.service,
-    this.output,
+    this.debug = false,
   });
 }
 
@@ -102,4 +102,6 @@ class Match<T extends FirebasePath, U> {
 }
 
 /// A raw rules string if type-safe code is impractical
+/// 
+/// Avoid if possible
 bool raw(String expression) => throw UnimplementedError();

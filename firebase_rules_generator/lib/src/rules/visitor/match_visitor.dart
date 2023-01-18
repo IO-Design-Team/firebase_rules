@@ -154,15 +154,31 @@ Stream<String> _visitMatches(
   final matchesFunctionChildren = matchesFunction.body.childEntities;
   final block = matchesFunctionChildren.whereType<Block>().firstOrNull;
 
+  final Iterable<FunctionDeclaration> functions;
   final NodeList<CollectionElement> matches;
   if (block != null) {
-    // TODO: Deal with this
-    return;
+    final statements = block.statements;
+    functions = statements
+        .whereType<FunctionDeclarationStatement>()
+        .map((e) => e.functionDeclaration);
+    matches = statements
+        .whereType<ReturnStatement>()
+        .single
+        .childEntities
+        .whereType<ListLiteral>()
+        .single
+        .elements;
   } else {
+    functions = [];
     matches = matchesFunctionChildren.whereType<ListLiteral>().single.elements;
   }
 
   for (final match in matches) {
-    yield* visitMatch(context.dive(), match);
+    yield* visitMatch(
+      context.dive(
+        functions: functions.map((e) => e.name.toString()).toSet(),
+      ),
+      match,
+    );
   }
 }
