@@ -1,22 +1,17 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
-import 'package:build/build.dart';
 import 'package:collection/collection.dart';
 import 'package:firebase_rules/firebase_rules.dart';
+import 'package:firebase_rules_generator/src/rules/rules_context.dart';
 import 'package:firebase_rules_generator/src/rules/visitor/rule_visitor.dart';
 import 'package:firebase_rules_generator/src/util.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Visit Match elements
-Stream<String> visitMatch(
-  LibraryReader library,
-  Resolver resolver,
-  AstNode node, {
-  int indent = 0,
-}) async* {
-  final path = await _getPath(library, resolver, node);
+Stream<String> visitMatch(RulesContext context, AstNode node) async* {
+  final path = await _getPath(context, node);
 
-  yield 'match $path {'.indent(indent);
+  yield 'match $path {'.indent(context.indent);
 
   final arguments =
       node.childEntities.whereType<ArgumentList>().single.childEntities;
@@ -27,17 +22,13 @@ Stream<String> visitMatch(
     );
   }
 
-  yield* _getRules(node, arguments, indent: indent + 2);
-  yield* _getMatches(library, resolver, node, arguments, indent: indent + 2);
+  yield* _visitRules(context, node, arguments);
+  yield* _visitMatches(context, node, arguments);
 
-  yield '}'.indent(indent);
+  yield '}'.indent(context.indent);
 }
 
-Future<String> _getPath(
-  LibraryReader library,
-  Resolver resolver,
-  AstNode node,
-) async {
+Future<String> _getPath(RulesContext context, AstNode node) async {
   final typeArguments =
       node.childEntities.whereType<TypeArgumentList>().firstOrNull;
   if (typeArguments == null) {
@@ -47,7 +38,7 @@ Future<String> _getPath(
   }
 
   final pathName = typeArguments.arguments[0].toSource();
-  final pathElement = library.findType(pathName);
+  final pathElement = context.library.findType(pathName);
 
   final String path;
   if (pathElement == null) {
@@ -62,7 +53,7 @@ Future<String> _getPath(
       );
     }
   } else {
-    final ast = await resolver.astNodeFor(pathElement);
+    final ast = await context.resolver.astNodeFor(pathElement);
     final pathMethod = ast!.childEntities
         .whereType<MethodDeclaration>()
         .where((e) => e.name.toString() == 'path');
@@ -78,11 +69,11 @@ Future<String> _getPath(
   return path;
 }
 
-Stream<String> _getRules(
+Stream<String> _visitRules(
+  RulesContext context,
   AstNode node,
-  Iterable<SyntacticEntity> arguments, {
-  required int indent,
-}) async* {
+  Iterable<SyntacticEntity> arguments,
+) async* {
   final rulesFunction = arguments
       .whereType<NamedExpression>()
       .where((e) => e.name.label.name == 'rules')
@@ -99,17 +90,15 @@ Stream<String> _getRules(
 
   final rules = rulesFunctionChildren.whereType<ListLiteral>().single.elements;
   for (final rule in rules) {
-    yield* visitRule(rule, indent: indent);
+    yield* visitRule(context.dive(), rule);
   }
 }
 
-Stream<String> _getMatches(
-  LibraryReader library,
-  Resolver resolver,
+Stream<String> _visitMatches(
+  RulesContext context,
   AstNode node,
-  Iterable<SyntacticEntity> arguments, {
-  required int indent,
-}) async* {
+  Iterable<SyntacticEntity> arguments,
+) async* {
   final matchesFunction = arguments
       .whereType<NamedExpression>()
       .where((e) => e.name.label.name == 'matches')
@@ -129,6 +118,6 @@ Stream<String> _getMatches(
   }
 
   for (final match in matches) {
-    yield* visitMatch(library, resolver, match, indent: indent);
+    yield* visitMatch(context.dive(), match);
   }
 }
