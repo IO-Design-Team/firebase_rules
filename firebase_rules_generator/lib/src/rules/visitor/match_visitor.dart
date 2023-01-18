@@ -75,16 +75,32 @@ String _getParameterName(FunctionExpression function, int index) {
   return parameter.name!.toString();
 }
 
-FunctionExpression? _getFunction(
+Future<FunctionExpression?> _getFunction(
+  RulesContext context,
   Iterable<SyntacticEntity> arguments,
   String name,
-) {
-  final function = arguments
+) async {
+  final expression = arguments
       .whereType<NamedExpression>()
       .where((e) => e.name.label.name == name)
       .firstOrNull
-      ?.expression as FunctionExpression?;
-  if (function == null) return null;
+      ?.expression;
+  if (expression == null) return null;
+
+  final FunctionExpression function;
+  if (expression is FunctionExpression) {
+    function = expression;
+  } else if (expression is SimpleIdentifier) {
+    final element = context.library.allElements
+        .singleWhere((e) => e.name == expression.name);
+    final ast =
+        await context.resolver.astNodeFor(element) as FunctionDeclaration;
+    function = ast.functionExpression;
+  } else {
+    throw InvalidGenerationSourceError(
+      'Invalid match function: ${expression.toSource()}',
+    );
+  }
 
   // Validate the request and resource parameters
   final requestParameter = _getParameterName(function, 1);
@@ -109,7 +125,7 @@ Stream<String> _visitRules(
   AstNode node,
   Iterable<SyntacticEntity> arguments,
 ) async* {
-  final rulesFunction = _getFunction(arguments, 'rules');
+  final rulesFunction = await _getFunction(context, arguments, 'rules');
   if (rulesFunction == null) return;
 
   final pathParameter = _getParameterName(rulesFunction, 0);
@@ -132,7 +148,7 @@ Stream<String> _visitMatches(
   AstNode node,
   Iterable<SyntacticEntity> arguments,
 ) async* {
-  final matchesFunction = _getFunction(arguments, 'matches');
+  final matchesFunction = await _getFunction(context, arguments, 'matches');
   if (matchesFunction == null) return;
 
   final matchesFunctionChildren = matchesFunction.body.childEntities;
