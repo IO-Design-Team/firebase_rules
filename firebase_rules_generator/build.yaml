@@ -1,14 +1,7 @@
-targets:
-  $default:
-    builders:
-      firebase_rules_generator:
-        enabled: true
-
 builders:
   firebase_rules_generator:
-    import: "package:firebase_rules_generator/firebase_rules_generator.dart"
+    import: "package:firebase_rules_generator/builder.dart"
     builder_factories: ["rules"]
     build_extensions: { ".dart": [".rules"] }
     auto_apply: dependents
     build_to: cache
-    applies_builders: ["source_gen"]
