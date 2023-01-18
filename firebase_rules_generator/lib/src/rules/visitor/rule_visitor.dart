@@ -5,11 +5,4 @@ import 'package:firebase_rules_generator/src/util.dart';
 /// Visit Rule nodes
 Stream<String> visitRule(RulesContext context, AstNode node) async* {
   yield 'rule'.indent(context.indent);
-  yield 'rule'.indent(context.indent);
-  yield 'rule'.indent(context.indent);
-  yield 'rule'.indent(context.indent);
-  yield 'rule'.indent(context.indent);
-  yield 'rule'.indent(context.indent);
-  yield 'rule'.indent(context.indent);
-  yield 'rule'.indent(context.indent);
 }

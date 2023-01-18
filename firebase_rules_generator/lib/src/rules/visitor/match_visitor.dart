@@ -3,6 +3,7 @@ import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:collection/collection.dart';
 import 'package:firebase_rules/firebase_rules.dart';
 import 'package:firebase_rules_generator/src/rules/rules_context.dart';
+import 'package:firebase_rules_generator/src/rules/visitor/function_visitor.dart';
 import 'package:firebase_rules_generator/src/rules/visitor/rule_visitor.dart';
 import 'package:firebase_rules_generator/src/util.dart';
 import 'package:source_gen/source_gen.dart';
@@ -151,6 +152,8 @@ Stream<String> _visitMatches(
   final matchesFunction = await _getFunction(context, arguments, 'matches');
   if (matchesFunction == null) return;
 
+  final pathParameter = _getParameterName(matchesFunction, 0);
+
   final matchesFunctionChildren = matchesFunction.body.childEntities;
   final block = matchesFunctionChildren.whereType<Block>().firstOrNull;
 
@@ -173,9 +176,14 @@ Stream<String> _visitMatches(
     matches = matchesFunctionChildren.whereType<ListLiteral>().single.elements;
   }
 
+  for (final function in functions) {
+    yield* visitFunction(context.dive(), function);
+  }
+
   for (final match in matches) {
     yield* visitMatch(
       context.dive(
+        paths: {pathParameter},
         functions: functions.map((e) => e.name.toString()).toSet(),
       ),
       match,
