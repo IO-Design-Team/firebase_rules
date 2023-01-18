@@ -1,8 +1,7 @@
 import 'package:firebase_rules/src/namespace/model/model.dart';
-import 'package:firebase_rules/src/rules_type.dart';
 
 /// Map type, used for simple key-value mappings.
-abstract class RulesMap<K, V> extends RulesType {
+abstract class RulesMap<K, V> {
   RulesMap._();
 
   /// Index operator, get value at key name k
@@ -39,7 +38,7 @@ abstract class RulesMap<K, V> extends RulesType {
 }
 
 /// The MapDiff type represents the result of comparing two rules.Map objects.
-abstract class MapDiff<K, V> extends RulesType {
+abstract class MapDiff<K, V> {
   MapDiff._();
 
   /// Returns a rules.Set, which lists any keys that the Map calling diff()

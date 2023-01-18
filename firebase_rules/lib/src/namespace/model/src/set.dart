@@ -1,7 +1,5 @@
-import 'package:firebase_rules/src/rules_type.dart';
-
 /// A set is an unordered collection. A set cannot contain duplicate items.
-abstract class RulesSet<T> extends RulesType {
+abstract class RulesSet<T> {
   RulesSet._();
 
   /// Check if value v exists in set x.

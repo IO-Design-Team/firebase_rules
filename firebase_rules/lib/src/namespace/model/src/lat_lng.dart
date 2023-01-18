@@ -1,7 +1,5 @@
-import 'package:firebase_rules/src/rules_type.dart';
-
 /// Type representing a geopoint. Used in rules as latlng.
-abstract class RulesLatLng extends RulesType {
+abstract class RulesLatLng {
   /// Calculate distance between two LatLng points in distance (meters).
   double distance(RulesLatLng other);
 

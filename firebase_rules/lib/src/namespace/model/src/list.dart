@@ -1,8 +1,7 @@
 import 'package:firebase_rules/src/namespace/model/model.dart';
-import 'package:firebase_rules/src/rules_type.dart';
 
 /// List type. Items are not necessarily homogenous.
-abstract class RulesList<T> extends RulesType {
+abstract class RulesList<T> {
   RulesList._();
 
   /// Index operator, get value index i

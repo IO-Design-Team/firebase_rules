@@ -1,8 +1,7 @@
 import 'package:firebase_rules/src/namespace/model/model.dart';
-import 'package:firebase_rules/src/rules_type.dart';
 
 /// Primitive type representing a string value.
-abstract class RulesString extends RulesType {
+abstract class RulesString {
   RulesString._();
 
   /// Strings can be lexicographically compared using the ==, !=, >, <, >= and

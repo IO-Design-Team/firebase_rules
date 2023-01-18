@@ -1,8 +1,7 @@
 import 'package:firebase_rules/src/namespace/model/model.dart';
-import 'package:firebase_rules/src/rules_type.dart';
 
 /// Type representing a sequence of bytes.
-abstract class RulesBytes extends RulesType {
+abstract class RulesBytes {
   RulesBytes._();
 
   /// Returns the number of bytes in a Bytes sequence.

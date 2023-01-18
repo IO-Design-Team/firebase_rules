@@ -1,8 +1,7 @@
 import 'package:firebase_rules/src/namespace/model/model.dart';
-import 'package:firebase_rules/src/rules_type.dart';
 
 /// A timestamp in UTC with nanosecond accuracy.
-abstract class RulesTimestamp extends RulesType {
+abstract class RulesTimestamp {
   RulesTimestamp._();
 
   /// Add a duration to this timestamp

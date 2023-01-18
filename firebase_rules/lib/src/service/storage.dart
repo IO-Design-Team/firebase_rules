@@ -1,4 +1,4 @@
-import 'package:firebase_rules/src/rules_type.dart';
+
 import 'package:firebase_rules/firebase_rules.dart';
 
 /// Base firestore path
@@ -17,7 +17,7 @@ class StoragePath extends FirebasePath {
 /// updated metadata for an existing file. This is related to the resource
 /// variable, which contains the current file metadata at the requested path, as
 /// opposed to the new metadata.
-abstract class StorageResource extends RulesType {
+abstract class StorageResource {
   /// A string containing the full name of the file, including the path to the
   /// file.
   RulesString get name;

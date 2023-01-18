@@ -1,7 +1,5 @@
-import 'package:firebase_rules/src/rules_type.dart';
-
 /// Duration with nanosecond accuracy.
-abstract class RulesDuration extends RulesType {
+abstract class RulesDuration {
   RulesDuration._();
 
   /// Get the nanoseconds portion (signed) of the duration from -999,999,999 to
