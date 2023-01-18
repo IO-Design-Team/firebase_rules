@@ -39,8 +39,8 @@ extension RulesStringExtension on String {
   RulesString get rules => throw UnimplementedError();
 }
 
-/// Access to [Timestamp] methods
+/// Access to [RulesTimestamp] methods
 extension RulesTimestampExtension on Timestamp {
-  /// Access to [Timestamp] methods
+  /// Access to [RulesTimestamp] methods
   RulesTimestamp get rules => throw UnimplementedError();
 }
