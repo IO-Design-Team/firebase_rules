@@ -9,7 +9,12 @@ bool isOwner(RulesRequest request, RulesString uid) {
   return requestingUid == uid;
 }
 
-List<Match> matches(path, request, resource) => [
+List<Match> matches(
+  FirestorePath path,
+  RulesRequest request,
+  RulesResource resource,
+) =>
+    [
       Match<UsersPath, User>(
         rules: (users, request, resource) => [
           Rule([Operation.read], isSignedIn(request)),

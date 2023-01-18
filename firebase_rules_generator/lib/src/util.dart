@@ -14,14 +14,11 @@ extension SubstitutionExtension on String {
   String substitute(RulesContext context) {
     var substituted = this;
     for (final path in context.paths) {
-      substituted = substituted._substitute(path);
+      substituted = substituted.replaceAll(RegExp(path + r'\.'), path);
     }
-    return substituted._substitute('rules');
-  }
-
-  String _substitute(String match) {
-    return replaceAll(RegExp(r'\.' + match + r'\.'), '')
-        .replaceAll(RegExp(r'\.' + match), '');
+    return replaceAll(RegExp(r'\.rules\.'), '')
+        .replaceAll(RegExp(r'\.rules'), '')
+        .replaceAll(RegExp(r'rules\.'), '');
   }
 }
 

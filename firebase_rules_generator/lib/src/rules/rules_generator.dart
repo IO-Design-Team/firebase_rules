@@ -6,6 +6,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase_rules.dart';
 import 'package:firebase_rules_generator/src/rules/rules_context.dart';
+import 'package:firebase_rules_generator/src/rules/visitor/function_visitor.dart';
 import 'package:firebase_rules_generator/src/rules/visitor/match_visitor.dart';
 import 'package:firebase_rules_generator/src/util.dart';
 import 'package:source_gen/source_gen.dart';
@@ -27,7 +28,12 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {
-    if (!isValidElement(element)) {
+    final library = this.library;
+    if (library == null) {
+      throw StateError('library is null');
+    }
+
+    if (!isValidFirebaseRules(element)) {
       throw InvalidGenerationSourceError(
         'The annotated element must be a List<Match>',
         element: element,
@@ -40,15 +46,25 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     buffer.writeln('rules_version=\'${revived.rulesVersion}\';');
     buffer.writeln('service ${revived.service} {');
 
+    // Generate functions
     final resolver = buildStep.resolver;
+    final functionAnnotations =
+        library.annotatedWith(TypeChecker.fromRuntime(RulesFunction));
+
+    final context = RulesContext.root(library, resolver, debug: revived.debug);
+    for (final annotation in functionAnnotations) {
+      final ast = await resolver.astNodeFor(annotation.element);
+      ast as FunctionDeclaration;
+      await for (final line in visitFunction(context, ast)) {
+        buffer.writeln(line);
+      }
+    }
+
     final ast = await resolver.astNodeFor(element);
-    final list = ast!.childEntities.whereType<ListLiteral>().single;
-    final context = RulesContext.root(library!, resolver, debug: revived.debug);
+    final matches = ast!.childEntities.whereType<ListLiteral>().single.elements;
 
-    // The generator adds extra line breaks if you return a stream
-
-    for (final element in list.elements) {
-      await for (final line in visitMatch(context, element)) {
+    for (final match in matches) {
+      await for (final line in visitMatch(context, match)) {
         buffer.writeln(line);
       }
     }
@@ -58,7 +74,7 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
   }
 
   /// Check that the element is a List<Match>
-  bool isValidElement(Element element) {
+  bool isValidFirebaseRules(Element element) {
     element as TopLevelVariableElement;
     if (!element.type.isDartCoreList) {
       return false;
