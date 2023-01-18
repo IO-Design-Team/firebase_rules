@@ -1,0 +1,15 @@
+name: firebase_rules_example
+publish_to: none
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+
+dependencies:
+  firebase_rules:
+    path: ../
+
+dev_dependencies:
+  rexios_lints: ^4.0.0
+  build_runner: ^2.3.3
+  firebase_rules_generator:
+    path: ../../firebase_rules_generator
