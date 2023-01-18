@@ -4,6 +4,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase_rules.dart';
+import 'package:firebase_rules_generator/src/rules/src/match_generator.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Generate Firebase rules from a list of [Match] objects
@@ -12,18 +13,27 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
       MirrorSystem.getName(reflectClass(Match().runtimeType).simpleName);
 
   @override
-  String generateForAnnotatedElement(
+  Iterable<String> generateForAnnotatedElement(
     Element element,
     ConstantReader annotation,
     BuildStep buildStep,
-  ) {
+  ) sync* {
     if (!isValidElement(element)) {
       throw InvalidGenerationSourceError(
         'The annotated element must be a List<Match>',
         element: element,
       );
     }
-    return 'This is a test';
+
+    final tlve = element as TopLevelVariableElement;
+    final asdf = tlve.value
+    // final matches =
+
+    // for () {
+    //   final matchElement = match as ClassElement;
+    //   final matchGenerator = MatchGenerator(matchElement);
+    //   yield* matchGenerator.generate();
+    // }
   }
 
   /// Check that
@@ -32,9 +42,10 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     if (!tlve.type.isDartCoreList) {
       return false;
     }
-    // check that the list type is Match
-    final listType = tlve.type as ParameterizedType;
-    final classElement = listType.typeArguments.single.element as ClassElement;
+    final classElement = (tlve.type as ParameterizedType)
+        .typeArguments
+        .single
+        .element as ClassElement;
     return classElement.name == _matchClassName;
   }
 }
