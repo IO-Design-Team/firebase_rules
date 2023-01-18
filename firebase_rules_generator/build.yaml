@@ -4,4 +4,4 @@ builders:
     builder_factories: ["rules"]
     build_extensions: { ".dart": [".rules"] }
     auto_apply: dependents
-    build_to: cache
+    build_to: source
