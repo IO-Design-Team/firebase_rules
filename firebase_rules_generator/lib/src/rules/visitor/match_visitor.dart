@@ -1,8 +1,10 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:build/build.dart';
 import 'package:collection/collection.dart';
 import 'package:firebase_rules/firebase_rules.dart';
 import 'package:firebase_rules_generator/src/rules/visitor/rule_visitor.dart';
+import 'package:firebase_rules_generator/src/util.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Visit Match elements
@@ -10,8 +12,31 @@ Stream<String> visitMatch(
   LibraryReader library,
   Resolver resolver,
   AstNode node, {
-  int indent = 2,
+  int indent = 0,
 }) async* {
+  final path = await _getPath(library, resolver, node);
+
+  yield 'match $path {'.indent(indent);
+
+  final arguments =
+      node.childEntities.whereType<ArgumentList>().single.childEntities;
+  // Argument lists have beginning and end tokens
+  if (arguments.length - 2 == 0) {
+    throw InvalidGenerationSourceError(
+      'Match missing arguments: ${node.toSource()}',
+    );
+  }
+
+  yield* _getRules(arguments, node, indent: indent + 2);
+
+  yield '}'.indent(indent);
+}
+
+Future<String> _getPath(
+  LibraryReader library,
+  Resolver resolver,
+  AstNode node,
+) async {
   final typeArguments =
       node.childEntities.whereType<TypeArgumentList>().firstOrNull;
   if (typeArguments == null) {
@@ -49,24 +74,26 @@ Stream<String> visitMatch(
         .replaceAllMapped(RegExp(r'\$([^\/]+)'), (m) => '{${m[1]}}');
   }
 
-  yield 'match $path {';
+  return path;
+}
 
-  final arguments =
-      node.childEntities.whereType<ArgumentList>().single.childEntities;
-  // Argument lists have beginning and end tokens
-  if (arguments.length - 2 == 0) {
-    throw InvalidGenerationSourceError(
-      'Match missing arguments: ${node.toSource()}',
-    );
-  }
-
+Stream<String> _getRules(
+  Iterable<SyntacticEntity> arguments,
+  AstNode node, {
+  int indent = 2,
+}) async* {
   final rulesFunction = arguments
       .whereType<NamedExpression>()
       .where((e) => e.name.label.name == 'rules')
       .single
       .expression as FunctionExpression;
-  final rules =
-      rulesFunction.body.childEntities.whereType<ListLiteral>().single.elements;
+  final rulesFunctionChildren = rulesFunction.body.childEntities;
+  if (rulesFunctionChildren.whereType<Block>().isNotEmpty) {
+    throw InvalidGenerationSourceError(
+      'Match rules must be a list literal: ${node.toSource()}',
+    );
+  }
+  final rules = rulesFunctionChildren.whereType<ListLiteral>().single.elements;
   if (rules.isEmpty) {
     throw InvalidGenerationSourceError(
       'Match defines empty rules: ${node.toSource()}',
@@ -74,8 +101,6 @@ Stream<String> visitMatch(
   }
 
   for (final rule in rules) {
-    yield* visitRule(rule);
+    yield* visitRule(rule, indent: indent);
   }
-
-  yield '}';
 }

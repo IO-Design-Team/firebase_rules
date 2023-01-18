@@ -1,15 +1,17 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:firebase_rules_generator/src/util.dart';
 
 /// Visit Rule elements
-Stream<String> visitRule(AstNode node) async* {
-  yield 'rule1';
-  yield 'rule2';
-  yield 'rule3';
-  yield 'rule4';
-  yield 'rule5';
-  yield 'rule';
-  yield 'rule';
-  yield 'rule';
-  yield 'rule';
-  yield 'rule';
+Stream<String> visitRule(
+  AstNode node, {
+  required int indent,
+}) async* {
+  yield 'rule'.indent(indent);
+  yield 'rule'.indent(indent);
+  yield 'rule'.indent(indent);
+  yield 'rule'.indent(indent);
+  yield 'rule'.indent(indent);
+  yield 'rule'.indent(indent);
+  yield 'rule'.indent(indent);
+  yield 'rule'.indent(indent);
 }
