@@ -1,10 +1,8 @@
-import 'dart:typed_data';
-
-import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_interface.dart';
+import 'package:cloud_firestore_types/cloud_firestore_types.dart';
 import 'package:firebase_rules/src/namespace/model/model.dart';
 
 /// Access to [RulesBytes] methods
-extension RulesBytesExtension on Uint8List {
+extension RulesBytesExtension on Blob {
   /// Access to [RulesBytes] methods
   RulesBytes get rules => throw UnimplementedError();
 }

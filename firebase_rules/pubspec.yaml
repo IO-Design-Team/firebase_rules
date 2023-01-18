@@ -7,7 +7,8 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  cloud_firestore_platform_interface: ^5.7.5
+  cloud_firestore_types:
+    path: ../../flutterfire/packages/cloud_firestore/cloud_firestore_types
   meta: ^1.8.0
 
 dev_dependencies:
