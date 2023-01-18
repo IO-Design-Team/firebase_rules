@@ -34,7 +34,7 @@ class RulesContext {
   RulesContext.root(this.library, this.resolver, {this.debug = false})
       : paths = {},
         functions = {},
-        indent = 0;
+        indent = 2;
 
   /// Dive deeper into the context with additional paths, functions, and indentation
   RulesContext dive({
