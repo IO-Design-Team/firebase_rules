@@ -12,6 +12,7 @@ dependencies:
   source_gen: ^1.2.6
   firebase_rules:
     path: ../firebase_rules
+  collection: ^1.17.0
 
 dev_dependencies:
   rexios_lints: ^4.0.0

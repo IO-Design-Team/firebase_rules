@@ -20,11 +20,11 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
   }
 
   @override
-  Stream<String> generateForAnnotatedElement(
+  Future<String> generateForAnnotatedElement(
     Element element,
     ConstantReader annotation,
     BuildStep buildStep,
-  ) async* {
+  ) async {
     if (!isValidElement(element)) {
       throw InvalidGenerationSourceError(
         'The annotated element must be a List<Match>',
@@ -34,9 +34,15 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     final ast = await buildStep.resolver.astNodeFor(element);
     final list = ast!.childEntities.whereType<ListLiteral>().single;
 
+    // The generator adds extra line breaks if you return a stream
+    final buffer = StringBuffer();
     for (final element in list.elements) {
-      yield* visitMatch(library!, buildStep.resolver, element);
+      buffer.writeAll(
+        await visitMatch(library!, buildStep.resolver, element).toList(),
+        '\n',
+      );
     }
+    return buffer.toString();
   }
 
   /// Check that the element is a List<Match>

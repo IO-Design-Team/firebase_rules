@@ -3,6 +3,9 @@ import 'package:firebase_rules/firebase_rules.dart';
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
   Match<FirestorePath, dynamic>(
+    rules: (path, request, resource) => [
+      Rule([Operation.read], request.auth?.uid == 'god'.rules),
+    ],
     matches: (base, request, resource) {
       bool isSignedIn() => request.auth != null;
       bool isOwner(RulesString uid) {
