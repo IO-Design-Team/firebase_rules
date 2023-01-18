@@ -80,10 +80,10 @@ enum Operation {
 /// A firebase rule
 class Rule {
   /// Permitted operations
-  List<Operation> operations;
+  final List<Operation> operations;
 
   /// The condition that allows [operations] to be prefromed
-  bool condition;
+  final bool condition;
 
   /// Constructor
   Rule(this.operations, this.condition);
