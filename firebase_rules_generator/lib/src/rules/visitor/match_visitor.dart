@@ -27,7 +27,8 @@ Stream<String> visitMatch(
     );
   }
 
-  yield* _getRules(arguments, node, indent: indent + 2);
+  yield* _getRules(node, arguments, indent: indent + 2);
+  yield* _getMatches(library, resolver, node, arguments, indent: indent + 2);
 
   yield '}'.indent(indent);
 }
@@ -78,9 +79,9 @@ Future<String> _getPath(
 }
 
 Stream<String> _getRules(
-  Iterable<SyntacticEntity> arguments,
-  AstNode node, {
-  int indent = 2,
+  AstNode node,
+  Iterable<SyntacticEntity> arguments, {
+  required int indent,
 }) async* {
   final rulesFunction = arguments
       .whereType<NamedExpression>()
@@ -102,5 +103,39 @@ Stream<String> _getRules(
 
   for (final rule in rules) {
     yield* visitRule(rule, indent: indent);
+  }
+}
+
+Stream<String> _getMatches(
+  LibraryReader library,
+  Resolver resolver,
+  AstNode node,
+  Iterable<SyntacticEntity> arguments, {
+  required int indent,
+}) async* {
+  final matchesFunction = arguments
+      .whereType<NamedExpression>()
+      .where((e) => e.name.label.name == 'matches')
+      .single
+      .expression as FunctionExpression;
+  final matchesFunctionChildren = matchesFunction.body.childEntities;
+  final block = matchesFunctionChildren.whereType<Block>().firstOrNull;
+
+  final NodeList<CollectionElement> matches;
+  if (block != null) {
+    // TODO: Deal with this
+    return;
+  } else {
+    matches = matchesFunctionChildren.whereType<ListLiteral>().single.elements;
+  }
+
+  if (matches.isEmpty) {
+    throw InvalidGenerationSourceError(
+      'Match defines empty rules: ${node.toSource()}',
+    );
+  }
+
+  for (final match in matches) {
+    yield* visitMatch(library, resolver, match, indent: indent);
   }
 }
