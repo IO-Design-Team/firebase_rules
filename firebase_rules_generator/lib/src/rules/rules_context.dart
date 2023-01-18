@@ -43,7 +43,9 @@ class RulesContext {
   }) {
     final newPaths = {...this.paths, ...?paths};
     final newFunctions = {...this.functions, ...?functions};
-    print('Diving:\n  paths: $newPaths\n  functions: $functions');
+    if (debug) {
+      print('Diving:\n  paths: $newPaths\n  functions: $functions');
+    }
     return RulesContext._(
       library,
       resolver,

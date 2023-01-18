@@ -131,14 +131,15 @@ Stream<String> _visitRules(
 
   final pathParameter = _getParameterName(rulesFunction, 0);
 
-  final rulesFunctionChildren = rulesFunction.body.childEntities;
-  if (rulesFunctionChildren.whereType<Block>().isNotEmpty) {
+  final rules = rulesFunction.body.childEntities
+      .whereType<ListLiteral>()
+      .firstOrNull
+      ?.elements;
+  if (rules == null) {
     throw InvalidGenerationSourceError(
       'Match rules must be a list literal: ${node.toSource()}',
     );
   }
-
-  final rules = rulesFunctionChildren.whereType<ListLiteral>().single.elements;
   for (final rule in rules) {
     yield* visitRule(context.dive(paths: {pathParameter}), rule);
   }

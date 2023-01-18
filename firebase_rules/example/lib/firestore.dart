@@ -33,7 +33,10 @@ List<Match> matches(base, request, resource) {
   ];
 }
 
-@FirebaseRules(service: Service.firestore, debug: true)
+@FirebaseRules(
+  service: Service.firestore,
+  // debug: true,
+)
 final firestoreRules = [
   Match<FirestorePath, dynamic>(
     rules: (FirestorePath path, request, resource) => [
