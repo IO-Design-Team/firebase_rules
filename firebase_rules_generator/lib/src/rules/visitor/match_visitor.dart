@@ -1,31 +1,45 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:build/build.dart';
 import 'package:firebase_rules/firebase_rules.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Visit Match elements
-String visitMatch(LibraryReader library, AstNode node) {
+Stream<String> visitMatch(
+  LibraryReader library,
+  Resolver resolver,
+  AstNode node,
+) async* {
   final typeArguments = node.childEntities.whereType<TypeArgumentList>().single;
-  final pathType = typeArguments.arguments[0];
-  final pathClassName = pathType.toSource();
-  final pathClass = library.findType(pathClassName);
+  final pathName = typeArguments.arguments[0].toSource();
+  final pathElement = library.findType(pathName);
 
   final String path;
-  if (pathClass == null) {
-    if (pathClassName == 'FirestorePath') {
+  if (pathElement == null) {
+    if (pathName == 'FirestorePath') {
       path = FirestorePath.rawPath;
-    } else if (pathClassName == 'StoragePath') {
+    } else if (pathName == 'StoragePath') {
       path = StoragePath.rawPath;
     } else {
       throw InvalidGenerationSourceError(
-        'Invalid path type: $pathClassName',
-        element: pathClass,
+        'Invalid path type: $pathName',
+        element: pathElement,
       );
     }
   } else {
-    path = pathClass.getField('path')!.computeConstantValue()!.toStringValue()!;
+    final ast = await resolver.astNodeFor(pathElement);
+    final pathMethod = ast!.childEntities
+        .whereType<MethodDeclaration>()
+        .where((e) => e.name.toString() == 'path');
+    final pathString = pathMethod.single.body.childEntities
+        .whereType<StringLiteral>()
+        .single
+        .toSource();
+    path = pathString
+        .substring(1, pathString.length - 1)
+        .replaceAllMapped(RegExp(r'\$([^\/]+)'), (m) => '{${m[1]}}');
   }
 
   print(path);
 
-  return '';
+  yield '';
 }

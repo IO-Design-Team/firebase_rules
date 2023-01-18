@@ -35,7 +35,7 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     final list = ast!.childEntities.whereType<ListLiteral>().single;
 
     for (final element in list.elements) {
-      yield visitMatch(library!, element);
+      yield* visitMatch(library!, buildStep.resolver, element);
     }
   }
 
