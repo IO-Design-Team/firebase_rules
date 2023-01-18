@@ -86,21 +86,18 @@ Stream<String> _getRules(
   final rulesFunction = arguments
       .whereType<NamedExpression>()
       .where((e) => e.name.label.name == 'rules')
-      .single
-      .expression as FunctionExpression;
+      .firstOrNull
+      ?.expression as FunctionExpression?;
+  if (rulesFunction == null) return;
+
   final rulesFunctionChildren = rulesFunction.body.childEntities;
   if (rulesFunctionChildren.whereType<Block>().isNotEmpty) {
     throw InvalidGenerationSourceError(
       'Match rules must be a list literal: ${node.toSource()}',
     );
   }
-  final rules = rulesFunctionChildren.whereType<ListLiteral>().single.elements;
-  if (rules.isEmpty) {
-    throw InvalidGenerationSourceError(
-      'Match defines empty rules: ${node.toSource()}',
-    );
-  }
 
+  final rules = rulesFunctionChildren.whereType<ListLiteral>().single.elements;
   for (final rule in rules) {
     yield* visitRule(rule, indent: indent);
   }
@@ -116,8 +113,10 @@ Stream<String> _getMatches(
   final matchesFunction = arguments
       .whereType<NamedExpression>()
       .where((e) => e.name.label.name == 'matches')
-      .single
-      .expression as FunctionExpression;
+      .firstOrNull
+      ?.expression as FunctionExpression?;
+  if (matchesFunction == null) return;
+
   final matchesFunctionChildren = matchesFunction.body.childEntities;
   final block = matchesFunctionChildren.whereType<Block>().firstOrNull;
 
@@ -127,12 +126,6 @@ Stream<String> _getMatches(
     return;
   } else {
     matches = matchesFunctionChildren.whereType<ListLiteral>().single.elements;
-  }
-
-  if (matches.isEmpty) {
-    throw InvalidGenerationSourceError(
-      'Match defines empty rules: ${node.toSource()}',
-    );
   }
 
   for (final match in matches) {
