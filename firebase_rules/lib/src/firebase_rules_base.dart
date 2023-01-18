@@ -41,7 +41,7 @@ enum Service {
 }
 
 /// A callback that provides information about the current rules context
-typedef ContextualCallback<T, U extends FirebasePath, V> = T Function(
+typedef ContextualCallback<T, U extends FirebasePath, V> = List<T> Function(
   U path,
   RulesRequest<V> request,
   RulesResource<V> resource,
@@ -92,25 +92,16 @@ class Rule {
 /// A firebase rules match statement
 class Match<T extends FirebasePath, U> {
   /// Rules for this context
-  final ContextualCallback<MatchBody, T, U> body;
+  final ContextualCallback<Rule, T, U>? rules;
+
+  /// Nested matches for this context
+  final ContextualCallback<Match, T, U>? matches;
 
   /// Constructor
-  Match(this.body);
-}
-
-/// The body of a match
-class MatchBody {
-  /// The rules in this [MatchBody]
-  final List<Rule>? rules;
-
-  /// The nested matches in this [MatchBody]
-  final List<Match>? matches;
-
-  /// Constructor
-  MatchBody({this.rules, this.matches});
+  Match({this.rules, this.matches});
 }
 
 /// A raw rules string if type-safe code is impractical
-///
+/// 
 /// Avoid if possible
 bool raw(String expression) => throw UnimplementedError();
