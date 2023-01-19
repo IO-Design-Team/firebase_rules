@@ -1,25 +1,10 @@
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:firebase_rules_generator/src/rules/rules_context.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// String indent extension
 extension IndentExtension on String {
   /// Returns the string with the given [indent] prepended to each line
   String indent(int indent) => ' ' * indent + this;
-}
-
-/// String substitution extension
-extension SubstitutionExtension on String {
-  /// Perform substitution with contextual data
-  String substitute(RulesContext context) {
-    var substituted = this;
-    for (final path in context.paths) {
-      substituted = substituted.replaceAll(RegExp(path + r'\.'), path);
-    }
-    return replaceAll(RegExp(r'\.rules\.'), '')
-        .replaceAll(RegExp(r'\.rules'), '')
-        .replaceAll(RegExp(r'rules\.'), '');
-  }
 }
 
 /// Read an enum from a [ConstantReader]
