@@ -7,11 +7,8 @@ environment:
 dependencies:
   firebase_rules:
     path: ../
-  # Temporary helper package
   firebase_rules_convert:
-    git: 
-      url: https://github.com/IO-Design-Team/firebase_rules
-      path: firebase_rules_convert
+    path: ../../firebase_rules_convert
 
 dev_dependencies:
   rexios_lints: ^4.0.0
