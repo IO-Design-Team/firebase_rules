@@ -1,4 +1,5 @@
 import 'package:build/build.dart';
+import 'package:firebase_rules_generator/src/rules/rules_formatter.dart';
 import 'package:firebase_rules_generator/src/rules/rules_generator.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -6,5 +7,5 @@ import 'package:source_gen/source_gen.dart';
 Builder rules(BuilderOptions options) => LibraryBuilder(
       RulesGenerator(),
       generatedExtension: '.rules',
-      formatOutput: (input) => input,
+      formatOutput: formatRules,
     );
