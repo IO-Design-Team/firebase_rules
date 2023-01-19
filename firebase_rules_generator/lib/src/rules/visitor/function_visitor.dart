@@ -40,7 +40,7 @@ Stream<String> _visitFunctionBody(
     }
   } else if (body is ExpressionFunctionBody) {
     final expression = body.expression;
-    yield '$expression;'.indent(context.indent);
+    yield 'return $expression;'.indent(context.indent);
   } else {
     throw InvalidGenerationSourceError('Unsupported function body type: $body');
   }

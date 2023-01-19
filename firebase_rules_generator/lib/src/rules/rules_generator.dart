@@ -43,7 +43,7 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     final revived = reviveAnnotation(annotation);
 
     final buffer = StringBuffer();
-    buffer.writeln('rules_version=\'${revived.rulesVersion}\';');
+    buffer.writeln('rules_version = \'${revived.rulesVersion}\';');
     buffer.writeln('service ${revived.service} {');
 
     // Generate functions
