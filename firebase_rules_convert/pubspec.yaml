@@ -1,0 +1,11 @@
+name: firebase_rules_convert
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_rules:
+    path: ../firebase_rules
+  cloud_firestore_platform_interface: ^5.10.1

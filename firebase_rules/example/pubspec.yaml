@@ -7,6 +7,8 @@ environment:
 dependencies:
   firebase_rules:
     path: ../
+  firebase_rules_convert:
+    path: ../../firebase_rules_convert
 
 dev_dependencies:
   rexios_lints: ^4.0.0

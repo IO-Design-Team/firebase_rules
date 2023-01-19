@@ -19,8 +19,6 @@ abstract class RulesDurationMethods {
 abstract class RulesFirestoreMethods {
   RulesFirestoreMethods._();
 
-  // TODO: Inject database base path into these
-
   /// Check if a document exists.
   bool exists(RulesString path);
 

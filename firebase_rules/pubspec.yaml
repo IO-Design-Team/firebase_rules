@@ -1,6 +1,6 @@
 name: firebase_rules
 description: A type-safe Firebase rules generator for Firestore, Storage, and Realtime Database
-version: 0.0.1
+version: 0.0.0
 # homepage: https://www.example.com
 
 environment:
