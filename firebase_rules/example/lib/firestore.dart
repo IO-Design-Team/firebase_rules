@@ -30,10 +30,11 @@ List<Match> matches(
           Rule(
             [Operation.write],
             rules.firestore
-                .get<User>('/users/${request.auth?.uid}'.rules)
-                .contentIds
-                .rules
-                .contains(content.contentId),
+                    .get<User>('/users/${request.auth?.uid}'.rules)
+                    .contentIds
+                    .rules
+                    .contains(content.contentId) &&
+                rules.firestore.exists('/users/${request.auth?.uid}'.rules),
           ),
         ],
       ),

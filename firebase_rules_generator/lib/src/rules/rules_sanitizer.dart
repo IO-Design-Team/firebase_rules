@@ -10,16 +10,16 @@ String sanitizeRules(FirebaseRules annotation, String input) {
       // Strip null safety
       .replaceAll('?.', '.')
       // Convert string interpolation
-      .replaceAllMapped(RegExp(r'\${(.+)}'), (m) => '\$(${m[1]})')
+      .replaceAllMapped(RegExp(r'\${(.+?)}'), (m) => '\$(${m[1]})')
       // Convert firestore methods
       .replaceAllMapped(
-        RegExp(r"firestore.(.+)<.+'(.*?)'\)"),
+        RegExp(r"firestore\.(.+?)(<.+?>)?\('(.+?)'\)"),
         (m) {
           final buffer = StringBuffer();
           if (annotation.service != Service.firestore) {
             buffer.write('firestore.');
           }
-          buffer.write('${m[1]}(/databases/\$(database)/documents${m[2]})');
+          buffer.write('${m[1]}(/databases/\$(database)/documents${m[3]})');
           return buffer.toString();
         },
       )
