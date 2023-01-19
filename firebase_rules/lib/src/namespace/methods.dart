@@ -149,6 +149,12 @@ abstract class RulesMethods {
   /// (for example, INFO, WARN, ERROR).
   T debug<T>(T value);
 
+  /// A raw rules string if type-safe code is impractical
+  ///
+  /// Avoid if possible
+  // TODO: Remove?
+  bool raw(String expression) => throw UnimplementedError();
+
   /// Access to [RulesDurationMethods]
   RulesDurationMethods get duration;
 

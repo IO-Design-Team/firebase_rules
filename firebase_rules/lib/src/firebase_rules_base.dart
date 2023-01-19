@@ -107,8 +107,3 @@ class Match<T extends FirebasePath, U> {
   /// Constructor
   Match({this.rules, this.matches});
 }
-
-/// A raw rules string if type-safe code is impractical
-///
-/// Avoid if possible
-bool raw(String expression) => throw UnimplementedError();
