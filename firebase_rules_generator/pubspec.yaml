@@ -1,7 +1,7 @@
 name: firebase_rules_generator
 description: A starting point for Dart libraries or applications.
 version: 0.0.0
-# homepage: https://www.example.com
+homepage: https://github.com/IO-Design-Team/firebase_rules/tree/master/firebase_rules_generator
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
@@ -10,8 +10,7 @@ dependencies:
   analyzer: ^5.2.0
   build: ^2.3.1
   source_gen: ^1.2.6
-  firebase_rules:
-    path: ../firebase_rules
+  firebase_rules: ^0.0.0
   collection: ^1.16.0
 
 dev_dependencies:
