@@ -28,7 +28,6 @@ class RulesFunction {
   const RulesFunction();
 }
 
-
 /// Firebase rules services
 enum Service {
   /// Firestore
@@ -110,6 +109,6 @@ class Match<T extends FirebasePath, U> {
 }
 
 /// A raw rules string if type-safe code is impractical
-/// 
+///
 /// Avoid if possible
 bool raw(String expression) => throw UnimplementedError();

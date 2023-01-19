@@ -1,4 +1,3 @@
-
 import 'package:firebase_rules/firebase_rules.dart';
 
 /// Base firestore path

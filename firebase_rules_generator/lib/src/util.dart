@@ -2,9 +2,12 @@ import 'package:analyzer/dart/constant/value.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// String indent extension
-extension IndentExtension on String {
+extension StringUtils on String {
   /// Returns the string with the given [indent] prepended to each line
   String indent(int indent) => ' ' * indent + this;
+
+  /// Remove all occurrences of [substring] from this string
+  String remove(String substring) => replaceAll(substring, '');
 }
 
 /// Read an enum from a [ConstantReader]

@@ -6,6 +6,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase_rules.dart';
 import 'package:firebase_rules_generator/src/rules/rules_context.dart';
+import 'package:firebase_rules_generator/src/rules/rules_sanitizer.dart';
 import 'package:firebase_rules_generator/src/rules/visitor/function_visitor.dart';
 import 'package:firebase_rules_generator/src/rules/visitor/match_visitor.dart';
 import 'package:firebase_rules_generator/src/util.dart';
@@ -70,7 +71,7 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     }
 
     buffer.writeln('}');
-    return buffer.toString();
+    return sanitizeRules(revived, buffer.toString());
   }
 
   /// Check that the element is a List<Match>
