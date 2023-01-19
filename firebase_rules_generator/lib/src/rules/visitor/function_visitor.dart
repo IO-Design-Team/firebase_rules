@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:firebase_rules_generator/src/rules/rules_context.dart';
+import 'package:firebase_rules_generator/src/rules/rules_sanitizer.dart';
 import 'package:firebase_rules_generator/src/util.dart';
 import 'package:source_gen/source_gen.dart';
 

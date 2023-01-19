@@ -1,4 +1,5 @@
 import 'package:firebase_rules/firebase_rules.dart';
+import 'package:firebase_rules_generator/src/rules/rules_context.dart';
 import 'package:firebase_rules_generator/src/util.dart';
 
 /// Sanitize rules files
@@ -32,4 +33,13 @@ String sanitizeRules(FirebaseRules annotation, String input) {
         RegExp(r'(\S+)\.range\((.+?), (.+?)\)'),
         (m) => '${m[1]}[${m[2]}:${m[3]}]',
       );
+}
+
+/// Sanitize path parameter prefixes from rules
+String sanitizePaths(RulesContext context, String input) {
+  var sanitized = '';
+  for (final path in context.paths) {
+    sanitized = input.replaceAll('$path.', '');
+  }
+  return sanitized;
 }
