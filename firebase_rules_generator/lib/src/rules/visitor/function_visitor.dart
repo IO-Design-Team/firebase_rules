@@ -27,8 +27,7 @@ Stream<String> _visitFunctionBody(
       if (statement is VariableDeclarationStatement) {
         final variable = statement.variables.variables.single;
         final name = variable.name;
-        final initializer =
-            variable.initializer!.toSource().replaceAll('?', '');
+        final initializer = variable.initializer;
         yield 'let $name = $initializer;'.indent(context.indent);
       } else if (statement is ReturnStatement) {
         final expression = statement.expression;
