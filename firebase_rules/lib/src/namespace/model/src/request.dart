@@ -1,4 +1,5 @@
 import 'package:firebase_rules/src/namespace/model/model.dart';
+import 'package:firebase_rules/src/service/base.dart';
 
 /// a map of JWT token claims.
 abstract class RulesRequestToken {
@@ -92,7 +93,7 @@ abstract class RulesRequestQuery {
 }
 
 /// The incoming request context.
-abstract class RulesRequest<T> {
+abstract class RulesRequest<T extends FirebaseResource> {
   RulesRequest._();
 
   /// Request authentication context.
@@ -108,7 +109,7 @@ abstract class RulesRequest<T> {
   RulesRequestQuery get query;
 
   /// The new resource value, present on write requests only.
-  RulesResource<T> get resource;
+  T get resource;
 
   /// When the request was received by the service.
   ///

@@ -12,16 +12,16 @@ bool isOwner(RulesRequest request, RulesString uid) {
 List<Match> matches(
   FirestorePath path,
   RulesRequest request,
-  RulesResource resource,
+  FirestoreResource resource,
 ) =>
     [
-      Match<UsersPath, User>(
+      Match<UsersPath, FirestoreResource<User>>(
         rules: (users, request, resource) => [
           Rule([Operation.read], isSignedIn(request)),
           Rule([Operation.update], isOwner(request, users.userId.rules)),
         ],
       ),
-      Match<ContentPath, Content>(
+      Match<ContentPath, FirestoreResource<Content>>(
         rules: (content, request, resource) => [
           Rule(
             [Operation.read],
@@ -45,7 +45,7 @@ List<Match> matches(
   // debug: true,
 )
 final firestoreRules = [
-  Match<FirestorePath, dynamic>(
+  Match<FirestorePath, FirestoreResource>(
     rules: (FirestorePath path, request, resource) => [
       Rule([Operation.read], request.auth?.uid == 'god'.rules),
     ],
@@ -68,7 +68,7 @@ abstract class UsersPath extends FirebasePath {
   String get path => '/users/$userId';
 }
 
-abstract class ContentPath extends FirebasePath {
+abstract class ContentPath extends FirebasePath<FirestoreResource<Content>> {
   String get contentId;
 
   @override

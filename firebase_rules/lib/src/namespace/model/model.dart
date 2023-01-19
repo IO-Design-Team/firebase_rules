@@ -5,7 +5,6 @@ export 'src/list.dart';
 export 'src/map.dart';
 export 'src/path.dart';
 export 'src/request.dart';
-export 'src/resource.dart';
 export 'src/set.dart';
 export 'src/string.dart';
 export 'src/timestamp.dart';
