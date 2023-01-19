@@ -1,12 +1,12 @@
 import 'package:firebase_rules/firebase_rules.dart';
 
 /// Base firestore path
-class StoragePath extends FirebasePath {
+abstract class StoragePath extends FirebasePath {
   /// The raw path used by code generation
   static const rawPath = '/b/{bucket}/o';
 
   /// The current database
-  String get bucket => throw UnimplementedError();
+  String get bucket;
 
   @override
   String get path => rawPath.replaceFirst('{bucket}', bucket);

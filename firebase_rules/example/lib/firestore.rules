@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  function isSignedIn(request) {
+    return request.auth != null;
+  }
+  function isOwner(request, uid) {
+    let requestingUid = request.auth.uid;
+    return requestingUid == uid;
+  }
+  match /databases/{database}/documents {
+    allow read: if request.auth.uid == 'god'
+    match /users/{userId} {
+      allow read: if isSignedIn(request)
+      allow update: if isOwner(request, userId)
+    }
+    match /content/{contentId} {
+      allow read: if request.auth != null && resource.data.public
+      allow write: if contentId in get(/databases/$(database)/documents/users/$(request.auth.uid)).contentIds && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+    }
+  }
+}

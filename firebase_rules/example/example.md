@@ -1,3 +1,5 @@
+<!-- embedme lib/firestore.dart -->
+```dart
 import 'package:firebase_rules/firebase_rules.dart';
 
 @RulesFunction()
@@ -74,3 +76,5 @@ abstract class ContentPath extends FirebasePath {
   @override
   String get path => '/content/$contentId';
 }
+
+```
