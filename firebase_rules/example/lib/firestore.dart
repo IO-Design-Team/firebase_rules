@@ -68,7 +68,7 @@ abstract class UsersPath extends FirebasePath {
   String get path => '/users/$userId';
 }
 
-abstract class ContentPath extends FirebasePath<FirestoreResource<Content>> {
+abstract class ContentPath extends FirebasePath {
   String get contentId;
 
   @override

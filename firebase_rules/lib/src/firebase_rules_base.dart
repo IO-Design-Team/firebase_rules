@@ -54,7 +54,7 @@ typedef ContextualCallback<T, U extends FirebasePath,
     = List<T> Function(U path, RulesRequest<V> request, V resource);
 
 /// A service path that provides access to path parameters
-abstract class FirebasePath<T extends FirebaseResource> {
+abstract class FirebasePath {
   /// The path string for code generation
   String get path;
 }
