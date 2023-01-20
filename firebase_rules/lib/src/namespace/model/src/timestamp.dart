@@ -5,10 +5,10 @@ abstract class RulesTimestamp {
   RulesTimestamp._();
 
   /// Add a duration to this timestamp
-  operator +(RulesDuration duration);
+  RulesTimestamp operator +(RulesDuration duration);
 
   /// Subtract a duration from this timestamp
-  operator -(RulesDuration duration);
+  RulesTimestamp operator -(RulesDuration duration);
 
   /// Timestamp value containing year, month, and day only.
   RulesTimestamp date();

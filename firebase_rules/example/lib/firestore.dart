@@ -46,7 +46,7 @@ List<Match> matches(
 )
 final firestoreRules = [
   Match<FirestorePath, FirestoreResource>(
-    rules: (FirestorePath path, request, resource) => [
+    rules: (path, request, resource) => [
       Rule([Operation.read], request.auth?.uid == 'god'.rules),
     ],
     matches: matches,
