@@ -1,6 +1,96 @@
 import 'package:firebase_rules/src/namespace/model/model.dart';
 import 'package:firebase_rules/src/service/base.dart';
 
+/// Identity providers
+enum RulesIdentityProvider {
+  /// email
+  email,
+
+  /// phone
+  phone,
+
+  /// google.com
+  google,
+
+  /// facebook.com
+  facebook,
+
+  /// github.com
+  github,
+
+  /// twitter.com
+  twitter;
+
+  /// The string representation of the identity provider
+  @override
+  String toString() {
+    switch (this) {
+      case RulesIdentityProvider.email:
+        return 'email';
+      case RulesIdentityProvider.phone:
+        return 'phone';
+      case RulesIdentityProvider.google:
+        return 'google.com';
+      case RulesIdentityProvider.facebook:
+        return 'facebook.com';
+      case RulesIdentityProvider.github:
+        return 'github.com';
+      case RulesIdentityProvider.twitter:
+        return 'twitter.com';
+    }
+  }
+}
+
+/// Sign in providers
+enum RulesSignInProvider {
+  /// custom
+  custom,
+
+  /// password
+  password,
+
+  /// phone
+  phone,
+
+  /// anonymous
+  anonymous,
+
+  /// google.com
+  google,
+
+  /// facebook.com
+  facebook,
+
+  /// github.com
+  github,
+
+  /// twitter.com
+  twitter;
+
+  /// The string representation of the sign in provider
+  @override
+  String toString() {
+    switch (this) {
+      case RulesSignInProvider.custom:
+        return 'custom';
+      case RulesSignInProvider.password:
+        return 'password';
+      case RulesSignInProvider.phone:
+        return 'phone';
+      case RulesSignInProvider.anonymous:
+        return 'anonymous';
+      case RulesSignInProvider.google:
+        return 'google.com';
+      case RulesSignInProvider.facebook:
+        return 'facebook.com';
+      case RulesSignInProvider.github:
+        return 'github.com';
+      case RulesSignInProvider.twitter:
+        return 'twitter.com';
+    }
+  }
+}
+
 /// a map of JWT token claims.
 abstract class RulesRequestToken {
   RulesRequestToken._();
@@ -33,7 +123,7 @@ abstract class RulesRequestToken {
   /// first Google user ID associated with the account.
   ///
   /// Translates to `firebase.identities`
-  RulesMap<RulesString, RulesList<RulesString>> get identities;
+  RulesMap<RulesIdentityProvider, RulesList<RulesString>> get identities;
 
   /// The sign-in provider used to obtain this token. Can be one of the
   /// following strings: `custom`, `password`, `phone`, `anonymous`,
@@ -41,7 +131,7 @@ abstract class RulesRequestToken {
   /// Translates to `firebase.sign_in_provider`
   ///
   /// Translates to `firebase.sign_in_provider`
-  RulesString get signInProvider;
+  RulesSignInProvider get signInProvider;
 
   /// The tenantId associated with the account, if present. e.g. `tenant2-m6tyz`
   ///
@@ -75,7 +165,10 @@ enum RulesRequestMethod {
   update,
 
   /// delete
-  delete,
+  delete;
+
+  @override
+  String toString() => name;
 }
 
 /// Map of query properties, when present.

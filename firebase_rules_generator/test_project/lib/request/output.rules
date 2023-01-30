@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  function test1(request) {
+    let a = request.auth != null;
+    let b = request.auth.uid;
+    let c = request.auth.token.email;
+    let d = request.auth.token.email_verified;
+    let e = request.auth.token.phone_number;
+    let f = request.auth.token.name;
+    let g = request.auth.token.sub;
+    let h = request.auth.token.firebase.identities;
+    let i = request.auth.token.firebase.sign_in_provider;
+    let j = request.auth.token.firebase.tenant;
+    let k = request.method == 'get';
+    let l = request.method == 'list';
+    let m = request.method == 'create';
+    let n = request.method == 'update';
+    let o = request.method == 'delete';
+    let p = request.path;
+    let q = request.query.limit;
+    let r = request.query.offset;
+    let s = request.query.orderBy;
+    let t = request.resource;
+    let u = request.time;
+    return true;
+  }
+  function test2(request) {
+    let a = request.auth.token.firebase.identities['email'][0];
+    let b = request.auth.token.firebase.identities['phone'][0];
+    let c = request.auth.token.firebase.identities['google.com'][0];
+    let d = request.auth.token.firebase.identities['facebook.com'][0];
+    let e = request.auth.token.firebase.identities['github.com'][0];
+    let f = request.auth.token.firebase.identities['twitter.com'][0];
+    let g = request.auth.token.firebase.sign_in_provider == 'custom';
+    let h = request.auth.token.firebase.sign_in_provider == 'password';
+    let i = request.auth.token.firebase.sign_in_provider == 'phone';
+    let j = request.auth.token.firebase.sign_in_provider == 'anonymous';
+    let k = request.auth.token.firebase.sign_in_provider == 'google.com';
+    let l = request.auth.token.firebase.sign_in_provider == 'facebook.com';
+    let m = request.auth.token.firebase.sign_in_provider == 'github.com';
+    let n = request.auth.token.firebase.sign_in_provider == 'twitter.com';
+    return true;
+  }
+}

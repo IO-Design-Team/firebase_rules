@@ -11,7 +11,7 @@ String sanitizeRules(FirebaseRules annotation, String input) {
       .remove('rules.');
 
   // Strip null safety
-  final pass2 = pass1.replaceAll('?.', '.');
+  final pass2 = pass1.replaceAll('?.', '.').replaceAll('?[', '[');
 
   final pass3 = pass2
       // Convert string interpolation
@@ -64,17 +64,46 @@ String sanitizeRules(FirebaseRules annotation, String input) {
       .replaceAllMapped(RegExp(r"raw\('(.+?)'\)"), (m) => m[1]!);
 
   final pass8 = pass7
-      // Convert duration.value
+      // Convert RulesDurationUnit
       .replaceAllMapped(
-    RegExp(r'duration\.value\((.+?), RulesDurationUnit\.(.+?)\)'),
+    RegExp(r'RulesDurationUnit\.([a-z]+)'),
     (m) {
-      final magnitude = m[1]!;
       final unit = RulesDurationUnit.values.byName(m[2]!).toString();
-      return "duration.value($magnitude, '$unit')";
+      return "'$unit'";
+    },
+  )
+      // Convert RequestMethod
+      .replaceAllMapped(
+    RegExp(r'RulesRequestMethod\.([a-z]+)'),
+    (m) {
+      final method = RulesRequestMethod.values.byName(m[1]!).toString();
+      return "'$method'";
+    },
+  ).replaceAllMapped(
+    RegExp(r'RulesIdentityProvider\.([a-z]+)'),
+    (m) {
+      final provider = RulesIdentityProvider.values.byName(m[1]!).toString();
+      return "'$provider'";
+    },
+  ).replaceAllMapped(
+    RegExp(r'RulesSignInProvider\.([a-z]+)'),
+    (m) {
+      final provider = RulesSignInProvider.values.byName(m[1]!).toString();
+      return "'$provider'";
     },
   );
 
-  return pass8;
+  final pass9 = pass8
+      .replaceAll('auth.token.emailVerified', 'auth.token.email_verified')
+      .replaceAll('auth.token.phoneNumber', 'auth.token.phone_number')
+      .replaceAll('auth.token.identities', 'auth.token.firebase.identities')
+      .replaceAll(
+        'auth.token.signInProvider',
+        'auth.token.firebase.sign_in_provider',
+      )
+      .replaceAll('auth.token.tenant', 'auth.token.firebase.tenant');
+
+  return pass9;
 }
 
 /// Sanitize path parameter prefixes from rules
