@@ -101,7 +101,8 @@ String sanitizeRules(FirebaseRules annotation, String input) {
         'auth.token.signInProvider',
         'auth.token.firebase.sign_in_provider',
       )
-      .replaceAll('auth.token.tenant', 'auth.token.firebase.tenant');
+      .replaceAll('auth.token.tenant', 'auth.token.firebase.tenant')
+      .replaceAll('resource.firestoreResourceName', "resource['__name__']");
 
   return pass9;
 }

@@ -17,12 +17,12 @@ abstract class FirestorePath extends FirebasePath {
 abstract class FirestoreResource<T> extends FirebaseResource {
   FirestoreResource._();
 
-  /// The full document name, as a path.
-  RulesString get name;
+  /// Allows access to '__name__' property
+  RulesPath get firestoreResourceName;
 
   /// Map of the document data.
   T get data;
 
   /// String of the document's key
-  RulesString get key;
+  RulesString get id;
 }
