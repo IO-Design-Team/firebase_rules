@@ -113,7 +113,6 @@ abstract class RulesMethods {
   bool parseBool(RulesString value);
 
   /// Create bytes from string
-  // TODO: Convert to string literal
   RulesBytes parseBytes(RulesString value);
 
   /// String and integer values can be converted to float values using the float()
@@ -126,7 +125,7 @@ abstract class RulesMethods {
 
   /// Boolean, integer, float, and null values can be converted into strings
   /// using the string() function:
-  RulesString parseString(Object? value);
+  RulesString string(Object? value);
 
   /// A basic debug function that prints Security Rules language objects,
   /// variables and statement results as they are being evaluated by the Security
