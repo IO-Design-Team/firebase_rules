@@ -1,0 +1,7 @@
+rules_version = '2';
+service cloud.firestore {
+  function test(resource) {
+    let a = debug(debug(resource.id) == debug('test'));
+    return true;
+  }
+}
