@@ -10,10 +10,7 @@ bool isOwner(RulesRequest request, RulesString uid) {
   return requestingUid == uid;
 }
 
-@FirebaseRules(
-  service: Service.firestore,
-  // debug: true,
-)
+@FirebaseRules(service: Service.firestore)
 final firestoreRules = [
   Match<FirestorePath, FirestoreResource>(
     rules: (path, request, resource) => [

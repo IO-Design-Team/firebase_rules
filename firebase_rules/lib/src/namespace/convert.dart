@@ -1,20 +1,4 @@
-// TODO
-// import 'package:cloud_firestore_types/cloud_firestore_types.dart';
 import 'package:firebase_rules/src/namespace/model/model.dart';
-
-/// Access to [RulesBytes] methods
-// TODO
-// extension RulesBytesExtension on Blob {
-//   /// Access to [RulesBytes] methods
-//   RulesBytes get rules => throw UnimplementedError();
-// }
-
-/// Access to [RulesLatLng] methods
-// TODO
-// extension RulesLatLngExtension on GeoPoint {
-//   /// Access to [RulesLatLng] methods
-//   RulesLatLng get rules => throw UnimplementedError();
-// }
 
 /// Access to [RulesList] methods
 extension RulesListExtension<T> on List<T> {
@@ -39,10 +23,3 @@ extension RulesStringExtension on String {
   /// Access to [RulesString] methods
   RulesString get rules => throw UnimplementedError();
 }
-
-/// Access to [RulesTimestamp] methods
-// TODO
-// extension RulesTimestampExtension on Timestamp {
-//   /// Access to [RulesTimestamp] methods
-//   RulesTimestamp get rules => throw UnimplementedError();
-// }

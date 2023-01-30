@@ -1,0 +1,19 @@
+name: firebase_rules_test
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dev_dependencies:
+  flutter:
+    sdk: flutter
+  rexios_lints: ^5.0.0
+  cloud_firestore_platform_interface: ^5.7.5
+  firebase_rules: ^0.0.0
+  firebase_rules_convert: ^0.0.0
+
+dependency_overrides:
+  firebase_rules:
+    path: ../firebase_rules
+  firebase_rules_convert:
+    path: ../firebase_rules_convert

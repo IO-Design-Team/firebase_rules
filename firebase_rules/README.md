@@ -11,14 +11,10 @@ If you want to try it anyways, great! Please let me know what's broken.
 How to add it to your project:
 ```yaml
 dependencies:
-  firebase_rules: ^0.0.0
-  # Temporary helper package
-  firebase_rules_convert:
-    git: 
-      url: https://github.com/IO-Design-Team/firebase_rules
-      path: firebase_rules_convert
+  firebase_rules: latest
+  firebase_rules_convert: latest
 
 dev_dependencies:
-    build_runner: ^2.3.3
-    firebase_rules_generator: ^0.0.0
+    build_runner: latest
+    firebase_rules_generator: latest
 ```
