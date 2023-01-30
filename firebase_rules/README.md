@@ -12,6 +12,7 @@ How to add it to your project:
 ```yaml
 dependencies:
   firebase_rules: latest
+  # If you are using types from `cloud_firestore_platform_interface`
   firebase_rules_convert: latest
 
 dev_dependencies:
