@@ -20,19 +20,19 @@ abstract class RulesFirestoreMethods {
   RulesFirestoreMethods._();
 
   /// Check if a document exists.
-  bool exists(RulesString path);
+  bool exists(RulesPath path);
 
   /// Check if a document exists, assuming the current request succeeds.
   /// Equivalent to getAfter(path) != null.
-  bool existsAfter(RulesString path);
+  bool existsAfter(RulesPath path);
 
   /// Get the contents of a firestore document.
-  T get<T>(RulesString path);
+  T get<T>(RulesPath path);
 
   /// Get the projected contents of a document. The document is returned as if the
   /// current request had succeeded. Useful for validating documents that are part
   /// of a batched write or transaction.
-  T getAfter<T>(RulesString path);
+  T getAfter<T>(RulesPath path);
 }
 
 /// Globally available hashing functions. These functions are accessed using
@@ -128,7 +128,7 @@ abstract class RulesMethods {
   RulesString string(Object? value);
 
   /// The second is by converting from a string using the path() function:
-  RulesPath path(RulesString value);
+  RulesPath path(RulesString value, {String? database});
 
   /// A basic debug function that prints Security Rules language objects,
   /// variables and statement results as they are being evaluated by the Security

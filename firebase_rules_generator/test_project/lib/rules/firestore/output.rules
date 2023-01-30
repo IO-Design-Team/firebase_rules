@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  function test() {
+    let a = exists(path('/databases/$(database)/documents/path/to/resource'));
+    let b = existsAfter(path('/databases/$(database)/documents/path/to/resource'));
+    let c = get(path('/databases/$(database)/documents/path/to/resource'));
+    let d = get(path('/databases/$(database)/documents/path/to/resource'));
+    let e = getAfter(path('/databases/$(database)/documents/path/to/resource'));
+    let f = getAfter(path('/databases/$(database)/documents/path/to/resource'));
+    return true;
+  }
+}
+
+rules_version = '2';
+service firebase.storage {
+  function test() {
+    let a = firestore.exists(path('/databases/$(database)/documents/path/to/resource'));
+    let b = firestore.existsAfter(path('/databases/$(database)/documents/path/to/resource'));
+    let c = firestore.get(path('/databases/$(database)/documents/path/to/resource'));
+    let d = firestore.get(path('/databases/$(database)/documents/path/to/resource'));
+    let e = firestore.getAfter(path('/databases/$(database)/documents/path/to/resource'));
+    let f = firestore.getAfter(path('/databases/$(database)/documents/path/to/resource'));
+  }
+}

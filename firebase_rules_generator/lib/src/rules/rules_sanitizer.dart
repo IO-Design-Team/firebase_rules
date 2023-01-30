@@ -26,14 +26,28 @@ String sanitizeRules(FirebaseRules annotation, String input) {
   final pass4 = pass3
       // Convert firestore methods
       .replaceAllMapped(
-    RegExp(r"firestore\.(.+?)(<.+?>)?\('(.+?)'\)"),
+    RegExp(r'firestore\.(.+?)(<.+?>)?\((.+?)\)'),
     (m) {
       final buffer = StringBuffer();
       if (annotation.service != Service.firestore) {
         buffer.write('firestore.');
       }
-      buffer.write('${m[1]}(/databases/\$(database)/documents${m[3]})');
+      buffer.write('${m[1]}(${m[3]})');
       return buffer.toString();
+    },
+  )
+      // Convert all paths
+      .replaceAllMapped(
+    RegExp(r"path\(.*?'(.+?)'.*?(database: '(.+?)'.*?)?\)", dotAll: true),
+    (m) {
+      final database = m[3];
+      final String path;
+      if (database == null) {
+        path = '/databases/\$(database)/documents${m[1]}';
+      } else {
+        path = '/databases/($database)/documents${m[1]}';
+      }
+      return 'path(\'$path\')';
     },
   );
 

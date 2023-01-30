@@ -35,11 +35,12 @@ final firestoreRules = [
           Allow(
             [Operation.write],
             rules.firestore
-                    .get<User>('/users/${request.auth?.uid}'.rules)
+                    .get<User>(rules.path('/users/${request.auth?.uid}'.rules))
                     .contentIds
                     .rules
                     .contains(content.contentId) &&
-                rules.firestore.exists('/users/${request.auth?.uid}'.rules),
+                rules.firestore
+                    .exists(rules.path('/users/${request.auth?.uid}'.rules)),
           ),
         ],
       ),
