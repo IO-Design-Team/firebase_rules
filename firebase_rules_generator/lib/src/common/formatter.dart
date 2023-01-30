@@ -1,5 +1,3 @@
-import 'package:firebase_rules_generator/src/common/util.dart';
-
 /// Generated file header we want to remove
 const header = '''
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -12,5 +10,5 @@ const header = '''
 
 /// Format rules files
 String formatRules(String input) {
-  return input.remove(header);
+  return input.replaceAll(header, '');
 }

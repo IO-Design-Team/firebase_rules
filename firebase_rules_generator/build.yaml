@@ -1,7 +1,7 @@
 builders:
   firebase_rules_generator:
     import: "package:firebase_rules_generator/firebase_rules_generator.dart"
-    builder_factories: ["rules"]
-    build_extensions: { ".dart": [".rules"] }
+    builder_factories: ["firebaseRules", "databaseRules"]
+    build_extensions: { ".dart": [".rules", ".rules.json"] }
     auto_apply: dependents
     build_to: source

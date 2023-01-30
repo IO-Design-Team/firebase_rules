@@ -1,11 +1,19 @@
 import 'package:build/build.dart';
-import 'package:firebase_rules_generator/src/firebase/formatter.dart';
+import 'package:firebase_rules_generator/src/database/generator.dart';
+import 'package:firebase_rules_generator/src/common/formatter.dart';
 import 'package:firebase_rules_generator/src/firebase/generator.dart';
 import 'package:source_gen/source_gen.dart';
 
-/// Builds generators for `build_runner` to run
-Builder rules(BuilderOptions options) => LibraryBuilder(
+/// Run the [FirebaseRulesGenerator]
+Builder firebaseRules(BuilderOptions options) => LibraryBuilder(
       FirebaseRulesGenerator(),
       generatedExtension: '.rules',
+      formatOutput: formatRules,
+    );
+
+/// Run the [DatabaseRulesGenerator]
+Builder databaseRules(BuilderOptions options) => LibraryBuilder(
+      DatabaseRulesGenerator(),
+      generatedExtension: '.rules.json',
       formatOutput: formatRules,
     );

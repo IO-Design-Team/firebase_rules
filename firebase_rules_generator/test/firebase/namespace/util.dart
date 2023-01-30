@@ -11,7 +11,7 @@ void testRulesBuilder(String name) {
     final output =
         File('test_project/lib/$name/output.rules').readAsStringSync();
     await testBuilder(
-      rules(BuilderOptions.empty),
+      firebaseRules(BuilderOptions.empty),
       {'test|test.dart': input},
       reader: await PackageAssetReader.currentIsolate(),
       outputs: {'test|test.rules': output},
