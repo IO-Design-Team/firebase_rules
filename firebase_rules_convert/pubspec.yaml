@@ -11,3 +11,7 @@ dependencies:
     sdk: flutter
   firebase_rules: ^0.0.0
   cloud_firestore_platform_interface: ^5.10.1
+
+dependency_overrides:
+  firebase_rules:
+    path: ../firebase_rules

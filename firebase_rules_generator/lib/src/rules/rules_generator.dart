@@ -4,7 +4,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
-import 'package:firebase_rules/firebase_rules.dart';
+import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/rules/rules_context.dart';
 import 'package:firebase_rules_generator/src/rules/rules_sanitizer.dart';
 import 'package:firebase_rules_generator/src/rules/visitor/function_visitor.dart';

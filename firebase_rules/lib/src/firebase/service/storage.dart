@@ -1,5 +1,5 @@
-import 'package:firebase_rules/firebase_rules.dart';
-import 'package:firebase_rules/src/service/base.dart';
+import 'package:firebase_rules/firebase.dart';
+import 'package:firebase_rules/src/firebase/service/base.dart';
 
 /// Base firestore path
 abstract class StoragePath extends FirebasePath {

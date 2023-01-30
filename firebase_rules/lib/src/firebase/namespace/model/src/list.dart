@@ -1,4 +1,4 @@
-import 'package:firebase_rules/src/namespace/model/model.dart';
+import 'package:firebase_rules/src/firebase/namespace/model/model.dart';
 
 /// List type. Items are not necessarily homogenous.
 abstract class RulesList<T> {

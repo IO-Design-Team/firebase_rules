@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:collection/collection.dart';
-import 'package:firebase_rules/firebase_rules.dart';
+import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/rules/rules_context.dart';
 import 'package:firebase_rules_generator/src/rules/visitor/rule_visitor.dart';
 import 'package:firebase_rules_generator/src/util.dart';

@@ -1,6 +1,6 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:firebase_rules/firebase_rules.dart';
+import 'package:firebase_rules/firebase.dart';
 import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_interface.dart';
 import 'package:firebase_rules_convert/firebase_rules_convert.dart';
 

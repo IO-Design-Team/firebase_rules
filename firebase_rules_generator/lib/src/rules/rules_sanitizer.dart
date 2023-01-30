@@ -1,4 +1,4 @@
-import 'package:firebase_rules/firebase_rules.dart';
+import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/rules/rules_context.dart';
 import 'package:firebase_rules_generator/src/util.dart';
 

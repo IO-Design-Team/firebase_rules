@@ -1,4 +1,4 @@
-import 'package:firebase_rules/src/namespace/model/model.dart';
+import 'package:firebase_rules/src/firebase/namespace/model/model.dart';
 
 /// Access to [RulesList] methods
 extension RulesListExtension<T> on List<T> {

@@ -1,6 +1,6 @@
 <!-- embedme lib/firestore.dart -->
 ```dart
-import 'package:firebase_rules/firebase_rules.dart';
+import 'package:firebase_rules/firebase.dart';
 
 @RulesFunction()
 bool isSignedIn(RulesRequest request) => request.auth != null;

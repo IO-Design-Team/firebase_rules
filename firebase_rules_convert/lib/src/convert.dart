@@ -1,5 +1,5 @@
 import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_interface.dart';
-import 'package:firebase_rules/firebase_rules.dart';
+import 'package:firebase_rules/firebase.dart';
 
 /// Access to [RulesBytes] methods
 extension RulesBytesExtension on Blob {

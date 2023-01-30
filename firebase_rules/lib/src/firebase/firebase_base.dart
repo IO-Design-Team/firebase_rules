@@ -1,5 +1,5 @@
-import 'package:firebase_rules/src/namespace/model/model.dart';
-import 'package:firebase_rules/src/service/base.dart';
+import 'package:firebase_rules/src/firebase/namespace/model/model.dart';
+import 'package:firebase_rules/src/firebase/service/base.dart';
 import 'package:meta/meta_meta.dart';
 
 /// Firebase Rules annotation

@@ -1,4 +1,4 @@
-import 'package:firebase_rules/src/namespace/model/model.dart';
+import 'package:firebase_rules/src/firebase/namespace/model/model.dart';
 
 /// Globally available duration functions. These functions are accessed using
 /// the duration. prefix.
