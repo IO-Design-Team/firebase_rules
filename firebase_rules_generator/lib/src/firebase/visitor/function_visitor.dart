@@ -1,11 +1,11 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:firebase_rules_generator/src/rules/rules_context.dart';
-import 'package:firebase_rules_generator/src/util.dart';
+import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/util.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Visit Function nodes
 Stream<String> visitFunction(
-  RulesContext context,
+  Context context,
   FunctionDeclaration node,
 ) async* {
   final name = node.name.toString();
@@ -18,7 +18,7 @@ Stream<String> visitFunction(
 }
 
 Stream<String> _visitFunctionBody(
-  RulesContext context,
+  Context context,
   FunctionBody body,
 ) async* {
   if (body is BlockFunctionBody) {

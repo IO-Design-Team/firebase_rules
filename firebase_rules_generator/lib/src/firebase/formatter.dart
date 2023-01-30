@@ -1,4 +1,4 @@
-import 'package:firebase_rules_generator/src/util.dart';
+import 'package:firebase_rules_generator/src/common/util.dart';
 
 /// Generated file header we want to remove
 const header = '''

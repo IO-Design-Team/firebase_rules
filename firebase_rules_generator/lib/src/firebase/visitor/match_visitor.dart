@@ -2,13 +2,13 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:collection/collection.dart';
 import 'package:firebase_rules/firebase.dart';
-import 'package:firebase_rules_generator/src/rules/rules_context.dart';
-import 'package:firebase_rules_generator/src/rules/visitor/rule_visitor.dart';
-import 'package:firebase_rules_generator/src/util.dart';
+import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/firebase/visitor/rule_visitor.dart';
+import 'package:firebase_rules_generator/src/common/util.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Visit Match nodes
-Stream<String> visitMatch(RulesContext context, AstNode node) async* {
+Stream<String> visitMatch(Context context, AstNode node) async* {
   final path = await _getPath(context, node);
 
   yield 'match $path {'.indent(context.indent);
@@ -28,7 +28,7 @@ Stream<String> visitMatch(RulesContext context, AstNode node) async* {
   yield '}'.indent(context.indent);
 }
 
-Future<String> _getPath(RulesContext context, AstNode node) async {
+Future<String> _getPath(Context context, AstNode node) async {
   final typeArguments =
       node.childEntities.whereType<TypeArgumentList>().firstOrNull;
   if (typeArguments == null) {
@@ -76,12 +76,11 @@ String _getParameterName(FunctionExpression function, int index) {
 }
 
 Stream<String> _visitParameter(
-  RulesContext context,
+  Context context,
   AstNode node,
   Iterable<SyntacticEntity> arguments,
   String name,
-  Stream<String> Function(RulesContext context, CollectionElement element)
-      visit,
+  Stream<String> Function(Context context, CollectionElement element) visit,
 ) async* {
   final expression = arguments
       .whereType<NamedExpression>()

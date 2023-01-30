@@ -5,11 +5,11 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase.dart';
-import 'package:firebase_rules_generator/src/rules/rules_context.dart';
-import 'package:firebase_rules_generator/src/rules/rules_sanitizer.dart';
-import 'package:firebase_rules_generator/src/rules/visitor/function_visitor.dart';
-import 'package:firebase_rules_generator/src/rules/visitor/match_visitor.dart';
-import 'package:firebase_rules_generator/src/util.dart';
+import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/firebase/sanitizer.dart';
+import 'package:firebase_rules_generator/src/firebase/visitor/function_visitor.dart';
+import 'package:firebase_rules_generator/src/firebase/visitor/match_visitor.dart';
+import 'package:firebase_rules_generator/src/common/util.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Generate Firebase rules from a list of [Match] objects
@@ -52,7 +52,7 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     final functionAnnotations =
         library.annotatedWith(TypeChecker.fromRuntime(RulesFunction));
 
-    final context = RulesContext.root(library, resolver);
+    final context = Context.root(library, resolver);
     for (final annotation in functionAnnotations) {
       final ast = await resolver.astNodeFor(annotation.element);
       ast as FunctionDeclaration;

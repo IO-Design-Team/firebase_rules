@@ -1,4 +1,4 @@
-import 'package:firebase_rules/src/database/rule_data_snapshot.dart';
+import 'package:firebase_rules/database.dart';
 import 'package:meta/meta_meta.dart';
 
 /// Database Rules annotation
@@ -9,17 +9,14 @@ class DatabaseRules {
 }
 
 /// A callback that provides information about the current rules context
-typedef ContextualCallback<T, V> = T Function(
-  String location,
-  RulesContext<V> context,
-);
+typedef ContextualCallback<T> = T Function(String location);
 
 /// Database rules base path
 const basePath = 'rules';
 
 /// Database match statement
 
-class Match<U> {
+class Match {
   /// The path
   ///
   /// One `$location` wild card is allowed at the end of the path. Path
@@ -27,19 +24,19 @@ class Match<U> {
   final String path;
 
   /// Read
-  final ContextualCallback<bool, U>? read;
+  final ContextualCallback<bool>? read;
 
   /// Write
-  final ContextualCallback<bool, U>? write;
+  final ContextualCallback<bool>? write;
 
   /// Validate
-  final ContextualCallback<bool, U>? validate;
+  final ContextualCallback<bool>? validate;
 
   /// Index on
   final List<String>? indexOn;
 
   /// Matches
-  final ContextualCallback<List<Match>, U>? matches;
+  final ContextualCallback<List<Match>>? matches;
 
   /// Constructor
   Match(
@@ -52,24 +49,22 @@ class Match<U> {
   });
 }
 
-/// Rules context
-abstract class RulesContext<T> {
-  // TODO
-  dynamic get auth;
+/// A variable containing the token payload if a client is authenticated, or
+/// null if the client isn't authenticated.
+RulesAuth? get auth => throw UnimplementedError();
 
-  /// Contains the number of milliseconds since the Unix epoch according to the
-  /// Firebase Realtime Database servers.
-  int get now;
+/// Contains the number of milliseconds since the Unix epoch according to the
+/// Firebase Realtime Database servers.
+int get now => throw UnimplementedError();
 
-  /// A RuleDataSnapshot corresponding to the current data at the root of your
-  /// Firebase Realtime Database.
-  RuleDataSnapshot get root;
+/// A RuleDataSnapshot corresponding to the current data at the root of your
+/// Firebase Realtime Database.
+RuleDataSnapshot get root => throw UnimplementedError();
 
-  /// A RuleDataSnapshot corresponding to the current data in Firebase Realtime
-  /// Database at the location of the currently executing rule.
-  RuleDataSnapshot get data;
+/// A RuleDataSnapshot corresponding to the current data in Firebase Realtime
+/// Database at the location of the currently executing rule.
+RuleDataSnapshot get data => throw UnimplementedError();
 
-  /// A RuleDataSnapshot corresponding to the data that will result if the write
-  /// is allowed.
-  RuleDataSnapshot get newData;
-}
+/// A RuleDataSnapshot corresponding to the data that will result if the write
+/// is allowed.
+RuleDataSnapshot get newData => throw UnimplementedError();

@@ -1,6 +1,6 @@
 import 'package:firebase_rules/firebase.dart';
-import 'package:firebase_rules_generator/src/rules/rules_context.dart';
-import 'package:firebase_rules_generator/src/util.dart';
+import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/util.dart';
 
 /// Sanitize rules files
 String sanitizeRules(FirebaseRules annotation, String input) {
@@ -122,7 +122,7 @@ String sanitizeRules(FirebaseRules annotation, String input) {
 }
 
 /// Sanitize path parameter prefixes from rules
-String sanitizePaths(RulesContext context, String input) {
+String sanitizePaths(Context context, String input) {
   var sanitized = '';
   for (final path in context.paths) {
     sanitized = input.replaceAll('$path.', '');

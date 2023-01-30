@@ -1,10 +1,32 @@
-import 'package:firebase_rules/src/common/auth.dart';
-import 'package:firebase_rules/src/firebase/namespace/model/model.dart';
-import 'package:firebase_rules/src/firebase/service/base.dart';
+import 'package:firebase_rules/database.dart';
+
+/// Rules provider
+enum RulesProvider {
+  /// password
+  password,
+
+  /// anonymous
+  anonymous,
+
+  /// facebook
+  facebook,
+
+  /// github
+  github,
+
+  /// google
+  google,
+
+  /// twitter
+  twitter;
+
+  @override
+  String toString() => name;
+}
 
 /// a map of JWT token claims.
-abstract class RulesRequestToken {
-  RulesRequestToken._();
+abstract class RulesToken {
+  RulesToken._();
 
   /// The email address associated with the account, if present
   RulesString get email;
@@ -34,7 +56,7 @@ abstract class RulesRequestToken {
   /// first Google user ID associated with the account.
   ///
   /// Translates to `firebase.identities`
-  RulesMap<RulesIdentityProvider, RulesList<RulesString>> get identities;
+  Map<RulesIdentityProvider, List<RulesString>> get identities;
 
   /// The sign-in provider used to obtain this token. Can be one of the
   /// following strings: `custom`, `password`, `phone`, `anonymous`,
@@ -51,73 +73,16 @@ abstract class RulesRequestToken {
 }
 
 /// Request authentication context.
-abstract class RulesRequestAuth {
-  RulesRequestAuth._();
+abstract class RulesAuth {
+  RulesAuth._();
+
+  /// The authentication method used (e.g "password", "anonymous", "facebook",
+  /// "github", "google", or "twitter").
+  RulesProvider get provider;
 
   /// the UID of the requesting user.
   RulesString get uid;
 
   /// a map of JWT token claims.
-  RulesRequestToken get token;
-}
-
-/// The request method.
-enum RulesRequestMethod {
-  /// get
-  get,
-
-  /// list
-  list,
-
-  /// create
-  create,
-
-  /// update
-  update,
-
-  /// delete
-  delete;
-
-  @override
-  String toString() => name;
-}
-
-/// Map of query properties, when present.
-abstract class RulesRequestQuery {
-  RulesRequestQuery._();
-
-  /// query limit clause.
-  int get limit;
-
-  /// query offset clause.
-  int get offset;
-
-  /// query orderBy clause.
-  RulesString get orderBy;
-}
-
-/// The incoming request context.
-abstract class RulesRequest<T extends FirebaseResource> {
-  RulesRequest._();
-
-  /// Request authentication context.
-  RulesRequestAuth? get auth;
-
-  /// The request method.
-  RulesRequestMethod get method;
-
-  /// Path of the affected resource.
-  RulesPath get path;
-
-  /// Map of query properties, when present.
-  RulesRequestQuery get query;
-
-  /// The new resource value, present on write requests only.
-  T get resource;
-
-  /// When the request was received by the service.
-  ///
-  /// For Firestore write operations that include server-side timestamps, this
-  /// time will be equal to the server timestamp.
-  RulesTimestamp get time;
+  RulesToken get token;
 }
