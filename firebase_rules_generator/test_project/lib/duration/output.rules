@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  function test(dur) {
+    let a = dur.nanos();
+    let b = dur.seconds();
+    let c = duration.abs(dur);
+    let d = duration.time(0, 0, 0, 0);
+    let e = duration.value(0, 'w');
+    let f = duration.value(0, 'd');
+    let g = duration.value(0, 'h');
+    let h = duration.value(0, 'm');
+    let i = duration.value(0, 's');
+    let j = duration.value(0, 'ms');
+    let k = duration.value(0, 'ns');
+    return true;
+  }
+}

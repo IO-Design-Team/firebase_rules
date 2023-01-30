@@ -49,12 +49,13 @@ String sanitizeRules(FirebaseRules annotation, String input) {
       .replaceAllMapped(RegExp(r'parseInt\((.+?)\)'), (m) => 'int(${m[1]})')
       // Raw rules string
       .replaceAllMapped(RegExp(r"raw\('(.+?)'\)"), (m) => m[1]!)
-      // Convert RulesDurationUnit
+      // Convert duration.value
       .replaceAllMapped(
-        RegExp(r'RulesDurationUnit\.(.+?)'),
+        RegExp(r'duration\.value\((.+?), RulesDurationUnit\.(.+?)\)'),
         (m) {
-          final unit = RulesDurationUnit.values.byName(m[1]!).toString();
-          return "'$unit'";
+          final magnitude = m[1]!;
+          final unit = RulesDurationUnit.values.byName(m[2]!).toString();
+          return "duration.value($magnitude, '$unit')";
         },
       );
 }

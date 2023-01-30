@@ -6,7 +6,7 @@ abstract class RulesDurationMethods {
   RulesDurationMethods._();
 
   /// Absolute value of a duration.
-  RulesDuration abs();
+  RulesDuration abs(RulesDuration duration);
 
   /// Create a duration from hours, minutes, seconds, and nanoseconds.
   RulesDuration time(int hours, int minutes, int secs, int nanos);
