@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  function test(one, two) {
+    let a = timestamp.date(0, 0, 0);
+    let b = timestamp.value(0);
+    let c = one + two;
+    let d = one - two;
+    let e = one.date();
+    let f = one.day();
+    let g = one.dayOfWeek();
+    let h = one.dayOfYear();
+    let i = one.hours();
+    let j = one.minutes();
+    let k = one.month();
+    let l = one.nanos();
+    let m = one.seconds();
+    let n = one.time();
+    let o = one.toMillis();
+    let p = one.year();
+    return true;
+  }
+}
