@@ -13,10 +13,7 @@ bool test(RulesPath other) {
       'bar': 'another',
     }.rules,
   );
-  final e = rules.path(
-    '/path/to/resource'.rules,
-    database: 'default',
-  );
+  final e = rules.path('/path/to/resource'.rules, database: 'default');
   return true;
 }
 

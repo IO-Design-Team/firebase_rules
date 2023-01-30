@@ -38,7 +38,7 @@ String sanitizeRules(FirebaseRules annotation, String input) {
   )
       // Convert all paths
       .replaceAllMapped(
-    RegExp(r"path\(.*?'(.+?)'.*?(database: '(.+?)'.*?)?\)", dotAll: true),
+    RegExp(r"path\('(.+?)'(, database: '(.+?)')?\)"),
     (m) {
       final database = m[3];
       final String path;
