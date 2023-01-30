@@ -127,6 +127,9 @@ abstract class RulesMethods {
   /// using the string() function:
   RulesString string(Object? value);
 
+  /// The second is by converting from a string using the path() function:
+  RulesPath path(RulesString value);
+
   /// A basic debug function that prints Security Rules language objects,
   /// variables and statement results as they are being evaluated by the Security
   /// Rules engine. The outputs of debug are written to firestore-debug.log.

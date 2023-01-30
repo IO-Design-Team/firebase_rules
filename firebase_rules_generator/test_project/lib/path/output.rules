@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  function test(other) {
+    let a = path('/path/to/resource');
+    let b = other['fieldname'];
+    let c = other[0];
+    let d = other.bind({'foo' : 'something', 'bar' : 'another'});
+    return true;
+  }
+}
