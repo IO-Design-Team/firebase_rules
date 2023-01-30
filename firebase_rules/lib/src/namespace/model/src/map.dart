@@ -10,11 +10,11 @@ abstract class RulesMap<K, V> {
   /// Check if key k exists in map x
   ///
   /// Translates to `k in x`
-  bool containsKey(K key);
+  bool contains(K key);
 
   /// Return a rules.MapDiff representing the result of comparing the current
   /// Map to a comparison Map.
-  MapDiff<K, V> diff(RulesMap<K, V> other);
+  MapDiff<K> diff(RulesMap<K, V> other);
 
   /// Returns the value associated with a given search key string.
   ///
@@ -38,7 +38,7 @@ abstract class RulesMap<K, V> {
 }
 
 /// The MapDiff type represents the result of comparing two rules.Map objects.
-abstract class MapDiff<K, V> {
+abstract class MapDiff<K> {
   MapDiff._();
 
   /// Returns a rules.Set, which lists any keys that the Map calling diff()

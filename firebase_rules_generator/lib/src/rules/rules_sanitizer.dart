@@ -31,7 +31,7 @@ String sanitizeRules(FirebaseRules annotation, String input) {
       )
       // Convert `contains` to `x in y`
       .replaceAllMapped(
-        RegExp(r'(\S+?|\[.+?)\.contains\((.+?)\)'),
+        RegExp(r'(\S+?|\[.+?|\{.+?)\.contains\((.+?)\)'),
         (m) => '${m[2]} in ${m[1]}',
       )
       // Convert `range` to `x[i:j]

@@ -1,9 +1,9 @@
 rules_version = '2';
 service cloud.firestore {
-  function test(dur) {
-    let a = dur.nanos();
-    let b = dur.seconds();
-    let c = duration.abs(dur);
+  function test(other) {
+    let a = other.nanos();
+    let b = other.seconds();
+    let c = duration.abs(other);
     let d = duration.time(0, 0, 0, 0);
     let e = duration.value(0, 'w');
     let f = duration.value(0, 'd');
