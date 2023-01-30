@@ -128,6 +128,9 @@ abstract class RulesMethods {
   RulesString string(Object? value);
 
   /// The second is by converting from a string using the path() function:
+  ///
+  /// The [database] field must be provided in a storage rules context. It's
+  /// value will almost always be `default`.
   RulesPath path(RulesString value, {String? database});
 
   /// A basic debug function that prints Security Rules language objects,

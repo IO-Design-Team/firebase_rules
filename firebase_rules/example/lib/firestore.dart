@@ -39,8 +39,12 @@ final firestoreRules = [
                     .contentIds
                     .rules
                     .contains(content.contentId) &&
-                rules.firestore
-                    .exists(rules.path('/users/${request.auth?.uid}'.rules)),
+                rules.firestore.exists(
+                  rules.path(
+                    '/users/${request.auth?.uid}'.rules,
+                    database: 'default',
+                  ),
+                ),
           ),
         ],
       ),
