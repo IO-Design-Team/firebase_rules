@@ -13,5 +13,5 @@ Stream<String> visitRule(RulesContext context, AstNode node) async* {
       .map((e) => e.identifier.name);
   final condition = sanitizePaths(context, arguments[1].toSource());
 
-  yield 'allow ${operations.join(', ')}: if $condition'.indent(context.indent);
+  yield 'allow ${operations.join(', ')}: if $condition;'.indent(context.indent);
 }
