@@ -7,13 +7,13 @@ import 'package:build/build.dart';
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
 import 'package:firebase_rules_generator/src/firebase/sanitizer.dart';
+import 'package:firebase_rules_generator/src/firebase/util.dart';
 import 'package:firebase_rules_generator/src/firebase/visitor/function_visitor.dart';
 import 'package:firebase_rules_generator/src/firebase/visitor/match_visitor.dart';
-import 'package:firebase_rules_generator/src/common/util.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Generate Firebase rules from a list of [Match] objects
-class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
+class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
   /// The library reader
   LibraryReader? library;
 

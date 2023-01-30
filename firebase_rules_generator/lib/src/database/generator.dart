@@ -4,16 +4,14 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
-import 'package:firebase_rules/firebase.dart';
-import 'package:firebase_rules_generator/src/firebase/rules_context.dart';
-import 'package:firebase_rules_generator/src/firebase/rules_sanitizer.dart';
-import 'package:firebase_rules_generator/src/firebase/visitor/function_visitor.dart';
+import 'package:firebase_rules/database.dart';
+import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/database/sanitizer.dart';
 import 'package:firebase_rules_generator/src/firebase/visitor/match_visitor.dart';
-import 'package:firebase_rules_generator/src/common/util.dart';
 import 'package:source_gen/source_gen.dart';
 
-/// Generate Firebase rules from a list of [Match] objects
-class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
+/// Generate Database rules from a list of [Match] objects
+class DatabaseRulesGenerator extends GeneratorForAnnotation<DatabaseRules> {
   /// The library reader
   LibraryReader? library;
 
@@ -41,26 +39,12 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
       );
     }
 
-    final revived = reviveAnnotation(annotation);
-
     final buffer = StringBuffer();
-    buffer.writeln('rules_version = \'${revived.rulesVersion}\';');
-    buffer.writeln('service ${revived.service} {');
 
     // Generate functions
     final resolver = buildStep.resolver;
-    final functionAnnotations =
-        library.annotatedWith(TypeChecker.fromRuntime(RulesFunction));
 
-    final context = RulesContext.root(library, resolver);
-    for (final annotation in functionAnnotations) {
-      final ast = await resolver.astNodeFor(annotation.element);
-      ast as FunctionDeclaration;
-      await for (final line in visitFunction(context, ast)) {
-        buffer.writeln(line);
-      }
-    }
-
+    final context = Context.root(library, resolver);
     final ast = await resolver.astNodeFor(element);
     final matches = ast!.childEntities.whereType<ListLiteral>().single.elements;
 
@@ -71,7 +55,7 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     }
 
     buffer.writeln('}');
-    return sanitizeRules(revived, buffer.toString());
+    return sanitizeRules(buffer.toString());
   }
 
   /// Check that the element is a List<Match>
@@ -85,13 +69,5 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
         .single
         .element as ClassElement;
     return classElement.name == 'Match';
-  }
-
-  /// Reconstruct the [FirebaseRules] object from the annotation
-  FirebaseRules reviveAnnotation(ConstantReader annotation) {
-    return FirebaseRules(
-      rulesVersion: annotation.read('rulesVersion').stringValue,
-      service: readEnum(annotation.read('service'), Service.values)!,
-    );
   }
 }

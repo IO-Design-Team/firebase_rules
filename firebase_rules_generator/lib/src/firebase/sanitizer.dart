@@ -1,14 +1,13 @@
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
-import 'package:firebase_rules_generator/src/common/util.dart';
 
 /// Sanitize rules files
 String sanitizeRules(FirebaseRules annotation, String input) {
   final pass1 = input
       // Remove rules suffixes
-      .remove('.rules')
+      .replaceAll('.rules', '')
       // Remove rules prefixes
-      .remove('rules.');
+      .replaceAll('rules.', '');
 
   // Strip null safety
   final pass2 = pass1.replaceAll('?.', '.').replaceAll('?[', '[');

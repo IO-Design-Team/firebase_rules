@@ -2,7 +2,7 @@
 abstract class RuleDataSnapshot {
   /// Gets the primitive value (string, number, boolean, or null) from this
   /// RuleDataSnapshot.
-  T val<T>();
+  dynamic val();
 
   /// Gets a RuleDataSnapshot for the location at the specified relative path.
   RuleDataSnapshot child(String path);
