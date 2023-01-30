@@ -31,12 +31,12 @@ String sanitizeRules(FirebaseRules annotation, String input) {
       )
       // Convert `contains` to `x in y`
       .replaceAllMapped(
-        RegExp(r'(\S+)\.contains\((.+?)\)'),
+        RegExp(r'(\S+?|\[.+?)\.contains\((.+?)\)'),
         (m) => '${m[2]} in ${m[1]}',
       )
       // Convert `range` to `x[i:j]
       .replaceAllMapped(
-        RegExp(r'(\S+)\.range\((.+?), (.+?)\)'),
+        RegExp(r'(\S+?)\.range\((.+?), (.+?)\)'),
         (m) => '${m[1]}[${m[2]}:${m[3]}]',
       )
       // bool parsing
