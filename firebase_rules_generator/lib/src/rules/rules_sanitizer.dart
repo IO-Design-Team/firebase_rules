@@ -82,7 +82,7 @@ String sanitizeRules(FirebaseRules annotation, String input) {
       .replaceAllMapped(
     RegExp(r'RulesDurationUnit\.([a-z]+)'),
     (m) {
-      final unit = RulesDurationUnit.values.byName(m[2]!).toString();
+      final unit = RulesDurationUnit.values.byName(m[1]!).toString();
       return "'$unit'";
     },
   )
