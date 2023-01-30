@@ -52,7 +52,7 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     final functionAnnotations =
         library.annotatedWith(TypeChecker.fromRuntime(RulesFunction));
 
-    final context = RulesContext.root(library, resolver, debug: revived.debug);
+    final context = RulesContext.root(library, resolver);
     for (final annotation in functionAnnotations) {
       final ast = await resolver.astNodeFor(annotation.element);
       ast as FunctionDeclaration;
@@ -92,7 +92,6 @@ class RulesGenerator extends GeneratorForAnnotation<FirebaseRules> {
     return FirebaseRules(
       rulesVersion: annotation.read('rulesVersion').stringValue,
       service: readEnum(annotation.read('service'), Service.values)!,
-      debug: annotation.read('debug').boolValue,
     );
   }
 }

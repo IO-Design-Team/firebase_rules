@@ -11,14 +11,10 @@ class FirebaseRules {
   /// The firebase service these rules are for
   final Service service;
 
-  /// If true, print debug information
-  final bool debug;
-
   /// Constructor
   const FirebaseRules({
     this.rulesVersion = '2',
     required this.service,
-    this.debug = false,
   });
 }
 

@@ -15,23 +15,18 @@ class RulesContext {
   /// The current indentation level
   final int indent;
 
-  /// If true, print debug information
-  final bool debug;
-
   RulesContext._(
     this.library,
     this.resolver, {
     required this.paths,
     required this.indent,
-    required this.debug,
   });
 
   /// Create the root context
   RulesContext.root(
     this.library,
-    this.resolver, {
-    this.debug = false,
-  })  : paths = {},
+    this.resolver,
+  )   : paths = {},
         indent = 2;
 
   /// Dive deeper into the context with additional paths and indentation
@@ -42,15 +37,11 @@ class RulesContext {
       if (!clean) ...this.paths,
       ...?paths,
     };
-    if (debug) {
-      print('Diving:\n  paths: $newPaths\n');
-    }
     return RulesContext._(
       library,
       resolver,
       paths: newPaths,
       indent: indent + 2,
-      debug: debug,
     );
   }
 }
