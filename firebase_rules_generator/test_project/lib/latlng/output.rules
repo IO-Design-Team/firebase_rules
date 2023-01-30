@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  function test(resource, other) {
+    let a = resource.data.geopoint.distance(other);
+    let b = resource.data.geopoint.latitude();
+    let c = resource.data.geopoint.longitude();
+    let d = latlng.value(0, 0);
+    return true;
+  }
+}

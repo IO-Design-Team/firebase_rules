@@ -7,10 +7,9 @@ import 'package:firebase_rules_convert/firebase_rules_convert.dart';
 @RulesFunction()
 bool test(FirestoreResource<BlobTest> resource) {
   final a = rules.parseBytes(r'\342\202\254'.rules);
-  final b = resource.data.blob.rules;
-  final c = resource.data.blob.rules.size();
-  final d = resource.data.blob.rules.toBase64();
-  final e = resource.data.blob.rules.toHexString();
+  final b = resource.data.blob.rules.size();
+  final c = resource.data.blob.rules.toBase64();
+  final d = resource.data.blob.rules.toHexString();
   return true;
 }
 
