@@ -14,13 +14,13 @@ bool isOwner(RulesRequest request, RulesString uid) {
 final firestoreRules = [
   Match<FirestorePath, FirestoreResource>(
     rules: (path, request, resource) => [
-      Rule([Operation.read], request.auth?.uid == 'god'.rules),
+      Allow([Operation.read], request.auth?.uid == 'god'.rules),
     ],
     matches: (path, request, resource) => [
       Match<UsersPath, FirestoreResource<User>>(
         rules: (users, request, resource) => [
-          Rule([Operation.read], isSignedIn(request)),
-          Rule(
+          Allow([Operation.read], isSignedIn(request)),
+          Allow(
             [Operation.create, Operation.update],
             isOwner(request, users.userId.rules),
           ),
@@ -28,11 +28,11 @@ final firestoreRules = [
       ),
       Match<ContentPath, FirestoreResource<Content>>(
         rules: (content, request, resource) => [
-          Rule(
+          Allow(
             [Operation.read],
             isSignedIn(request) && resource.data.public,
           ),
-          Rule(
+          Allow(
             [Operation.write],
             rules.firestore
                     .get<User>('/users/${request.auth?.uid}'.rules)

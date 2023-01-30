@@ -83,8 +83,8 @@ enum Operation {
   delete,
 }
 
-/// A firebase rule
-class Rule {
+/// A firebase allow rule
+class Allow {
   /// Permitted operations
   final List<Operation> operations;
 
@@ -92,13 +92,13 @@ class Rule {
   final bool condition;
 
   /// Constructor
-  Rule(this.operations, this.condition);
+  Allow(this.operations, this.condition);
 }
 
 /// A firebase rules match statement
 class Match<T extends FirebasePath, U extends FirebaseResource> {
   /// Rules for this context
-  final ContextualCallback<Rule, T, U>? rules;
+  final ContextualCallback<Allow, T, U>? rules;
 
   /// Nested matches for this context
   final ContextualCallback<Match, T, U>? matches;
