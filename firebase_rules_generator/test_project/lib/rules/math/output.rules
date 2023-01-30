@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  function test() {
+    let a = math.abs(0);
+    let b = math.ceil(0);
+    let c = math.floor(0);
+    let d = math.isInfinite(0);
+    let e = math.isNaN(0);
+    let f = math.pow(0, 0);
+    let g = math.round(0);
+    return true;
+  }
+}

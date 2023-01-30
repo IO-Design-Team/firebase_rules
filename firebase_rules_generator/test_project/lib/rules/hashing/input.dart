@@ -3,7 +3,7 @@
 import 'package:firebase_rules/firebase_rules.dart';
 
 @RulesFunction()
-bool test(FirestoreResource resource) {
+bool test() {
   final a = rules.hashing.crc32('asdf');
   final b = rules.hashing.crc32c('asdf');
   final c = rules.hashing.md5('asdf');
