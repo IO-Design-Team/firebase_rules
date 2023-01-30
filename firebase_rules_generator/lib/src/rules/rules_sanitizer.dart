@@ -13,6 +13,10 @@ String sanitizeRules(FirebaseRules annotation, String input) {
       .replaceAll('?.', '.')
       // Convert string interpolation
       .replaceAllMapped(RegExp(r'\${(.+?)}'), (m) => '\$(${m[1]})')
+      // Convert raw single quote strings
+      .replaceAllMapped(RegExp(r"r'(.+?)'"), (m) => "'${m[1]}'")
+      // Convert raw double quote strings
+      .replaceAllMapped(RegExp(r'r"(.+?)"'), (m) => "'${m[1]}'")
       // Convert firestore methods
       .replaceAllMapped(
         RegExp(r"firestore\.(.+?)(<.+?>)?\('(.+?)'\)"),
@@ -36,18 +40,18 @@ String sanitizeRules(FirebaseRules annotation, String input) {
         (m) => '${m[1]}[${m[2]}:${m[3]}]',
       )
       // bool parsing
-      .replaceAllMapped(RegExp(r'parseBool\((.+)\)'), (m) => 'bool(${m[1]})')
+      .replaceAllMapped(RegExp(r'parseBool\((.+?)\)'), (m) => 'bool(${m[1]})')
       // bytes parsing
-      .replaceAllMapped(RegExp(r'parseBytes\((.+)\)'), (m) => "b'${m[1]}'")
+      .replaceAllMapped(RegExp(r"parseBytes\('(.+?)'\)"), (m) => "b'${m[1]}'")
       // float parsing
-      .replaceAllMapped(RegExp(r'parseFloat\((.+)\)'), (m) => 'float(${m[1]})')
+      .replaceAllMapped(RegExp(r'parseFloat\((.+?)\)'), (m) => 'float(${m[1]})')
       // int parsing
-      .replaceAllMapped(RegExp(r'parseInt\((.+)\)'), (m) => 'int(${m[1]})')
+      .replaceAllMapped(RegExp(r'parseInt\((.+?)\)'), (m) => 'int(${m[1]})')
       // Raw rules string
-      .replaceAllMapped(RegExp(r"raw\('(.+)'\)"), (m) => m[1]!)
+      .replaceAllMapped(RegExp(r"raw\('(.+?)'\)"), (m) => m[1]!)
       // Convert RulesDurationUnit
       .replaceAllMapped(
-        RegExp(r'RulesDurationUnit\.(.+)'),
+        RegExp(r'RulesDurationUnit\.(.+?)'),
         (m) {
           final unit = RulesDurationUnit.values.byName(m[1]!).toString();
           return "'$unit'";
