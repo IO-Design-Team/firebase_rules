@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  function test() {
+    let a = 'a' in ['a', 'b'].toSet() == true;
+    let b = ['a', 'b'].toSet().difference(['a', 'c'].toSet()) == ['b'].toSet();
+    let c = ['a', 'b'].toSet().hasAll(['a', 'c'].toSet()) == false;
+    let d = ['d', 'e', 'f'].toSet().hasAll(['d', 'e'].toSet()) == true;
+    let e = ['a', 'b'].toSet().hasAny(['c', 'd'].toSet()) == false;
+    let f = ['a', 'b'].toSet().hasAny(['a', 'c'].toSet()) == true;
+    let g = ['a', 'b'].toSet().hasOnly(['a', 'c'].toSet()) == false;
+    let h = ['a', 'b'].toSet().hasOnly(['a', 'b'].toSet()) == true;
+    let i = ['a', 'b'].toSet().intersection(['a', 'c'].toSet()) == ['a'].toSet();
+    let j = ['a', 'b'].toSet().size() == 2;
+    let k = ['a', 'b'].toSet().union(['a', 'c'].toSet()) == ['a', 'b', 'c'].toSet();
+    return true;
+  }
+}
