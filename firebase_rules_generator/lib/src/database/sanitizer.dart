@@ -1,3 +1,4 @@
+import 'package:firebase_rules/database.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
 import 'package:firebase_rules_generator/src/common/sanitizer.dart';
 
@@ -7,11 +8,9 @@ String sanitizeRules(String input) {
   final pass2 = stripNullSafety(pass1);
   final pass3 = translateStrings(pass2);
   final pass4 = translateEnums(pass3, {
-    // TODO
-    // 'RulesDurationUnit': RulesDurationUnit.values,
-    // 'RulesRequestMethod': RulesRequestMethod.values,
-    // 'RulesIdentityProvider': RulesIdentityProvider.values,
-    // 'RulesSignInProvider': RulesSignInProvider.values,
+    'RulesProvider': RulesProvider.values,
+    'RulesIdentityProvider': RulesIdentityProvider.values,
+    'RulesSignInProvider': RulesSignInProvider.values,
   });
   final pass5 = translateAuthVariables(pass4);
   return pass5;
