@@ -21,7 +21,7 @@ class FirebaseRulesGenerator extends RulesGenerator<FirebaseRules> {
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {
-    checkValidity(element);
+    checkType(element);
 
     final revived = reviveAnnotation(annotation);
 
@@ -43,9 +43,13 @@ class FirebaseRulesGenerator extends RulesGenerator<FirebaseRules> {
       }
     }
 
-    await for (final line
-        in visitMatches(context, element, resolver, visitMatch)) {
-      buffer.writeln(line);
+    final ast = await resolver.astNodeFor(element);
+    final matches = ast!.childEntities.whereType<ListLiteral>().single.elements;
+
+    for (final match in matches) {
+      await for (final line in visitMatch(context, match)) {
+        buffer.writeln(line);
+      }
     }
 
     buffer.writeln('}');

@@ -5,13 +5,14 @@ import 'package:build_test/build_test.dart';
 import 'package:firebase_rules_generator/firebase_rules_generator.dart';
 import 'package:test/test.dart';
 
-void testRulesBuilder(String name) {
+void testDatabaseRulesBuilder(String name) {
   test(name, () async {
-    final input = File('test_project/lib/$name/input.dart').readAsStringSync();
+    final input =
+        File('test_project/lib/database/$name/input.dart').readAsStringSync();
     final output =
-        File('test_project/lib/$name/output.rules').readAsStringSync();
+        File('test_project/lib/database/$name/output.rules').readAsStringSync();
     await testBuilder(
-      firebaseRules(BuilderOptions.empty),
+      databaseRules(BuilderOptions.empty),
       {'test|test.dart': input},
       reader: await PackageAssetReader.currentIsolate(),
       outputs: {'test|test.rules': output},

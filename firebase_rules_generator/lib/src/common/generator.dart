@@ -28,8 +28,8 @@ abstract class RulesGenerator<T> extends GeneratorForAnnotation<T> {
   }
 
   /// If the element is a List<Match>
-  void checkValidity(Element element) {
-    if (!_isValidRules(element)) {
+  void checkType(Element element) {
+    if (!_isMatchList(element)) {
       throw InvalidGenerationSourceError(
         'The annotated element must be a List<Match>',
         element: element,
@@ -38,7 +38,7 @@ abstract class RulesGenerator<T> extends GeneratorForAnnotation<T> {
   }
 
   /// Check that the element is a List<Match>
-  bool _isValidRules(Element element) {
+  bool _isMatchList(Element element) {
     element as TopLevelVariableElement;
     if (!element.type.isDartCoreList) {
       return false;
@@ -48,22 +48,5 @@ abstract class RulesGenerator<T> extends GeneratorForAnnotation<T> {
         .single
         .element as ClassElement;
     return classElement.name == 'Match';
-  }
-
-  /// Visit all the matches in the list
-  Stream<String> visitMatches(
-    Context context,
-    Element element,
-    Resolver resolver,
-    Stream<String> Function(Context, AstNode) visit,
-  ) async* {
-    final ast = await resolver.astNodeFor(element);
-    final matches = ast!.childEntities.whereType<ListLiteral>().single.elements;
-
-    for (final match in matches) {
-      await for (final line in visit(context, match)) {
-        yield line;
-      }
-    }
   }
 }

@@ -1,5 +1,5 @@
-import '../util.dart';
+import '../../util.dart';
 
 void main() {
-  testRulesBuilder('firebase/namespace/rules/firestore');
+  testFirebaseRulesBuilder('namespace/rules/firestore');
 }
