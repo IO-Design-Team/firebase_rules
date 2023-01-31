@@ -2,7 +2,6 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-@RulesFunction()
 bool test() {
   final a = rules.firestore.exists(rules.path(r'/path/to/resource'.rules));
   final b = rules.firestore.existsAfter(rules.path(r'/path/to/resource'.rules));
@@ -19,10 +18,10 @@ bool test() {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test])
 final firestoreRules = <Match>[];
 
-@FirebaseRules(service: Service.storage)
+@FirebaseRules(service: Service.storage, functions: [test])
 final storageRules = <Match>[];
 
 abstract class TestResource {

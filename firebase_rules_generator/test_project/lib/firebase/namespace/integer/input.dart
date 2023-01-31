@@ -2,12 +2,11 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-@RulesFunction()
 bool test() {
   final a = rules.parseInt('2'.rules);
   final b = rules.parseInt(2.0);
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test])
 final firestoreRules = <Match>[];

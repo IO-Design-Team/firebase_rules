@@ -2,7 +2,6 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-@RulesFunction()
 bool test(RulesDuration other) {
   final a = other.nanos();
   final b = other.seconds();
@@ -19,5 +18,5 @@ bool test(RulesDuration other) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test])
 final firestoreRules = <Match>[];

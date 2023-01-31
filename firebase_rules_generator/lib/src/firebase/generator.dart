@@ -6,6 +6,7 @@ import 'package:build/build.dart';
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
 import 'package:firebase_rules_generator/src/common/generator.dart';
+import 'package:firebase_rules_generator/src/firebase/revived_firebase_rules.dart';
 import 'package:firebase_rules_generator/src/firebase/sanitizer.dart';
 import 'package:firebase_rules_generator/src/firebase/util.dart';
 import 'package:firebase_rules_generator/src/firebase/visitor/function_visitor.dart';
@@ -30,12 +31,9 @@ class FirebaseRulesGenerator extends RulesGenerator<FirebaseRules> {
 
     // Generate functions
     final resolver = buildStep.resolver;
-    final functionAnnotations =
-        library.annotatedWith(TypeChecker.fromRuntime(RulesFunction));
-
     final context = Context.root(library, resolver);
-    for (final annotation in functionAnnotations) {
-      final ast = await resolver.astNodeFor(annotation.element);
+    for (final function in revived.functions) {
+      final ast = await resolver.astNodeFor(function);
       ast as FunctionDeclaration;
       await for (final line in visitFunction(context, ast)) {
         buffer.writeln(line);
@@ -56,10 +54,15 @@ class FirebaseRulesGenerator extends RulesGenerator<FirebaseRules> {
   }
 
   /// Reconstruct the [FirebaseRules] object from the annotation
-  FirebaseRules reviveAnnotation(ConstantReader annotation) {
-    return FirebaseRules(
+  RevivedFirebaseRules reviveAnnotation(ConstantReader annotation) {
+    return RevivedFirebaseRules(
       rulesVersion: annotation.read('rulesVersion').stringValue,
       service: readEnum(annotation.read('service'), Service.values)!,
+      functions: annotation
+          .read('functions')
+          .listValue
+          .map((e) => e.toFunctionValue()! as FunctionElement)
+          .toList(),
     );
   }
 }

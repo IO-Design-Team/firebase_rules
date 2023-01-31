@@ -2,7 +2,6 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-@RulesFunction()
 bool test(RulesPath other) {
   final a = rules.path('/path/to/resource'.rules);
   final b = other['fieldname'];
@@ -17,5 +16,5 @@ bool test(RulesPath other) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test])
 final firestoreRules = <Match>[];

@@ -2,7 +2,6 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-@RulesFunction()
 bool test1(FirestoreResource<ResourceTest> resource) {
   final a = resource.firestoreResourceName ==
       rules.path('/collection/${resource.id}'.rules, database: 'default');
@@ -10,7 +9,6 @@ bool test1(FirestoreResource<ResourceTest> resource) {
   return true;
 }
 
-@RulesFunction()
 bool test2(StorageResource resource) {
   final a = resource.name;
   final b = resource.bucket;
@@ -30,7 +28,7 @@ bool test2(StorageResource resource) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test1, test2])
 final firestoreRules = <Match>[];
 
 abstract class ResourceTest {

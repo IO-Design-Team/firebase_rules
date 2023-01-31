@@ -2,12 +2,11 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-@RulesFunction()
 bool test() {
   final a = rules.parseFloat('2.2'.rules);
   final b = rules.parseFloat(2);
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test])
 final firestoreRules = <Match>[];

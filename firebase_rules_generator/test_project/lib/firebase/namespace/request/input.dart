@@ -2,7 +2,6 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-@RulesFunction()
 bool test1(RulesRequest request) {
   final a = request.auth != null;
   final b = request.auth?.uid;
@@ -28,7 +27,6 @@ bool test1(RulesRequest request) {
   return true;
 }
 
-@RulesFunction()
 bool test2(RulesRequest request) {
   final a = request.auth?.token.identities[RulesIdentityProvider.email]?[0];
   final b = request.auth?.token.identities[RulesIdentityProvider.phone]?[0];
@@ -47,5 +45,5 @@ bool test2(RulesRequest request) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test1, test2])
 final firestoreRules = <Match>[];

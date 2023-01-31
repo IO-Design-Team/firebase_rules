@@ -2,7 +2,6 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-@RulesFunction()
 bool test(RulesMap<String, int> other) {
   final a = {'a': 2}.rules.contains('a');
   final b = other.contains('a');
@@ -18,5 +17,5 @@ bool test(RulesMap<String, int> other) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test])
 final firestoreRules = <Match>[];

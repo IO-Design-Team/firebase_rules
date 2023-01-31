@@ -11,18 +11,15 @@ class FirebaseRules {
   /// The firebase service these rules are for
   final Service service;
 
+  /// Functions to include in these rules
+  final List<Function> functions;
+
   /// Constructor
   const FirebaseRules({
     this.rulesVersion = '2',
     required this.service,
+    this.functions = const [],
   });
-}
-
-/// Firebase Rules function annotation
-@Target({TargetKind.function})
-class RulesFunction {
-  /// Constructor
-  const RulesFunction();
 }
 
 /// Firebase rules services

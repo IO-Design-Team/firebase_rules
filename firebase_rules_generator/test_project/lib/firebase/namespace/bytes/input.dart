@@ -4,7 +4,6 @@ import 'package:firebase_rules/firebase.dart';
 import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_interface.dart';
 import 'package:firebase_rules_convert/firebase_rules_convert.dart';
 
-@RulesFunction()
 bool test(FirestoreResource<BlobTest> resource) {
   final a = rules.parseBytes(r'\342\202\254'.rules);
   final b = resource.data.blob.rules.size();
@@ -13,7 +12,7 @@ bool test(FirestoreResource<BlobTest> resource) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test])
 final firestoreRules = <Match>[];
 
 abstract class BlobTest {

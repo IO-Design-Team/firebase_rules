@@ -2,7 +2,6 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-@RulesFunction()
 bool test(RulesList<String> list, RulesList<String> other) {
   final a = list[0];
   final b = list.range(0, 1);
@@ -21,5 +20,5 @@ bool test(RulesList<String> list, RulesList<String> other) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test])
 final firestoreRules = <Match>[];

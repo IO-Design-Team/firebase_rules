@@ -4,7 +4,6 @@ import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_inte
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_convert/firebase_rules_convert.dart';
 
-@RulesFunction()
 bool test(FirestoreResource<GeoPointTest> resource, RulesLatLng other) {
   final a = resource.data.geopoint.rules.distance(other);
   final b = resource.data.geopoint.rules.latitude();
@@ -13,7 +12,7 @@ bool test(FirestoreResource<GeoPointTest> resource, RulesLatLng other) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(service: Service.firestore, functions: [test])
 final firestoreRules = <Match>[];
 
 abstract class GeoPointTest {

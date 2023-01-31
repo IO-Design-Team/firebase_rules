@@ -1,14 +1,14 @@
 A type-safe Firebase rules generator for Firestore, Storage, and Realtime Database
 
-## Super Early Bird Special
-- Is this package production ready: no
-- What works: the example
-- What doesn't work: probably everything else
-- Where is the documentation: nowhere
+## Features
+- Create rules for Firestore, Storage, and Realtime Database in a type-safe environment
+- Mimics the Firebase rules syntax for easy migration
 
-If you want to try it anyways, great! Please let me know what's broken.
+## Limitations
+- All rules functions must be defined at the root level
+- Realtime Database rules are not really type-safe, but you do get the benefit of having code completion
 
-How to add it to your project:
+## Installation
 ```yaml
 dependencies:
   firebase_rules: latest
@@ -19,3 +19,6 @@ dev_dependencies:
     build_runner: latest
     firebase_rules_generator: latest
 ```
+
+## Usage
+
