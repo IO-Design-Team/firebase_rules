@@ -1,14 +1,14 @@
 /// Generated file header we want to remove
-const header = '''
+String headerForGenerator(String name) => '''
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// RulesGenerator
+// $name
 // **************************************************************************
 
 ''';
 
 /// Format rules files
-String formatRules(String input) {
-  return input.replaceAll(header, '');
+String formatRules(String generatorName, String input) {
+  return input.replaceFirst(headerForGenerator(generatorName), '');
 }

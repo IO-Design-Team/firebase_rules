@@ -8,12 +8,12 @@ import 'package:source_gen/source_gen.dart';
 Builder firebaseRules(BuilderOptions options) => LibraryBuilder(
       FirebaseRulesGenerator(),
       generatedExtension: '.rules',
-      formatOutput: formatRules,
+      formatOutput: (input) => formatRules('FirebaseRulesGenerator', input),
     );
 
 /// Run the [DatabaseRulesGenerator]
 Builder databaseRules(BuilderOptions options) => LibraryBuilder(
       DatabaseRulesGenerator(),
       generatedExtension: '.rules.json',
-      formatOutput: formatRules,
+      formatOutput: (input) => formatRules('DatabaseRulesGenerator', input),
     );

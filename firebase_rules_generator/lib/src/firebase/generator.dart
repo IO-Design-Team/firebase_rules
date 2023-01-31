@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/type.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
