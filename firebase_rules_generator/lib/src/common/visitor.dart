@@ -11,20 +11,25 @@ String getParameterName(FunctionExpression function, int index) {
   return parameter.name!.toString();
 }
 
+/// Get a parameter by name
+AstNode? getNamedParameter(String name, Iterable<SyntacticEntity> arguments) {
+  return arguments
+      .whereType<NamedExpression>()
+      .where((e) => e.name.label.name == name)
+      .firstOrNull
+      ?.expression;
+}
+
 /// Visit a function parameter
 Stream<String> visitParameter(
   Context context,
   AstNode node,
   Iterable<SyntacticEntity> arguments,
   String name,
-  Stream<String> Function(Context context, CollectionElement element) visit, {
+  Stream<String> Function(Context context, AstNode element) visit, {
   void Function(FunctionExpression function)? validate,
 }) async* {
-  final expression = arguments
-      .whereType<NamedExpression>()
-      .where((e) => e.name.label.name == name)
-      .firstOrNull
-      ?.expression;
+  final expression = getNamedParameter(name, arguments);
   if (expression == null) return;
 
   final FunctionExpression function;
@@ -53,16 +58,13 @@ Stream<String> visitParameter(
       .whereType<ListLiteral>()
       .firstOrNull
       ?.elements;
-  if (elements == null) {
-    throw InvalidGenerationSourceError(
-      'Match parameter must be a list literal: ${node.toSource()}',
-    );
-  }
 
-  for (final element in elements) {
-    yield* visit(
-      context.dive(clean: cleanContext, paths: {pathParameter}),
-      element,
-    );
+  final newContext = context.dive(clean: cleanContext, paths: {pathParameter});
+  if (elements == null) {
+    yield* visit(newContext, function.body);
+  } else {
+    for (final element in elements) {
+      yield* visit(newContext, element);
+    }
   }
 }

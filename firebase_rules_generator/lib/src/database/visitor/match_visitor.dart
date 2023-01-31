@@ -1,7 +1,8 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
 import 'package:firebase_rules_generator/src/common/visitor.dart';
-import 'package:firebase_rules_generator/src/firebase/visitor/rule_visitor.dart';
+import 'package:firebase_rules_generator/src/database/sanitizer.dart';
 import 'package:firebase_rules_generator/src/common/util.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -11,9 +12,13 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
   final path = (arguments.first as SimpleStringLiteral).value;
   final segments = path.split('/');
 
-  for (final segment in segments) {
+  for (int i = 0; i < segments.length; i++) {
+    final segment = segments[i];
     yield '"$segment": {'.indent(context.indent);
-    context = context.dive();
+    if (i != segments.length - 1) {
+      // Don't dive on the last segment
+      context = context.dive();
+    }
   }
 
   // Must have at least two arguments
@@ -23,10 +28,53 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     );
   }
 
-  yield* visitParameter(context, node, arguments, 'rules', visitRule);
+  yield* visitParameter(
+    context,
+    node,
+    arguments,
+    'read',
+    (context, node) => _visitRule('read', context, node),
+  );
+  yield* visitParameter(
+    context,
+    node,
+    arguments,
+    'write',
+    (context, node) => _visitRule('write', context, node),
+  );
+  yield* visitParameter(
+    context,
+    node,
+    arguments,
+    'validate',
+    (context, node) => _visitRule('validate', context, node),
+  );
+  yield* _visitIndexOn(context.dive(), arguments);
   yield* visitParameter(context, node, arguments, 'matches', visitMatch);
 
-  for (var i = 1; i <= segments.length; i++) {
-    yield '}'.indent(context.indent - i * 2);
+  for (var i = 0; i < segments.length; i++) {
+    yield '},'.indent(context.indent - i * 2);
   }
+}
+
+/// Visit indexOn nodes
+Stream<String> _visitIndexOn(
+  Context context,
+  List<SyntacticEntity> node,
+) async* {
+  final source = getNamedParameter('indexOn', node)?.toSource();
+  if (source == null) return;
+  final list = source.replaceAll("'", '"');
+  yield '".indexOn": $list,'.indent(context.indent);
+}
+
+/// Visit Rule nodes
+Stream<String> _visitRule(
+  String operation,
+  Context context,
+  AstNode node,
+) async* {
+  final expression = (node as ExpressionFunctionBody).expression;
+  final condition = sanitizePaths(context, expression.toSource());
+  yield '".$operation": "$condition",'.indent(context.indent);
 }

@@ -81,9 +81,9 @@ String sanitizeRules(FirebaseRules annotation, String input) {
 
 /// Sanitize path parameter prefixes from rules
 String sanitizePaths(Context context, String input) {
-  var sanitized = '';
+  var sanitized = input;
   for (final path in context.paths) {
-    sanitized = input.replaceAll('$path.', '');
+    sanitized = sanitized.replaceAll('$path.', '');
   }
   return sanitized;
 }

@@ -2,7 +2,17 @@
   "rules": {
     "users": {
       "$userId": {
-      }
-    }
-  }
+        ".read": "auth != null && auth.uid == $userId",
+        ".write": "$userId == 'user1'",
+        ".validate": "!data.exists()",
+        ".indexOn": ["uid", "email"],
+        "contracts": {
+          "$contractId": {
+            ".read": "root.child('users').child($userId).child($contractId).val() != null",
+            ".write": "root.child('users').child($userId).child($contractId).val() != null",
+          },
+        },
+      },
+    },
+  },
 }
