@@ -1,26 +1,12 @@
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/sanitizer.dart';
 
 /// Sanitize rules files
 String sanitizeRules(FirebaseRules annotation, String input) {
-  final pass1 = input
-      // Remove rules suffixes
-      .replaceAll('.rules', '')
-      // Remove rules prefixes
-      .replaceAll('rules.', '');
-
-  // Strip null safety
-  final pass2 = pass1.replaceAll('?.', '.').replaceAll('?[', '[');
-
-  final pass3 = pass2
-      // Convert string interpolation
-      .replaceAllMapped(RegExp(r'\${(.+?)}'), (m) => '\$(${m[1]})')
-      // Convert raw single quote strings
-      // TODO: Needs work to avoid collisions
-      .replaceAllMapped(RegExp(r"\br'(.+?)'"), (m) => "'${m[1]}'")
-      // Convert raw double quote strings
-      // TODO: Needs work to avoid collisions
-      .replaceAllMapped(RegExp(r'\br"(.+?)"'), (m) => "'${m[1]}'");
+  final pass1 = removeRulesPrefixesAndSuffixes(input);
+  final pass2 = stripNullSafety(pass1);
+  final pass3 = translateStrings(pass2);
 
   final pass4 = pass3
       // Convert firestore methods
@@ -76,48 +62,21 @@ String sanitizeRules(FirebaseRules annotation, String input) {
       // Raw rules string
       .replaceAllMapped(RegExp(r"raw\('(.+?)'\)"), (m) => m[1]!);
 
-  final pass8 = pass7
-      // Convert RulesDurationUnit
-      .replaceAllMapped(
-    RegExp(r'RulesDurationUnit\.([a-z]+)'),
-    (m) {
-      final unit = RulesDurationUnit.values.byName(m[1]!).toString();
-      return "'$unit'";
-    },
-  )
-      // Convert RequestMethod
-      .replaceAllMapped(
-    RegExp(r'RulesRequestMethod\.([a-z]+)'),
-    (m) {
-      final method = RulesRequestMethod.values.byName(m[1]!).toString();
-      return "'$method'";
-    },
-  ).replaceAllMapped(
-    RegExp(r'RulesIdentityProvider\.([a-z]+)'),
-    (m) {
-      final provider = RulesIdentityProvider.values.byName(m[1]!).toString();
-      return "'$provider'";
-    },
-  ).replaceAllMapped(
-    RegExp(r'RulesSignInProvider\.([a-z]+)'),
-    (m) {
-      final provider = RulesSignInProvider.values.byName(m[1]!).toString();
-      return "'$provider'";
-    },
+  final pass8 = translateEnums(pass7, {
+    'RulesDurationUnit': RulesDurationUnit.values,
+    'RulesRequestMethod': RulesRequestMethod.values,
+    'RulesIdentityProvider': RulesIdentityProvider.values,
+    'RulesSignInProvider': RulesSignInProvider.values,
+  });
+
+  final pass9 = translateAuthVariables(pass8);
+
+  final pass10 = pass9.replaceAll(
+    'resource.firestoreResourceName',
+    "resource['__name__']",
   );
 
-  final pass9 = pass8
-      .replaceAll('auth.token.emailVerified', 'auth.token.email_verified')
-      .replaceAll('auth.token.phoneNumber', 'auth.token.phone_number')
-      .replaceAll('auth.token.identities', 'auth.token.firebase.identities')
-      .replaceAll(
-        'auth.token.signInProvider',
-        'auth.token.firebase.sign_in_provider',
-      )
-      .replaceAll('auth.token.tenant', 'auth.token.firebase.tenant')
-      .replaceAll('resource.firestoreResourceName', "resource['__name__']");
-
-  return pass9;
+  return pass10;
 }
 
 /// Sanitize path parameter prefixes from rules
