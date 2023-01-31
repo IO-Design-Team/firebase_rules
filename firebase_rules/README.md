@@ -47,7 +47,7 @@ final databaseRules = [];
 
 ### Paths
 
-Patch classes allow for type-safe access to path parameters
+Path classes allow for type-safe access to path parameters
 
 <!-- embedme readme/paths.dart -->
 ```dart
