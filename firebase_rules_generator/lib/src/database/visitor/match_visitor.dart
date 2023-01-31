@@ -12,7 +12,7 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
   final path = (arguments.first as SimpleStringLiteral).value;
   final segments = path.split('/');
 
-  for (int i = 0; i < segments.length; i++) {
+  for (var i = 0; i < segments.length; i++) {
     final segment = segments[i];
     yield '"$segment": {'.indent(context.indent);
     if (i != segments.length - 1) {

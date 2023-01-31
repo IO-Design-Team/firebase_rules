@@ -13,7 +13,12 @@ String sanitizeRules(String input) {
     'RulesSignInProvider': RulesSignInProvider.values,
   });
   final pass5 = translateAuthVariables(pass4);
-  return pass5;
+  // Insert database regex
+  final pass6 = pass5.replaceAllMapped(
+    RegExp(r"\.matches\('(.+?)'\)"),
+    (m) => '.matches(/${m[1]}/)',
+  );
+  return pass6;
 }
 
 /// Sanitize path parameter prefixes from rules
