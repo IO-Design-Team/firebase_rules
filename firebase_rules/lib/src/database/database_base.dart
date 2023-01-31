@@ -11,11 +11,7 @@ class DatabaseRules {
 /// A callback that provides information about the current rules context
 typedef ContextualCallback<T> = T Function(RulesString location);
 
-/// Database rules base path
-const basePath = 'rules';
-
 /// Database match statement
-
 class Match {
   /// The path
   ///
