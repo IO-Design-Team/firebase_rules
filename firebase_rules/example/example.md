@@ -3,16 +3,20 @@
 import 'package:firebase_rules/firebase.dart';
 import 'package:cloud_firestore_platform_interface/cloud_firestore_platform_interface.dart';
 
-
 bool isSignedIn(RulesRequest request) => request.auth != null;
-
 
 bool isOwner(RulesRequest request, RulesString uid) {
   final requestingUid = request.auth?.uid;
   return requestingUid == uid;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(
+  service: Service.firestore,
+  functions: [
+    isSignedIn,
+    isOwner,
+  ],
+)
 final firestoreRules = [
   Match<FirestorePath, FirestoreResource>(
     rules: (path, request, resource) => [
