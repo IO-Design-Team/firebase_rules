@@ -1,3 +1,5 @@
+import 'package:firebase_rules/database.dart';
+
 /// A Rule Data Snapshot
 abstract class RuleDataSnapshot {
   /// Gets the primitive value (string, number, boolean, or null) from this
@@ -5,16 +7,16 @@ abstract class RuleDataSnapshot {
   dynamic val();
 
   /// Gets a RuleDataSnapshot for the location at the specified relative path.
-  RuleDataSnapshot child(String path);
+  RuleDataSnapshot child(RulesString path);
 
   /// Gets a RuleDataSnapshot for the parent location.
   RuleDataSnapshot parent();
 
   /// Returns true if the specified child exists.
-  bool hasChild(String path);
+  bool hasChild(RulesString path);
 
   /// Checks for the existence of children.
-  bool hasChildren([List<String> keys]);
+  bool hasChildren([List<RulesString> keys]);
 
   /// Returns true if this RuleDataSnapshot contains any data.
   bool exists();

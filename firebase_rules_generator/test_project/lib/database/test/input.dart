@@ -13,9 +13,11 @@ final databaseRules = [
       Match(
         r'contracts/$contractId',
         read: (contractId) =>
-            root.child('users').child(userId).child(contractId).val() != null,
+            root.child('users'.rules).child(userId).child(contractId).val() !=
+            null,
         write: (contractId) =>
-            root.child('users').child(userId).child(contractId).val() != null,
+            root.child('users'.rules).child(userId).child(contractId).val() !=
+            null,
       ),
     ],
   ),
