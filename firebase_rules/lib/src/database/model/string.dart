@@ -27,8 +27,5 @@ abstract class RulesString {
 
   /// Returns true if the string matches the specified regular expression
   /// literal.
-  // TODO: Convert to database rules regex
   bool matches(String regex);
 }
-
-extension on String {}
