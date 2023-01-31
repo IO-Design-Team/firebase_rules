@@ -1,4 +1,3 @@
-
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:source_gen/source_gen.dart';
 

@@ -1,8 +1,8 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:collection/collection.dart';
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/visitor.dart';
 import 'package:firebase_rules_generator/src/firebase/visitor/rule_visitor.dart';
 import 'package:firebase_rules_generator/src/common/util.dart';
 import 'package:source_gen/source_gen.dart';
@@ -22,10 +22,40 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     );
   }
 
-  yield* _visitParameter(context, node, arguments, 'rules', visitRule);
-  yield* _visitParameter(context, node, arguments, 'matches', visitMatch);
+  yield* visitParameter(
+    context,
+    node,
+    arguments,
+    'rules',
+    visitRule,
+    validate: _validateParameterFunction,
+  );
+  yield* visitParameter(
+    context,
+    node,
+    arguments,
+    'matches',
+    visitMatch,
+    validate: _validateParameterFunction,
+  );
 
   yield '}'.indent(context.indent);
+}
+
+void _validateParameterFunction(FunctionExpression function) {
+  final requestParameter = getParameterName(function, 1);
+  if (requestParameter != 'request') {
+    throw InvalidGenerationSourceError(
+      'Request parameter misnamed: $requestParameter}',
+    );
+  }
+
+  final resourceParameter = getParameterName(function, 2);
+  if (resourceParameter != 'resource') {
+    throw InvalidGenerationSourceError(
+      'Resource parameter misnamed: $resourceParameter}',
+    );
+  }
 }
 
 Future<String> _getPath(Context context, AstNode node) async {
@@ -67,78 +97,4 @@ Future<String> _getPath(Context context, AstNode node) async {
   }
 
   return path;
-}
-
-String _getParameterName(FunctionExpression function, int index) {
-  final parameter = function.parameters!.childEntities.elementAt(index + 1)
-      as SimpleFormalParameter;
-  return parameter.name!.toString();
-}
-
-Stream<String> _visitParameter(
-  Context context,
-  AstNode node,
-  Iterable<SyntacticEntity> arguments,
-  String name,
-  Stream<String> Function(Context context, CollectionElement element) visit,
-) async* {
-  final expression = arguments
-      .whereType<NamedExpression>()
-      .where((e) => e.name.label.name == name)
-      .firstOrNull
-      ?.expression;
-  if (expression == null) return;
-
-  final FunctionExpression function;
-  final bool cleanContext;
-  if (expression is FunctionExpression) {
-    function = expression;
-    cleanContext = false;
-  } else if (expression is SimpleIdentifier) {
-    // If this is a reference to a function, find the function declaration
-    final element = context.library.allElements
-        .singleWhere((e) => e.name == expression.name);
-    final ast =
-        await context.resolver.astNodeFor(element) as FunctionDeclaration;
-    function = ast.functionExpression;
-    cleanContext = true;
-  } else {
-    throw InvalidGenerationSourceError(
-      'Invalid match function: ${expression.toSource()}',
-    );
-  }
-
-  // Validate the request and resource parameters
-  final requestParameter = _getParameterName(function, 1);
-  if (requestParameter != 'request') {
-    throw InvalidGenerationSourceError(
-      'Request parameter misnamed: $requestParameter}',
-    );
-  }
-
-  final resourceParameter = _getParameterName(function, 2);
-  if (resourceParameter != 'resource') {
-    throw InvalidGenerationSourceError(
-      'Resource parameter misnamed: $resourceParameter}',
-    );
-  }
-
-  final pathParameter = _getParameterName(function, 0);
-
-  final elements = function.body.childEntities
-      .whereType<ListLiteral>()
-      .firstOrNull
-      ?.elements;
-  if (elements == null) {
-    throw InvalidGenerationSourceError(
-      'Match parameter must be a list literal: ${node.toSource()}',
-    );
-  }
-
-  for (final element in elements) {
-    yield* visit(
-      context.dive(clean: cleanContext, paths: {pathParameter}),
-      element,
-    );
-  }
 }
