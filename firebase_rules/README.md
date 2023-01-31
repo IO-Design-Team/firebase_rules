@@ -218,7 +218,7 @@ Finally, we can run the generator
 $ dart pub run build_runner build
 ```
 
-For every `rules.dart` files, this will generate a `rules.rules` file in the same directory. Point your Firebase config to this file to use the rules.
+For every `rules.dart` file, this will generate a `rules.rules` file in the same directory. Point your Firebase config to this file to use the rules.
 
 ## Realtime Database
 
