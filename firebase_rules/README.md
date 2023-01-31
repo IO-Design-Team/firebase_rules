@@ -88,7 +88,7 @@ final firestoreRules = [
     /// - [path] is the path class of this match
     /// - [request] gives access to the [Request] object
     /// - [resource] gives access to the [Resource] object
-    /// 
+    ///
     /// The [path] parameter can have any name, but [request] and [resource]
     /// must not  be renamed
     matches: (path, request, resource) => [
@@ -147,6 +147,7 @@ import 'package:firebase_rules/firebase.dart';
 void example() {
   /// Dart objects can be converted to rules objects by calling `rules` on them
   ''.rules.range(0, 1);
+
   /// Methods called on `rules` types also take `rules` types as arguments
   [].rules.concat([].rules);
 

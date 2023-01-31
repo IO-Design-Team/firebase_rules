@@ -9,7 +9,7 @@ final firestoreRules = [
     /// - [path] is the path class of this match
     /// - [request] gives access to the [Request] object
     /// - [resource] gives access to the [Resource] object
-    /// 
+    ///
     /// The [path] parameter can have any name, but [request] and [resource]
     /// must not  be renamed
     matches: (path, request, resource) => [
