@@ -5,6 +5,7 @@
 - Ignore paths that equal `_`
 - Database string `matches(regex)` regex now must include the leading and trailing `/`
 - Fixes issue with raw matching
+- Raws are now completely ignored during sanitization
 
 ## 0.0.1
 - Initial release

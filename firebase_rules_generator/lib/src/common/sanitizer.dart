@@ -1,3 +1,11 @@
+/// Perform the given [transforms] on the given [input]
+String transform(String input, List<String Function(String input)> transforms) {
+  for (final transform in transforms) {
+    input = transform(input);
+  }
+  return input;
+}
+
 /// Remove rules prefixes and suffixes
 String removeRulesPrefixesAndSuffixes(String input) => input
     // Remove rules suffixes
@@ -22,9 +30,8 @@ String translateStrings(String input) => input
 
 /// Translate enums
 String translateEnums(String input, Map<String, List<Enum>> enums) {
-  var output = input;
   for (final entry in enums.entries) {
-    output = output.replaceAllMapped(
+    input = input.replaceAllMapped(
       RegExp(entry.key + r'\.([a-z]+)'),
       (m) {
         final value = entry.value.byName(m[1]!).toString();
@@ -32,7 +39,7 @@ String translateEnums(String input, Map<String, List<Enum>> enums) {
       },
     );
   }
-  return output;
+  return input;
 }
 
 /// Translate auth variables

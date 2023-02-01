@@ -3,6 +3,7 @@ service cloud.firestore {
   function test() {
     let a = foo.bar.baz == 'qux';
     let b = foo.bar.baz == 123;
+    let c = foo.bar.rules == 'asdf';
     return true;
   }
 }

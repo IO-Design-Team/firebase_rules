@@ -4,6 +4,12 @@ A type-safe Firebase rules generator for Firestore, Storage, and Realtime Databa
 - Create rules for Firestore, Storage, and Realtime Database in a type-safe environment
 - Mimics the Firebase rules syntax for easy migration
 
+The benefits:
+- Type-safe access to your data model. Get errors if rules don't match the model.
+- Rules are easier to read and maintain
+- Split rules into multiple files for organization
+- Add comments to Realtime Database rules
+
 ## Limitations
 - All rules functions must be defined at the root level
 - Realtime Database rules are not really type-safe, but you do get the benefit of having code completion
