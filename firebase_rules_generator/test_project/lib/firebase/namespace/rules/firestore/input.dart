@@ -18,11 +18,15 @@ bool test() {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore, functions: [test])
-final firestoreRules = <Match>[];
+@FirebaseRules(service: Service.firestore)
+final firestoreRules = [
+  Match<FirestoreRoot, FirestoreResource>(functions: [test]),
+];
 
-@FirebaseRules(service: Service.storage, functions: [test])
-final storageRules = <Match>[];
+@FirebaseRules(service: Service.storage)
+final storageRules = [
+  Match<FirestoreRoot, FirestoreResource>(functions: [test]),
+];
 
 abstract class TestResource {
   int get asdf;

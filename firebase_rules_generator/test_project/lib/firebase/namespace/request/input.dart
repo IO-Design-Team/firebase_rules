@@ -48,5 +48,7 @@ bool test2(RulesRequest request) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore, functions: [test1, test2])
-final firestoreRules = <Match>[];
+@FirebaseRules(service: Service.firestore)
+final firestoreRules = [
+  Match<FirestoreRoot, FirestoreResource>(functions: [test1, test2]),
+];
