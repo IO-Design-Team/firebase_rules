@@ -9,7 +9,8 @@ bool isSignedIn(RulesRequest request) {
 @FirebaseRules(service: Service.firestore)
 final rules = [
   Match<FirestoreRoot, FirestoreResource>(
-    /// Functions are scoped to matches
+    /// Functions are scoped to matches, but must be declared as top-level
+    /// functions
     functions: [isSignedIn],
   )
 ];
