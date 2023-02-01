@@ -43,4 +43,17 @@ final databaseRules = [
         .child(auth!.token.customClaim<RulesString>('identifier').toLowerCase())
         .exists(),
   ),
+  Match(
+    'g',
+    read: (_) => root
+        .child('users'.rules)
+        .child(auth!.token.customClaim<RulesString>('identifier').toUpperCase())
+        .exists(),
+  ),
+  Match(
+    'h',
+    validate: (_) =>
+        newData.isString() &&
+        newData.val().matches(r'/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i'),
+  )
 ];

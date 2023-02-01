@@ -3,6 +3,7 @@
 - Translate `r"..."` to `"..."` instead of `'...'`
 - Strip null check (`!`) operators
 - Ignore paths that equal `_`
+- Database string `matches(regex)` regex now must include the leading and trailing `/`
 
 ## 0.0.1
 - Initial release

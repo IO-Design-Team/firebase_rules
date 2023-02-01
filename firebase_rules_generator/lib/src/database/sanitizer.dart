@@ -16,11 +16,11 @@ String sanitizeRules(String input) {
   // Insert database regex
   final pass6 = pass5.replaceAllMapped(
     RegExp(r"\.matches\('(.+?)'\)"),
-    (m) => '.matches(/${m[1]}/)',
+    (m) => '.matches(${m[1]})',
   );
 
   // Remove types from `val()` calls
-  final pass7 = pass6.replaceAll(RegExp(r'\.val<.+?>'), '');
+  final pass7 = pass6.replaceAll(RegExp(r'\.val<.+?>\(\)'), '.val()');
 
   return pass7;
 }
