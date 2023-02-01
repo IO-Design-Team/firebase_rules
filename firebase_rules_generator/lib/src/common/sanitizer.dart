@@ -44,4 +44,8 @@ String translateAuthVariables(String input) => input
       'auth.token.signInProvider',
       'auth.token.firebase.sign_in_provider',
     )
-    .replaceAll('auth.token.tenant', 'auth.token.firebase.tenant');
+    .replaceAll('auth.token.tenant', 'auth.token.firebase.tenant')
+    .replaceAllMapped(
+      RegExp(r"auth\.token\.customClaim<.+?>\('(.+?)'\)"),
+      (m) => 'auth.token.${m[1]}',
+    );

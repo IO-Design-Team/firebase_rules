@@ -22,6 +22,7 @@ service cloud.firestore {
     let s = request.query.orderBy;
     let t = request.resource;
     let u = request.time;
+    let v = request.auth.token.identifier == 'admin';
     return true;
   }
   function test2(request) {

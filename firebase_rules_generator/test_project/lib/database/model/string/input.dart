@@ -12,5 +12,17 @@ final databaseRules = [
     validate: (_) =>
         newData.isString() && newData.val<RulesString>().contains('@'.rules),
   ),
-  Match('c', read: (_) => auth?.token.identifier.beginsWith('internal-')),
+  Match(
+    'c',
+    read: (_) => auth!.token
+        .customClaim<RulesString>('identifier')
+        .beginsWith('internal-'.rules),
+  ),
+  Match(
+    'd',
+    read: (_) => auth!.token
+        .customClaim<RulesString>('identifier')
+        .endsWith('@company.com'.rules),
+  ),
+  Match()
 ];

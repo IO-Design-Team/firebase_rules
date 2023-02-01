@@ -24,6 +24,8 @@ bool test1(RulesRequest request) {
   final s = request.query.orderBy;
   final t = request.resource;
   final u = request.time;
+  final v = request.auth?.token.customClaim<RulesString>('identifier') ==
+      'admin'.rules;
   return true;
 }
 

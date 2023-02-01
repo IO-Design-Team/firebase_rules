@@ -7,7 +7,7 @@ abstract class RulesToken {
   RulesToken._();
 
   /// Access to custom claims
-  dynamic operator [](String key);
+  T customClaim<T>(String key);
 
   /// The email address associated with the account, if present
   RulesString get email;
