@@ -24,5 +24,23 @@ final databaseRules = [
         .customClaim<RulesString>('identifier')
         .endsWith('@company.com'.rules),
   ),
-  Match()
+  Match(
+    'e',
+    write: (_) => root
+        .child('whitelist'.rules)
+        .child(
+          newData
+              .child('email'.rules)
+              .val<RulesString>()
+              .replace('.'.rules, '%2E'.rules),
+        )
+        .exists(),
+  ),
+  Match(
+    'f',
+    read: (_) => root
+        .child('users'.rules)
+        .child(auth!.token.customClaim<RulesString>('identifier').toLowerCase())
+        .exists(),
+  ),
 ];

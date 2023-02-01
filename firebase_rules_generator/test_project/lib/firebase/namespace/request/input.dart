@@ -26,6 +26,7 @@ bool test1(RulesRequest request) {
   final u = request.time;
   final v = request.auth?.token.customClaim<RulesString>('identifier') ==
       'admin'.rules;
+  final w = request.auth?.token.customClaim('identifier') == 'admin'.rules;
   return true;
 }
 
