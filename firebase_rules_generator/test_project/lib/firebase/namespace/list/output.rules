@@ -1,20 +1,22 @@
 rules_version = '2';
 service cloud.firestore {
-  function test(list, other) {
-    let a = list[0];
-    let b = list[0:1];
-    let c = 'a' in ['a', 'b'];
-    let d = 'a' in list;
-    let e = ['a', 'b'][0:1];
-    let f = list[0:1];
-    let g = list.concat(other);
-    let h = list.hasAll(other);
-    let i = list.hasAny(other);
-    let j = list.hasOnly(other);
-    let k = list.join(',');
-    let l = list.removeAll(other);
-    let m = list.size();
-    let n = list.toSet();
-    return true;
+  match /databases/{database}/documents {
+    function test(list, other) {
+      let a = list[0];
+      let b = list[0:1];
+      let c = 'a' in ['a', 'b'];
+      let d = 'a' in list;
+      let e = ['a', 'b'][0:1];
+      let f = list[0:1];
+      let g = list.concat(other);
+      let h = list.hasAll(other);
+      let i = list.hasAny(other);
+      let j = list.hasOnly(other);
+      let k = list.join(',');
+      let l = list.removeAll(other);
+      let m = list.size();
+      let n = list.toSet();
+      return true;
+    }
   }
 }

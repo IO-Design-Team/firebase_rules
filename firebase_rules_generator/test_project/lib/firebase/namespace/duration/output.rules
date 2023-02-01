@@ -1,17 +1,19 @@
 rules_version = '2';
 service cloud.firestore {
-  function test(other) {
-    let a = other.nanos();
-    let b = other.seconds();
-    let c = duration.abs(other);
-    let d = duration.time(0, 0, 0, 0);
-    let e = duration.value(0, 'w');
-    let f = duration.value(0, 'd');
-    let g = duration.value(0, 'h');
-    let h = duration.value(0, 'm');
-    let i = duration.value(0, 's');
-    let j = duration.value(0, 'ms');
-    let k = duration.value(0, 'ns');
-    return true;
+  match /databases/{database}/documents {
+    function test(other) {
+      let a = other.nanos();
+      let b = other.seconds();
+      let c = duration.abs(other);
+      let d = duration.time(0, 0, 0, 0);
+      let e = duration.value(0, 'w');
+      let f = duration.value(0, 'd');
+      let g = duration.value(0, 'h');
+      let h = duration.value(0, 'm');
+      let i = duration.value(0, 's');
+      let j = duration.value(0, 'ms');
+      let k = duration.value(0, 'ns');
+      return true;
+    }
   }
 }

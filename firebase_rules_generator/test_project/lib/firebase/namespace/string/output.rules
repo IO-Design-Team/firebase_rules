@@ -1,29 +1,31 @@
 rules_version = '2';
 service cloud.firestore {
-  function test(one, two) {
-    let a = one > two;
-    let b = one < two;
-    let c = one >= two;
-    let d = one <= two;
-    let e = one + two;
-    let f = one[0];
-    let g = one[0:1];
-    let h = string(true);
-    let i = string(1);
-    let j = string(2.0);
-    let k = string(null);
-    let l = one.lower();
-    let m = one.matches('.*@domain[.]com');
-    let n = one.replace('a', 'b');
-    let o = one.size();
-    let p = one.split('/');
-    let q = '€'.toUtf8() == b'\xE2\x82\xAC';
-    let r = one.trim();
-    let s = one.upper();
-    let t = '...';
-    let u = "'...'";
-    let v = '...';
-    let w = "'...'";
-    return true;
+  match /databases/{database}/documents {
+    function test(one, two) {
+      let a = one > two;
+      let b = one < two;
+      let c = one >= two;
+      let d = one <= two;
+      let e = one + two;
+      let f = one[0];
+      let g = one[0:1];
+      let h = string(true);
+      let i = string(1);
+      let j = string(2.0);
+      let k = string(null);
+      let l = one.lower();
+      let m = one.matches('.*@domain[.]com');
+      let n = one.replace('a', 'b');
+      let o = one.size();
+      let p = one.split('/');
+      let q = '€'.toUtf8() == b'\xE2\x82\xAC';
+      let r = one.trim();
+      let s = one.upper();
+      let t = '...';
+      let u = "'...'";
+      let v = '...';
+      let w = "'...'";
+      return true;
+    }
   }
 }

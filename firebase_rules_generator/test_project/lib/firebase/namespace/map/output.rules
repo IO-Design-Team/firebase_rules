@@ -1,17 +1,19 @@
 rules_version = '2';
 service cloud.firestore {
-  function test(other) {
-    let a = 'a' in {'a' : 2};
-    let b = 'a' in other;
-    let c = other.diff({'a' : 2}).addedKeys();
-    let d = other.diff({'a' : 2}).affectedKeys();
-    let e = other.diff({'a' : 2}).changedKeys();
-    let f = other.diff({'a' : 2}).removedKeys();
-    let g = other.diff({'a' : 2}).unchangedKeys();
-    let h = other.get('a', 4);
-    let i = other.keys();
-    let j = other.size();
-    let k = other.values();
-    return true;
+  match /databases/{database}/documents {
+    function test(other) {
+      let a = 'a' in {'a' : 2};
+      let b = 'a' in other;
+      let c = other.diff({'a' : 2}).addedKeys();
+      let d = other.diff({'a' : 2}).affectedKeys();
+      let e = other.diff({'a' : 2}).changedKeys();
+      let f = other.diff({'a' : 2}).removedKeys();
+      let g = other.diff({'a' : 2}).unchangedKeys();
+      let h = other.get('a', 4);
+      let i = other.keys();
+      let j = other.size();
+      let k = other.values();
+      return true;
+    }
   }
 }

@@ -1,11 +1,13 @@
 rules_version = '2';
 service cloud.firestore {
-  function test(other) {
-    let a = path('/databases/$(database)/documents/path/to/resource');
-    let b = other['fieldname'];
-    let c = other[0];
-    let d = other.bind({'foo' : 'something', 'bar' : 'another'});
-    let e = path('/databases/(default)/documents/path/to/resource');
-    return true;
+  match /databases/{database}/documents {
+    function test(other) {
+      let a = path('/databases/$(database)/documents/path/to/resource');
+      let b = other['fieldname'];
+      let c = other[0];
+      let d = other.bind({'foo' : 'something', 'bar' : 'another'});
+      let e = path('/databases/(default)/documents/path/to/resource');
+      return true;
+    }
   }
 }

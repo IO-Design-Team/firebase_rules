@@ -1,9 +1,11 @@
 rules_version = '2';
 service cloud.firestore {
-  function test() {
-    let a = foo.bar.baz == 'qux';
-    let b = foo.bar.baz == 123;
-    let c = foo.bar.rules == 'asdf';
-    return true;
+  match /databases/{database}/documents {
+    function test() {
+      let a = foo.bar.baz == 'qux';
+      let b = foo.bar.baz == 123;
+      let c = foo.bar.rules == 'asdf';
+      return true;
+    }
   }
 }

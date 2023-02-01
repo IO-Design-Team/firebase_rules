@@ -1,8 +1,10 @@
 rules_version = '2';
 service cloud.firestore {
-  function test() {
-    let a = int('2');
-    let b = int(2.0);
-    return true;
+  match /databases/{database}/documents {
+    function test() {
+      let a = int('2');
+      let b = int(2.0);
+      return true;
+    }
   }
 }

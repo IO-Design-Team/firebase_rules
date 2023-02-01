@@ -1,7 +1,9 @@
 rules_version = '2';
 service cloud.firestore {
-  function test() {
-    let a = bool('true');
-    return true;
+  match /databases/{database}/documents {
+    function test() {
+      let a = bool('true');
+      return true;
+    }
   }
 }

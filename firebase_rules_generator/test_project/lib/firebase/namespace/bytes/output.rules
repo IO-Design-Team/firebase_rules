@@ -1,10 +1,12 @@
 rules_version = '2';
 service cloud.firestore {
-  function test(resource) {
-    let a = b'\342\202\254';
-    let b = resource.data.blob.size();
-    let c = resource.data.blob.toBase64();
-    let d = resource.data.blob.toHexString();
-    return true;
+  match /databases/{database}/documents {
+    function test(resource) {
+      let a = b'\342\202\254';
+      let b = resource.data.blob.size();
+      let c = resource.data.blob.toBase64();
+      let d = resource.data.blob.toHexString();
+      return true;
+    }
   }
 }

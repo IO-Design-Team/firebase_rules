@@ -1,10 +1,12 @@
 rules_version = '2';
 service cloud.firestore {
-  function test() {
-    let a = hashing.crc32('asdf');
-    let b = hashing.crc32c('asdf');
-    let c = hashing.md5('asdf');
-    let d = hashing.sha256('asdf');
-    return true;
+  match /databases/{database}/documents {
+    function test() {
+      let a = hashing.crc32('asdf');
+      let b = hashing.crc32c('asdf');
+      let c = hashing.md5('asdf');
+      let d = hashing.sha256('asdf');
+      return true;
+    }
   }
 }

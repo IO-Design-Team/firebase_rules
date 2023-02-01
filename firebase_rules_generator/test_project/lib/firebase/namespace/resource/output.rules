@@ -1,26 +1,28 @@
 rules_version = '2';
 service cloud.firestore {
-  function test1(resource) {
-    let a = resource['__name__'] == path('/databases/(default)/documents/collection/$(resource.id)');
-    let b = resource.data.asdf;
-    return true;
-  }
-  function test2(resource) {
-    let a = resource.name;
-    let b = resource.bucket;
-    let c = resource.generation;
-    let d = resource.metageneration;
-    let e = resource.size;
-    let f = resource.timeCreated;
-    let g = resource.updated;
-    let h = resource.md5Hash;
-    let i = resource.crc32c;
-    let j = resource.etag;
-    let k = resource.contentDisposition;
-    let l = resource.contentEncoding;
-    let m = resource.contentLanguage;
-    let n = resource.contentType;
-    let o = resource.metadata;
-    return true;
+  match /databases/{database}/documents {
+    function test1(resource) {
+      let a = resource['__name__'] == path('/databases/(default)/documents/collection/$(resource.id)');
+      let b = resource.data.asdf;
+      return true;
+    }
+    function test2(resource) {
+      let a = resource.name;
+      let b = resource.bucket;
+      let c = resource.generation;
+      let d = resource.metageneration;
+      let e = resource.size;
+      let f = resource.timeCreated;
+      let g = resource.updated;
+      let h = resource.md5Hash;
+      let i = resource.crc32c;
+      let j = resource.etag;
+      let k = resource.contentDisposition;
+      let l = resource.contentEncoding;
+      let m = resource.contentLanguage;
+      let n = resource.contentType;
+      let o = resource.metadata;
+      return true;
+    }
   }
 }
