@@ -13,11 +13,11 @@ bool test1(RulesRequest request) {
   final h = request.auth?.token.identities;
   final i = request.auth?.token.signInProvider;
   final j = request.auth?.token.tenant;
-  final k = request.method == RulesRequestMethod.get;
-  final l = request.method == RulesRequestMethod.list;
-  final m = request.method == RulesRequestMethod.create;
-  final n = request.method == RulesRequestMethod.update;
-  final o = request.method == RulesRequestMethod.delete;
+  final k = request.method == RulesMethod.get;
+  final l = request.method == RulesMethod.list;
+  final m = request.method == RulesMethod.create;
+  final n = request.method == RulesMethod.update;
+  final o = request.method == RulesMethod.delete;
   final p = request.path;
   final q = request.query.limit;
   final r = request.query.offset;

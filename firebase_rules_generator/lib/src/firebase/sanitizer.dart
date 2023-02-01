@@ -65,7 +65,7 @@ String sanitizeRules(RevivedFirebaseRules annotation, String input) {
 
   final pass8 = translateEnums(pass7, {
     'RulesDurationUnit': RulesDurationUnit.values,
-    'RulesRequestMethod': RulesRequestMethod.values,
+    'RulesMethod': RulesMethod.values,
     'RulesIdentityProvider': RulesIdentityProvider.values,
     'RulesSignInProvider': RulesSignInProvider.values,
   });

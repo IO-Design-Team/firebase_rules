@@ -4,7 +4,7 @@ import 'package:firebase_rules/database.dart';
 abstract class RuleDataSnapshot {
   /// Gets the primitive value (string, number, boolean, or null) from this
   /// RuleDataSnapshot.
-  dynamic val();
+  T val<T>();
 
   /// Gets a RuleDataSnapshot for the location at the specified relative path.
   RuleDataSnapshot child(RulesString path);

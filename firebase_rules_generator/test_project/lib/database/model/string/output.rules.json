@@ -1,0 +1,26 @@
+{
+  "a": {
+    ".validate": "newData.isString() && newData.val().length >= 10",
+  },
+  "b": {
+    ".validate": "newData.isString() && newData.val().contains('@')",
+  },
+  "c": {
+    ".read": "auth.token.identifier.beginsWith('internal-')",
+  },
+  "d": {
+    ".read": "auth.token.identifier.endsWith('@company.com')",
+  },
+  "e": {
+    ".write": "root.child('whitelist').child(newData.child('email').val().replace('.', '%2E')).exists()",
+  },
+  "f": {
+    ".read": "root.child('users').child(auth.token.identifier.toLowerCase()).exists()",
+  },
+  "g": {
+    ".read": "root.child('users').child(auth.token.identifier.toUpperCase()).exists()",
+  },
+  "h": {
+    ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"
+  }
+}

@@ -18,7 +18,11 @@ String sanitizeRules(String input) {
     RegExp(r"\.matches\('(.+?)'\)"),
     (m) => '.matches(/${m[1]}/)',
   );
-  return pass6;
+
+  // Remove types from `val()` calls
+  final pass7 = pass6.replaceAll(RegExp(r'\.val<.+?>'), '');
+
+  return pass7;
 }
 
 /// Sanitize path parameter prefixes from rules
