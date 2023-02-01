@@ -1,0 +1,32 @@
+{
+  "a": {
+    ".read": "data.child('isReadable').val() == true",
+  },
+  "b": {
+    ".read": "data.parent().child('isReadable').val() == true",
+  },
+  "c": {
+    ".validate": "newData.hasChild('name')",
+  },
+  "d": {
+    ".validate": "newData.hasChildren()",
+  },
+  "e": {
+    ".validate": "newData.hasChildren(['name', 'age'])",
+  },
+  "f": {
+    ".write": "!data.exists()",
+  },
+  "g": {
+    ".validate": "newData.getPriority() != null",
+  },
+  "h": {
+    ".validate": "newData.child('age').isNumber()",
+  },
+  "i": {
+    ".validate": "newData.child('name').isString()",
+  },
+  "j": {
+    ".validate": "newData.child('active').isBoolean()",
+  },
+}
