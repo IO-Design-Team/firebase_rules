@@ -207,7 +207,12 @@ import 'paths.dart';
 /// Match parameter functions can be split out for organization. These functions
 /// can be in any file in the project. Note that match functions cannot contain
 /// a body.
-List<Match> detached(path, request, resource) => [
+List<Match> detached(
+  FirestoreRoot root,
+  RulesRequest<FirestoreResource> request,
+  FirestoreResource resource,
+) =>
+    [
       Match<UsersPath, FirestoreResource<User>>(
         rules: (usersPath, request, resource) => [
           Allow([Operation.read], resource.data.userId == usersPath.userId)

@@ -1,0 +1,12 @@
+rules_version = '2';
+service cloud.firestore {
+  function isNotAnonymous() {
+    return request.auth != null && request.auth.token.firebase.sign_in_provider != 'anonymous';
+  }
+
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      
+    }
+  }
+}

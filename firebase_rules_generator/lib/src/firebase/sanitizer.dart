@@ -97,7 +97,7 @@ String transformIgnoringRaws(
 String sanitizePaths(Context context, String input) {
   var sanitized = input;
   for (final path in context.paths) {
-    sanitized = sanitized.replaceAll('$path.', '');
+    sanitized = sanitized.replaceAll(RegExp(r'\b' + path + r'\.'), '');
   }
   return sanitized;
 }
