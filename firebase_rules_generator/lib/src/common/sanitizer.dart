@@ -18,7 +18,7 @@ String translateStrings(String input) => input
     .replaceAllMapped(RegExp(r"\br'(.+?)'"), (m) => "'${m[1]}'")
     // Convert raw double quote strings
     // TODO: Needs work to avoid collisions
-    .replaceAllMapped(RegExp(r'\br"(.+?)"'), (m) => "'${m[1]}'");
+    .replaceAllMapped(RegExp(r'\br"(.+?)"'), (m) => '"${m[1]}"');
 
 /// Translate enums
 String translateEnums(String input, Map<String, List<Enum>> enums) {

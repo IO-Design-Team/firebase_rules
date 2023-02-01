@@ -20,6 +20,10 @@ service cloud.firestore {
     let q = '€'.toUtf8() == b'\xE2\x82\xAC';
     let r = one.trim();
     let s = one.upper();
+    let t = '...';
+    let u = "'...'";
+    let v = '...';
+    let w = "'...'";
     return true;
   }
 }

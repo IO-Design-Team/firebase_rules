@@ -22,6 +22,10 @@ bool test(RulesString one, RulesString two) {
   final q = '€'.rules.toUtf8() == rules.parseBytes(r'\xE2\x82\xAC'.rules);
   final r = one.trim();
   final s = one.upper();
+  final t = '...'.rules;
+  final u = "'...'".rules;
+  final v = r'...'.rules;
+  final w = r"'...'".rules;
   return true;
 }
 

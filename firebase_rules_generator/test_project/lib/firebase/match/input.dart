@@ -11,7 +11,10 @@ final firestoreRules = [
     matches: (path, request, resource) => [
       Match<TestPath, FirestoreResource<TestResource>>(
         rules: (path, request, resource) => [
-          Allow([Operation.read], path.id == 'asdf'),
+          Allow(
+            [Operation.read],
+            path.id == 'asdf' && resource.data.asdf == 123,
+          ),
         ],
       ),
     ],
