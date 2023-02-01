@@ -7,7 +7,7 @@ String removeRulesPrefixesAndSuffixes(String input) => input
 
 /// Strip null safety
 String stripNullSafety(String input) =>
-    input.replaceAll('?.', '.').replaceAll('?[', '[');
+    input.replaceAll('?.', '.').replaceAll('?[', '[').replaceAll('!.', '.');
 
 /// Translate strings
 String translateStrings(String input) => input

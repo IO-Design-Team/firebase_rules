@@ -1,0 +1,20 @@
+{
+    "a": {
+        ".read": "auth.provider == 'password'",
+    },
+    "b": {
+        ".read": "auth.provider == 'anonymous'",
+    },
+    "c": {
+        ".read": "auth.provider == 'facebook'",
+    },
+    "d": {
+        ".read": "auth.provider == 'github'",
+    },
+    "e": {
+        ".read": "auth.provider == 'google'",
+    },
+    "f": {
+        ".read": "auth.provider == 'twitter'",
+    },
+}

@@ -35,7 +35,7 @@ class Context {
   Context dive({bool clean = false, Set<String>? paths}) {
     final newPaths = {
       if (!clean) ...this.paths,
-      ...?paths,
+      ...?paths?.where((e) => e != '_'),
     };
     return Context._(
       library,
