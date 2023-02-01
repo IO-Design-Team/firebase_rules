@@ -250,7 +250,12 @@ final databaseRules = [
       Match(
         r'contracts/$contractId',
         read: (contractId) =>
-            root.child('users'.rules).child(userId).child(contractId).val() !=
+            root
+                .child('users'.rules)
+                .child(userId)
+                .child(contractId)
+                /// The `val` type parameters will be stripped by the generator
+                .val<int?>() !=
             null,
         write: (contractId) =>
             root.child('users'.rules).child(userId).child(contractId).val() !=
