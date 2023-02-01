@@ -1,3 +1,6 @@
+## NEXT
+- Updates to support `firebase_rules` changes
+
 ## 0.0.1
 - Initial release
 

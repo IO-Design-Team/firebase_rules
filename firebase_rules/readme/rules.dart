@@ -3,7 +3,7 @@ import 'paths.dart';
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestorePath, FirestoreResource>(
+  Match<FirestoreRoot, FirestoreResource>(
     matches: (path, request, resource) => [
       Match<UsersPath, FirestoreResource<User>>(
         rules: (usersPath, request, resource) => [

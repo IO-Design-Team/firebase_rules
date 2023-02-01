@@ -16,7 +16,7 @@ bool isOwner(RulesRequest request, RulesString uid) {
   ],
 )
 final firestoreRules = [
-  Match<FirestorePath, FirestoreResource>(
+  Match<FirestoreRoot, FirestoreResource>(
     rules: (path, request, resource) => [
       Allow([Operation.read], request.auth?.uid == 'god'.rules),
     ],

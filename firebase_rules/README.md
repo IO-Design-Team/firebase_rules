@@ -82,8 +82,8 @@ import 'paths.dart';
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  /// Always start with this match. [FirestorePath] is the root of Firestore.
-  Match<FirestorePath, FirestoreResource>(
+  /// Always start with this match. [FirestoreRoot] is the root of Firestore.
+  Match<FirestoreRoot, FirestoreResource>(
     /// Match statements give access to type-safe contextual information:
     /// - [path] is the path class of this match
     /// - [request] gives access to the [Request] object
@@ -101,8 +101,8 @@ final firestoreRules = [
 
 @FirebaseRules(service: Service.storage)
 final storageRules = [
-  /// Always start with this match. [StoragePath] is the root of Storage.
-  Match<StoragePath, StorageResource>(
+  /// Always start with this match. [StorageRoot] is the root of Storage.
+  Match<StorageRoot, StorageResource>(
     matches: (path, request, resource) => [
       /// All storage matches use [StorageResource] objects
       Match<UsersPath, StorageResource>(),
@@ -123,7 +123,7 @@ import 'paths.dart';
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestorePath, FirestoreResource>(
+  Match<FirestoreRoot, FirestoreResource>(
     matches: (path, request, resource) => [
       Match<UsersPath, FirestoreResource<User>>(
         rules: (usersPath, request, resource) => [
@@ -205,7 +205,7 @@ List<Match> detached(path, request, resource) => [
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestorePath, FirestoreResource>(matches: detached),
+  Match<FirestoreRoot, FirestoreResource>(matches: detached),
 ];
 
 ```

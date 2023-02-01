@@ -1,8 +1,8 @@
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules/src/firebase/service/base.dart';
 
-/// Base firestore path
-abstract class FirestorePath extends FirebasePath {
+/// The root of Firestore
+abstract class FirestoreRoot extends FirebasePath {
   /// The raw path used by code generation
   static const rawPath = '/databases/{database}/documents';
 
@@ -13,7 +13,7 @@ abstract class FirestorePath extends FirebasePath {
   String get path => rawPath.replaceFirst('{database}', database);
 }
 
-/// A firebase resource object
+/// A Firestore resource object
 abstract class FirestoreResource<T> extends FirebaseResource {
   FirestoreResource._();
 

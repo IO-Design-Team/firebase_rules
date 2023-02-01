@@ -1,3 +1,6 @@
+## NEXT
+- Renames `FirestorePath` to `FirestoreRoot` and `StoragePath` to `StorageRoot`
+
 ## 0.0.1+2
 - Readme fixes
 

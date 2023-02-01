@@ -14,5 +14,5 @@ List<Match> detached(path, request, resource) => [
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestorePath, FirestoreResource>(matches: detached),
+  Match<FirestoreRoot, FirestoreResource>(matches: detached),
 ];

@@ -4,7 +4,7 @@ import 'package:firebase_rules/firebase.dart';
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestorePath, FirestoreResource>(
+  Match<FirestoreRoot, FirestoreResource>(
     rules: (path, request, resource) => [
       Allow([Operation.read, Operation.write], request.auth != null)
     ],

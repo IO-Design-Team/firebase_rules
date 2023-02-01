@@ -72,10 +72,10 @@ Future<String> _getPath(Context context, AstNode node) async {
 
   final String path;
   if (pathElement == null) {
-    if (pathName == 'FirestorePath') {
-      path = FirestorePath.rawPath;
-    } else if (pathName == 'StoragePath') {
-      path = StoragePath.rawPath;
+    if (pathName == 'FirestoreRoot') {
+      path = FirestoreRoot.rawPath;
+    } else if (pathName == 'StorageRoot') {
+      path = StorageRoot.rawPath;
     } else {
       throw InvalidGenerationSourceError(
         'Invalid path type: $pathName',
