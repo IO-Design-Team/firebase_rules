@@ -26,6 +26,8 @@ bool test(RulesString one, RulesString two) {
   final u = "'...'".rules;
   final v = r'...'.rules;
   final w = r"'...'".rules;
+  final x = 'asdf$one/asdf';
+  final y = 'asdf${one}asdf';
   return true;
 }
 

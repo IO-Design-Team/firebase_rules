@@ -25,6 +25,8 @@ service cloud.firestore {
       let u = "'...'";
       let v = '...';
       let w = "'...'";
+      let x = 'asdf$(one)/asdf';
+      let y = 'asdf$(one)asdf';
       return true;
     }
   }

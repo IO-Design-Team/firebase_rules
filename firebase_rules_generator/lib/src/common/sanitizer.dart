@@ -19,7 +19,9 @@ String stripNullSafety(String input) =>
 
 /// Translate strings
 String translateStrings(String input) => input
-    // Convert string interpolation
+    // Convert non-braced string interpolation
+    .replaceAllMapped(RegExp(r'\$([^{}]+?)\b'), (m) => '\$(${m[1]})')
+    // Convert braced string interpolation
     .replaceAllMapped(RegExp(r'\${(.+?)}'), (m) => '\$(${m[1]})')
     // Convert raw single quote strings
     // TODO: Needs work to avoid collisions
