@@ -7,7 +7,12 @@ String sanitizeRules(FirebaseRules annotation, String input) {
   return transformIgnoringRaws(input, [
     removeRulesPrefixesAndSuffixes,
     stripNullSafety,
-    translateStrings,
+    translateRawStrings,
+    (input) => input
+        // Convert non-braced string interpolation
+        .replaceAllMapped(RegExp(r'\$([^{}]+?)\b'), (m) => '\$(${m[1]})')
+        // Convert braced string interpolation
+        .replaceAllMapped(RegExp(r'\${(.+?)}'), (m) => '\$(${m[1]})'),
     (input) => input
             // Convert firestore methods
             .replaceAllMapped(

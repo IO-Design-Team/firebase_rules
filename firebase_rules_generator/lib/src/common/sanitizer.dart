@@ -17,12 +17,8 @@ String removeRulesPrefixesAndSuffixes(String input) => input
 String stripNullSafety(String input) =>
     input.replaceAll('?.', '.').replaceAll('?[', '[').replaceAll('!.', '.');
 
-/// Translate strings
-String translateStrings(String input) => input
-    // Convert non-braced string interpolation
-    .replaceAllMapped(RegExp(r'\$([^{}]+?)\b'), (m) => '\$(${m[1]})')
-    // Convert braced string interpolation
-    .replaceAllMapped(RegExp(r'\${(.+?)}'), (m) => '\$(${m[1]})')
+/// Translate raw strings
+String translateRawStrings(String input) => input
     // Convert raw single quote strings
     // TODO: Needs work to avoid collisions
     .replaceAllMapped(RegExp(r"\br'(.+?)'"), (m) => "'${m[1]}'")

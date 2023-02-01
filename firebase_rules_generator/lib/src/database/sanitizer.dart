@@ -7,7 +7,7 @@ String sanitizeRules(String input) {
   return transform(input, [
     removeRulesPrefixesAndSuffixes,
     stripNullSafety,
-    translateStrings,
+    translateRawStrings,
     (input) => translateEnums(input, {
           'RulesProvider': RulesProvider.values,
           'RulesIdentityProvider': RulesIdentityProvider.values,
