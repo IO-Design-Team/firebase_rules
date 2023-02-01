@@ -61,7 +61,7 @@ String sanitizeRules(RevivedFirebaseRules annotation, String input) {
 
   final pass7 = pass6
       // Raw rules string
-      .replaceAllMapped(RegExp(r"raw\('(.+?)'\)"), (m) => m[1]!);
+      .replaceAllMapped(RegExp(r'''raw\(['"](.+?)['"]\)'''), (m) => m[1]!);
 
   final pass8 = translateEnums(pass7, {
     'RulesDurationUnit': RulesDurationUnit.values,

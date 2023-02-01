@@ -3,7 +3,8 @@
 import 'package:firebase_rules/firebase.dart';
 
 bool test() {
-  final a = rules.parseBool('true'.rules);
+  final a = rules.raw("foo.bar.baz == 'qux'");
+  final b = rules.raw('foo.bar.baz == 123');
   return true;
 }
 
