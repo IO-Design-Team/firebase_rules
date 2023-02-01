@@ -1,20 +1,74 @@
 {
-    "a": {
-        ".read": "auth.provider == 'password'",
-    },
-    "b": {
-        ".read": "auth.provider == 'anonymous'",
-    },
-    "c": {
-        ".read": "auth.provider == 'facebook'",
-    },
-    "d": {
-        ".read": "auth.provider == 'github'",
-    },
-    "e": {
-        ".read": "auth.provider == 'google'",
-    },
-    "f": {
-        ".read": "auth.provider == 'twitter'",
-    },
+  "a": {
+    ".read": "auth.provider == 'password'",
+  },
+  "b": {
+    ".read": "auth.provider == 'anonymous'",
+  },
+  "c": {
+    ".read": "auth.provider == 'facebook'",
+  },
+  "d": {
+    ".read": "auth.provider == 'github'",
+  },
+  "e": {
+    ".read": "auth.provider == 'google'",
+  },
+  "f": {
+    ".read": "auth.provider == 'twitter'",
+  },
+  "g": {
+    ".read": "auth.uid == 'asdf'",
+  },
+  "h": {
+    ".read": "auth.token.email.contains('@google.com')",
+  },
+  "i": {
+    ".read": "auth.token.email_verified",
+  },
+  "j": {
+    ".read": "auth.token.firebase.identities['email'][0] != null",
+  },
+  "k": {
+    ".read": "auth.token.firebase.identities['phone'][0] != null",
+  },
+  "l": {
+    ".read": "auth.token.firebase.identities['google.com'][0] != null",
+  },
+  "m": {
+    ".read": "auth.token.firebase.identities['facebook.com'][0] != null",
+  },
+  "n": {
+    ".read": "auth.token.firebase.identities['github.com'][0] != null",
+  },
+  "o": {
+    ".read": "auth.token.firebase.identities['twitter.com'][0] != null",
+  },
+  "p": {
+    ".read": "auth.token.firebase.sign_in_provider == 'custom'",
+  },
+  "q": {
+    ".read": "auth.token.firebase.sign_in_provider == 'password'",
+  },
+  "r": {
+    ".read": "auth.token.firebase.sign_in_provider == 'phone'",
+  },
+  "s": {
+    ".read": "auth.token.firebase.sign_in_provider == 'anonymous'",
+  },
+  "t": {
+    ".read": "auth.token.firebase.sign_in_provider == 'google.com'",
+  },
+  "u": {
+    ".read": "auth.token.firebase.sign_in_provider == 'facebook.com'",
+  },
+  "v": {
+    ".read": "auth.token.firebase.sign_in_provider == 'github.com'",
+  },
+  "w": {
+    ".read": "auth.token.firebase.sign_in_provider == 'twitter.com'",
+  },
+  "x": {
+    ".read": "auth.token.firebase.tenant == 'tenant2-m6tyz'",
+  },
 }
