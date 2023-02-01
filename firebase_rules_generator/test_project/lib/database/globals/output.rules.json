@@ -1,0 +1,5 @@
+{
+  "a": {
+    ".write": "newData.val() < now",
+  },
+}
