@@ -1,8 +1,8 @@
 import 'package:firebase_rules/firebase.dart';
 import 'paths.dart';
 
-/// Match parameter functions can be split out for organization. These functions
-/// can be in any file in the project. Note that match functions cannot contain
+/// Match parameter functions can be split out for organization. However, these
+/// must be declared in the same file. Note that match functions cannot contain
 /// a body.
 List<Match> detached(
   FirestoreRoot root,

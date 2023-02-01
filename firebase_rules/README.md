@@ -184,14 +184,12 @@ bool isSignedIn(RulesRequest request) {
   return request.auth?.uid != null;
 }
 
-@FirebaseRules(
-  service: Service.firestore,
-
-  /// Functions must be declared here in order to be generated. This allows for
-  /// one project to contain multiple rulesets.
-  functions: [isSignedIn],
-)
-final rules = [];
+@FirebaseRules(service: Service.firestore)
+final rules = [
+  Match<FirestoreRoot, FirestoreResource>(
+    functions: [isSignedIn],
+  )
+];
 
 ```
 
@@ -204,8 +202,8 @@ Any of the function arguments of a match statement can be split out for organiza
 import 'package:firebase_rules/firebase.dart';
 import 'paths.dart';
 
-/// Match parameter functions can be split out for organization. These functions
-/// can be in any file in the project. Note that match functions cannot contain
+/// Match parameter functions can be split out for organization. However, these
+/// must be declared in the same file. Note that match functions cannot contain
 /// a body.
 List<Match> detached(
   FirestoreRoot root,
