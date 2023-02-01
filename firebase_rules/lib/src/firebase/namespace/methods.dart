@@ -27,12 +27,12 @@ abstract class RulesFirestoreMethods {
   bool existsAfter(RulesPath path);
 
   /// Get the contents of a firestore document.
-  T get<T>(RulesPath path);
+  FirestoreResource<T> get<T>(RulesPath path);
 
   /// Get the projected contents of a document. The document is returned as if the
   /// current request had succeeded. Useful for validating documents that are part
   /// of a batched write or transaction.
-  T getAfter<T>(RulesPath path);
+  FirestoreResource<T> getAfter<T>(RulesPath path);
 }
 
 /// Globally available hashing functions. These functions are accessed using

@@ -3,6 +3,7 @@
 - `RuleDataSnapshot.val()` is now `RuleDataSnapshot.val<T>()` to allow for type-safety
 - Adds a `customClaim<T>()` method to `RulesToken` to allow access to custom claims
 - Functions are now declared on `Match` statements instead of the annotation
+- `firestore.get<T>()` and `firestore.getAfter<T>()` now properly return a `FirestoreResource<T>`
 
 ## 0.0.1+2
 - Readme fixes
