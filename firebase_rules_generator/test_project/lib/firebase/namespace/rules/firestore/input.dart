@@ -10,10 +10,12 @@ bool test() {
       .get<TestResource>(
         rules.path(r'/path/to/resource'.rules, database: 'default'),
       )
+      .data
       .asdf;
   final e = rules.firestore.getAfter(rules.path(r'/path/to/resource'.rules));
   final f = rules.firestore
       .getAfter<TestResource>(rules.path(r'/path/to/resource'.rules))
+      .data
       .asdf;
   return true;
 }

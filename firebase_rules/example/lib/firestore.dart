@@ -35,6 +35,7 @@ final firestoreRules = [
             [Operation.write],
             rules.firestore
                     .get<User>(rules.path('/users/${request.auth?.uid}'.rules))
+                    .data
                     .contentIds
                     .rules
                     .contains(content.contentId) &&
