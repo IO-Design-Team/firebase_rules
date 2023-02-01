@@ -53,7 +53,9 @@ String sanitizeRules(FirebaseRules annotation, String input) {
         .replaceAllMapped(RegExp(r"parseBytes\('(.+?)'\)"), (m) => "b'${m[1]}'")
         // float parsing
         .replaceAllMapped(
-            RegExp(r'parseFloat\((.+?)\)'), (m) => 'float(${m[1]})')
+          RegExp(r'parseFloat\((.+?)\)'),
+          (m) => 'float(${m[1]})',
+        )
         // int parsing
         .replaceAllMapped(RegExp(r'parseInt\((.+?)\)'), (m) => 'int(${m[1]})'),
     (input) => translateEnums(input, {

@@ -1,7 +1,5 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:collection/collection.dart';
-import 'package:source_gen/source_gen.dart';
 
 /// Information about the current rules context
 class Context {
