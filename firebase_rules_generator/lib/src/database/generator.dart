@@ -11,7 +11,8 @@ import 'package:firebase_rules_generator/src/database/visitor/match_visitor.dart
 import 'package:source_gen/source_gen.dart';
 
 /// Generate Database rules from a list of [Match] objects
-class DatabaseRulesGenerator extends RulesGenerator<DatabaseRules> {
+class DatabaseRulesGenerator extends GeneratorForAnnotation<DatabaseRules>
+    with RulesGenerator {
   @override
   Future<String> generateForAnnotatedElement(
     Element element,
@@ -26,7 +27,7 @@ class DatabaseRulesGenerator extends RulesGenerator<DatabaseRules> {
     final resolver = buildStep.resolver;
     final ast = await resolver.astNodeFor(element);
     final matches = ast!.childEntities.whereType<ListLiteral>().single.elements;
-    final context = Context.root(library, resolver);
+    final context = Context.root(resolver);
 
     for (final match in matches) {
       await for (final line in visitMatch(context, match)) {

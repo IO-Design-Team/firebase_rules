@@ -11,14 +11,10 @@ class FirebaseRules {
   /// The firebase service these rules are for
   final Service service;
 
-  /// Functions to include in these rules
-  final List<Function> functions;
-
   /// Constructor
   const FirebaseRules({
     this.rulesVersion = '2',
     required this.service,
-    this.functions = const [],
   });
 }
 
@@ -90,6 +86,9 @@ class Allow {
 
 /// A firebase rules match statement
 class Match<T extends FirebasePath, U extends FirebaseResource> {
+  /// Functions to place in this context
+  final List<Function>? functions;
+
   /// Rules for this context
   final ContextualCallback<Allow, T, U>? rules;
 
@@ -97,5 +96,5 @@ class Match<T extends FirebasePath, U extends FirebaseResource> {
   final ContextualCallback<Match, T, U>? matches;
 
   /// Constructor
-  Match({this.rules, this.matches});
+  Match({this.functions, this.rules, this.matches});
 }

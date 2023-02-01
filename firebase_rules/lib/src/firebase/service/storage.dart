@@ -3,14 +3,11 @@ import 'package:firebase_rules/src/firebase/service/base.dart';
 
 /// The root of Storage
 abstract class StorageRoot extends FirebasePath {
-  /// The raw path used by code generation
-  static const rawPath = '/b/{bucket}/o';
-
   /// The current bucket
   String get bucket;
 
   @override
-  String get path => rawPath.replaceFirst('{bucket}', bucket);
+  String get path => '/b/$bucket/o';
 }
 
 /// The resource variable contains the metadata of a file being uploaded or the

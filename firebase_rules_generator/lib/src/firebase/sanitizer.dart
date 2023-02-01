@@ -1,10 +1,9 @@
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
 import 'package:firebase_rules_generator/src/common/sanitizer.dart';
-import 'package:firebase_rules_generator/src/firebase/revived_firebase_rules.dart';
 
 /// Sanitize rules files
-String sanitizeRules(RevivedFirebaseRules annotation, String input) {
+String sanitizeRules(FirebaseRules annotation, String input) {
   return transformIgnoringRaws(input, [
     removeRulesPrefixesAndSuffixes,
     stripNullSafety,

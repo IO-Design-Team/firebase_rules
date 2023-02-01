@@ -1,11 +1,10 @@
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
+import 'package:collection/collection.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Information about the current rules context
 class Context {
-  /// Reader for the library running code generation
-  final LibraryReader library;
-
   /// The resolver
   final Resolver resolver;
 
@@ -16,18 +15,24 @@ class Context {
   final int indent;
 
   Context._(
-    this.library,
     this.resolver, {
     required this.paths,
     required this.indent,
   });
 
   /// Create the root context
-  Context.root(
-    this.library,
-    this.resolver,
-  )   : paths = {},
+  Context.root(this.resolver)
+      : paths = {},
         indent = 2;
+
+  /// Get the first resolvable element with the given [name]
+  Future<Element> get(String name) {
+    return resolver.libraries
+        .map((e) => e.exportNamespace.get(name))
+        .where((e) => e != null)
+        .cast<Element>()
+        .first;
+  }
 
   /// Dive deeper into the context with additional paths and indentation
   ///
@@ -38,7 +43,6 @@ class Context {
       ...?paths?.where((e) => e != '_'),
     };
     return Context._(
-      library,
       resolver,
       paths: newPaths,
       indent: indent + 2,

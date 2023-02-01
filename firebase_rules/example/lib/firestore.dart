@@ -8,15 +8,10 @@ bool isOwner(RulesRequest request, RulesString uid) {
   return requestingUid == uid;
 }
 
-@FirebaseRules(
-  service: Service.firestore,
-  functions: [
-    isSignedIn,
-    isOwner,
-  ],
-)
+@FirebaseRules(service: Service.firestore)
 final firestoreRules = [
   Match<FirestoreRoot, FirestoreResource>(
+    functions: [isSignedIn, isOwner],
     rules: (path, request, resource) => [
       Allow([Operation.read], request.auth?.uid == 'god'.rules),
     ],

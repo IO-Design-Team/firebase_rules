@@ -6,11 +6,9 @@ bool isSignedIn(RulesRequest request) {
   return request.auth?.uid != null;
 }
 
-@FirebaseRules(
-  service: Service.firestore,
-
-  /// Functions must be declared here in order to be generated. This allows for
-  /// one project to contain multiple rulesets.
-  functions: [isSignedIn],
-)
-final rules = [];
+@FirebaseRules(service: Service.firestore)
+final rules = [
+  Match<FirestoreRoot, FirestoreResource>(
+    functions: [isSignedIn],
+  )
+];
