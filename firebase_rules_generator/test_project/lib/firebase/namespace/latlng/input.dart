@@ -5,9 +5,9 @@ import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_convert/firebase_rules_convert.dart';
 
 bool test(FirestoreResource<GeoPointTest> resource, RulesLatLng other) {
-  final a = resource.data.geopoint.rules.distance(other);
-  final b = resource.data.geopoint.rules.latitude();
-  final c = resource.data.geopoint.rules.longitude();
+  final a = resource.data.geopoint.rules().distance(other);
+  final b = resource.data.geopoint.rules().latitude();
+  final c = resource.data.geopoint.rules().longitude();
   final d = rules.latlng.value(0, 0);
   return true;
 }

@@ -15,7 +15,7 @@ final firestoreRules = [
   Match<FirestoreRoot, FirestoreResource>(
     functions: [isSignedIn, isOwner],
     rules: (path, request, resource) => [
-      Allow([Operation.read], request.auth?.uid == 'god'.rules),
+      Allow([Operation.read], request.auth?.uid == 'god'.rules()),
     ],
     matches: (path, request, resource) => [
       Match<UsersPath, FirestoreResource<User>>(
@@ -23,7 +23,7 @@ final firestoreRules = [
           Allow([Operation.read], isSignedIn(request)),
           Allow(
             [Operation.create, Operation.update],
-            isOwner(request, users.userId.rules),
+            isOwner(request, users.userId.rules()),
           ),
         ],
       ),
@@ -36,14 +36,16 @@ final firestoreRules = [
           Allow(
             [Operation.write],
             rules.firestore
-                    .get<User>(rules.path('/users/${request.auth?.uid}'.rules))
+                    .get<User>(
+                      rules.path('/users/${request.auth?.uid}'.rules()),
+                    )
                     .data
                     .contentIds
-                    .rules
-                    .contains(content.contentId) &&
+                    .rules<RulesString>()
+                    .contains(content.contentId.rules()) &&
                 rules.firestore.exists(
                   rules.path(
-                    '/users/${request.auth?.uid}'.rules,
+                    '/users/${request.auth?.uid}'.rules(),
                     database: 'default',
                   ),
                 ),

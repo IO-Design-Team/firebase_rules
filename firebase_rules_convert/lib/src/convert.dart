@@ -4,17 +4,17 @@ import 'package:firebase_rules/firebase.dart';
 /// Access to [RulesBytes] methods
 extension RulesBytesExtension on Blob {
   /// Access to [RulesBytes] methods
-  RulesBytes get rules => throw UnimplementedError();
+  RulesBytes rules() => throw UnimplementedError();
 }
 
 /// Access to [RulesLatLng] methods
 extension RulesLatLngExtension on GeoPoint {
   /// Access to [RulesLatLng] methods
-  RulesLatLng get rules => throw UnimplementedError();
+  RulesLatLng rules() => throw UnimplementedError();
 }
 
 /// Access to [RulesTimestamp] methods
 extension RulesTimestampExtension on Timestamp {
   /// Access to [RulesTimestamp] methods
-  RulesTimestamp get rules => throw UnimplementedError();
+  RulesTimestamp rules() => throw UnimplementedError();
 }

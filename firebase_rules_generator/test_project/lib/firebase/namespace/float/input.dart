@@ -3,7 +3,7 @@
 import 'package:firebase_rules/firebase.dart';
 
 bool test() {
-  final a = rules.parseFloat('2.2'.rules);
+  final a = rules.parseFloat('2.2'.rules());
   final b = rules.parseFloat(2);
   return true;
 }

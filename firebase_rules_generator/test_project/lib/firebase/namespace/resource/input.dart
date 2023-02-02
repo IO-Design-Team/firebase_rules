@@ -4,7 +4,7 @@ import 'package:firebase_rules/firebase.dart';
 
 bool test1(FirestoreResource<ResourceTest> resource) {
   final a = resource.firestoreResourceName ==
-      rules.path('/collection/${resource.id}'.rules, database: 'default');
+      rules.path('/collection/${resource.id}'.rules(), database: 'default');
   final b = resource.data.asdf;
   return true;
 }

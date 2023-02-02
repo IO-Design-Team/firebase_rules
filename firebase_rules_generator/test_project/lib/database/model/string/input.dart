@@ -10,43 +10,43 @@ final databaseRules = [
   Match(
     'b',
     validate: (_) =>
-        newData.isString() && newData.val<RulesString>().contains('@'.rules),
+        newData.isString() && newData.val<RulesString>().contains('@'.rules()),
   ),
   Match(
     'c',
     read: (_) => auth!.token
         .customClaim<RulesString>('identifier')
-        .beginsWith('internal-'.rules),
+        .beginsWith('internal-'.rules()),
   ),
   Match(
     'd',
     read: (_) => auth!.token
         .customClaim<RulesString>('identifier')
-        .endsWith('@company.com'.rules),
+        .endsWith('@company.com'.rules()),
   ),
   Match(
     'e',
     write: (_) => root
-        .child('whitelist'.rules)
+        .child('whitelist'.rules())
         .child(
           newData
-              .child('email'.rules)
+              .child('email'.rules())
               .val<RulesString>()
-              .replace('.'.rules, '%2E'.rules),
+              .replace('.'.rules(), '%2E'.rules()),
         )
         .exists(),
   ),
   Match(
     'f',
     read: (_) => root
-        .child('users'.rules)
+        .child('users'.rules())
         .child(auth!.token.customClaim<RulesString>('identifier').toLowerCase())
         .exists(),
   ),
   Match(
     'g',
     read: (_) => root
-        .child('users'.rules)
+        .child('users'.rules())
         .child(auth!.token.customClaim<RulesString>('identifier').toUpperCase())
         .exists(),
   ),

@@ -8,9 +8,9 @@ String transform(String input, List<String Function(String input)> transforms) {
 
 /// Remove rules prefixes and suffixes
 String removeRulesPrefixesAndSuffixes(String input) => input
-    // Remove rules suffixes
-    .replaceAll(RegExp(r'\.rules\b'), '')
-    // Remove rules prefixes
+    // Remove `.rules<T...>()` suffixes
+    .replaceAll(RegExp(r'\.rules(<.+?>)?\(\)'), '')
+    // Remove `rules.` prefixes
     .replaceAll(RegExp(r'\brules\.'), '');
 
 /// Strip null safety

@@ -3,23 +3,23 @@ import 'package:firebase_rules/src/firebase/namespace/model/model.dart';
 /// Access to [RulesList] methods
 extension RulesListExtension<T> on List<T> {
   /// Access to [RulesList] methods
-  RulesList<T> get rules => throw UnimplementedError();
+  RulesList<U> rules<U>() => throw UnimplementedError();
 }
 
 /// Access to [RulesMap] methods
 extension RulesMapExtension<K, V> on Map<K, V> {
   /// Access to [RulesMap] methods
-  RulesMap<K, V> get rules => throw UnimplementedError();
+  RulesMap<RK, RV> rules<RK, RV>() => throw UnimplementedError();
 }
 
 /// Access to [RulesSet] methods
 extension RulesSetExtension<T> on Set<T> {
   /// Access to [RulesSet] methods
-  RulesSet<T> get rules => throw UnimplementedError();
+  RulesSet<U> rules<U>() => throw UnimplementedError();
 }
 
 /// Access to [RulesString] methods
 extension RulesStringExtension on String {
   /// Access to [RulesString] methods
-  RulesString get rules => throw UnimplementedError();
+  RulesString rules() => throw UnimplementedError();
 }

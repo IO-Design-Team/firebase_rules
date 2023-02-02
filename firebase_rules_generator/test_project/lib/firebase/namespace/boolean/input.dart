@@ -3,7 +3,7 @@
 import 'package:firebase_rules/firebase.dart';
 
 bool test() {
-  final a = rules.parseBool('true'.rules);
+  final a = rules.parseBool('true'.rules());
   return true;
 }
 

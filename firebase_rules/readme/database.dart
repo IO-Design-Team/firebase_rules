@@ -5,7 +5,7 @@ final databaseRules = [
   Match(
     r'rules/users/$userId',
     read: (userId) => auth != null && auth?.uid == userId,
-    write: (userId) => userId == 'user1'.rules,
+    write: (userId) => userId == 'user1'.rules(),
     validate: (userId) => !data.exists(),
     indexOn: ['uid', 'email'],
     matches: (userId) => [
@@ -13,14 +13,15 @@ final databaseRules = [
         r'contracts/$contractId',
         read: (contractId) =>
             root
-                .child('users'.rules)
+                .child('users'.rules())
                 .child(userId)
                 .child(contractId)
+
                 /// The `val` type parameters will be stripped by the generator
                 .val<int?>() !=
             null,
         write: (contractId) =>
-            root.child('users'.rules).child(userId).child(contractId).val() !=
+            root.child('users'.rules()).child(userId).child(contractId).val() !=
             null,
       ),
     ],

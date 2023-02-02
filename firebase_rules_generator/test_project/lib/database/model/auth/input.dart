@@ -8,8 +8,8 @@ final databaseRules = [
   Match('d', read: (_) => auth?.provider == RulesProvider.github),
   Match('e', read: (_) => auth?.provider == RulesProvider.google),
   Match('f', read: (_) => auth?.provider == RulesProvider.twitter),
-  Match('g', read: (_) => auth?.uid == 'asdf'.rules),
-  Match('h', read: (_) => auth!.token.email.contains('@google.com'.rules)),
+  Match('g', read: (_) => auth?.uid == 'asdf'.rules()),
+  Match('h', read: (_) => auth!.token.email.contains('@google.com'.rules())),
   Match('i', read: (_) => auth!.token.emailVerified),
   Match(
     'j',
@@ -73,5 +73,5 @@ final databaseRules = [
     'w',
     read: (_) => auth!.token.signInProvider == RulesSignInProvider.twitter,
   ),
-  Match('x', read: (_) => auth!.token.tenant == 'tenant2-m6tyz'.rules),
+  Match('x', read: (_) => auth!.token.tenant == 'tenant2-m6tyz'.rules()),
 ];
