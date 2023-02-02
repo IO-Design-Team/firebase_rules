@@ -6,12 +6,11 @@ A type-safe Firebase rules generator for Firestore, Storage, and Realtime Databa
 
 The benefits:
 - Type-safe access to your data model. Get errors if rules don't match the model.
+- Code completion for the rules language. No more guessing what functions are available.
 - Rules are easier to read and maintain
-- Split rules into multiple files for organization
 - Add comments to Realtime Database rules
 
 ## Limitations
-- All rules functions must be defined at the root level
 - Realtime Database rules are not really type-safe, but you do get the benefit of having code completion
 
 ## Installation
@@ -136,7 +135,7 @@ This package contains a reimplementation of the Firebase rules language in Dart.
 import 'package:firebase_rules/firebase.dart';
 
 void example() {
-  /// Dart objects can be converted to rules objects by calling `rules` on them
+  /// Dart objects can be converted to rules objects by calling `.rules()` on them
   ''.rules().range(0, 1);
 
   /// Methods called on `rules` types also take `rules` types as arguments.
@@ -146,8 +145,9 @@ void example() {
   /// Global rules functions are available on the `rules` object
   rules.string(true);
 
-  /// Use the `raw` function if type-safe code is impractical
-  rules.raw("foo.bar.baz == 'qux'");
+  /// Use the `raw` function if type-safe code is impractical.
+  /// The `raw` function also allows for casting.
+  rules.raw<bool>("foo.bar.baz == 'qux'");
 
   /// Types from `cloud_firestore_platform_interface` can also be converted
   /// with the `firebase_rules_convert` package
@@ -168,7 +168,8 @@ bool isSignedIn() {
   /// Null-safety operators will be stripped by the generator
   ///
   /// There is a globally available [request] object if type-safe access to
-  /// [RulesRequest.resource] is not required.
+  /// [RulesRequest.resource] is not required. Otherwise, pass a typed
+  /// [RulesRequest] object to the function.
   return request.auth?.uid != null;
 }
 
@@ -277,10 +278,8 @@ For every `rules.dart` file, this will generate a `rules.rules` file in the same
 ## Realtime Database
 
 Database rules are similar to Firestore and Storage rules, but they have a few differences:
-- Database paths are raw strings
 - The first match must start with `rules`. That is the root of the database.
 - Wildcards are denoted with `$`
-- If a path has a wildcard, it must be the last path segment. Database paths can only contain at most one wildcard.
 
 <!-- embedme readme/database.dart -->
 ```dart

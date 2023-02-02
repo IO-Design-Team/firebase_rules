@@ -1,3 +1,6 @@
+## 0.1.0+1
+- Documentation updates
+
 ## 0.1.0
 - Renames `FirestorePath` to `FirestoreRoot` and `StoragePath` to `StorageRoot`
 - `RuleDataSnapshot.val()` is now `RuleDataSnapshot.val<T>()` to allow for type-safety
