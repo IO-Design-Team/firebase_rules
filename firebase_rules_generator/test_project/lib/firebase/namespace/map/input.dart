@@ -14,6 +14,7 @@ bool test(RulesMap<String, int> other) {
   final i = other.keys();
   final j = other.size();
   final k = other.values();
+  final l = !other.contains('a');
   return true;
 }
 

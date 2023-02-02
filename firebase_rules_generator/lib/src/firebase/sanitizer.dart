@@ -27,7 +27,7 @@ String sanitizeRules(RevivedFirebaseRules annotation, String input) {
             return buffer.toString();
           },
         )
-            // Convert all paths
+            // Translate all paths
             .replaceAllMapped(
           RegExp(r"path\('(.+?)'(, database: '(.+?)')?\)"),
           (m) {
@@ -40,18 +40,26 @@ String sanitizeRules(RevivedFirebaseRules annotation, String input) {
             }
             return 'path(\'$path\')';
           },
-        ).replaceAllMapped(
+        )
+            // Convert path strings to raw paths
+            .replaceAllMapped(
           RegExp(r"path\('(.+?)'\)(\.bind\((.+?)\))?"),
           (m) => m[2] != null ? '(${m[1]}).bind(${m[3]})' : m[1]!,
         ),
     (input) => input
-        // Convert `contains` to `x in y`
-        .replaceAllMapped(
-          RegExp(r'(\S+?|\[.+?|\{.+?)\.contains\((.+?)\)'),
-          (m) => '${m[2]} in ${m[1]}',
+            // Convert `contains` to `x in y`
+            .replaceAllMapped(
+          RegExp(r'(!)?(\S+?|\[.+?|\{.+?)\.contains\((.+?)\)'),
+          (m) {
+            if (m[1] != null) {
+              return '!(${m[3]} in ${m[2]})';
+            } else {
+              return '${m[3]} in ${m[2]}';
+            }
+          },
         )
-        // Convert `range` to `x[i:j]
-        .replaceAllMapped(
+            // Convert `range` to `x[i:j]
+            .replaceAllMapped(
           RegExp(r'(\S+?)\.range\((.+?), (.+?)\)'),
           (m) => '${m[1]}[${m[2]}:${m[3]}]',
         ),

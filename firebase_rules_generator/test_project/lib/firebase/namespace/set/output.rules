@@ -13,6 +13,7 @@ service cloud.firestore {
       let i = ['a', 'b'].toSet().intersection(['a', 'c'].toSet()) == ['a'].toSet();
       let j = ['a', 'b'].toSet().size() == 2;
       let k = ['a', 'b'].toSet().union(['a', 'c'].toSet()) == ['a', 'b', 'c'].toSet();
+      let l = !('a' in ['a', 'b'].toSet());
       return true;
     }
   }

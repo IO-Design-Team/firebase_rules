@@ -25,6 +25,7 @@ bool test() {
   final j = ['a', 'b'].rules().toSet().size() == 2;
   final k = ['a', 'b'].rules().toSet().union(['a', 'c'].rules().toSet()) ==
       ['a', 'b', 'c'].rules().toSet();
+  final l = !['a', 'b'].rules().toSet().contains('a');
   return true;
 }
 

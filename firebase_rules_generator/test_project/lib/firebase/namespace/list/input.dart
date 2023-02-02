@@ -17,6 +17,7 @@ bool test(RulesList<String> list, RulesList<String> other) {
   final l = list.removeAll(other);
   final m = list.size();
   final n = list.toSet();
+  final o = !list.contains('a');
   return true;
 }
 

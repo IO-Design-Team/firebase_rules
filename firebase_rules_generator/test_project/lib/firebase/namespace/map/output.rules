@@ -13,6 +13,7 @@ service cloud.firestore {
       let i = other.keys();
       let j = other.size();
       let k = other.values();
+      let l = !('a' in other);
       return true;
     }
   }

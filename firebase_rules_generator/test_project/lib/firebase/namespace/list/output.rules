@@ -16,6 +16,7 @@ service cloud.firestore {
       let l = list.removeAll(other);
       let m = list.size();
       let n = list.toSet();
+      let o = !('a' in list);
       return true;
     }
   }

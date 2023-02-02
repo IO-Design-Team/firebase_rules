@@ -8,6 +8,7 @@
 - Raws are now completely ignored during sanitization
 - Improvements to string interpolation handling
 - `rules.path('/path/to/resource')` now translates to `/path/to/resource`
+- Fixed handling of `!type.contains()`
 
 ## 0.0.1
 - Initial release
