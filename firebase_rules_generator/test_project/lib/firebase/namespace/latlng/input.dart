@@ -14,7 +14,7 @@ bool test(FirestoreResource<GeoPointTest> resource, RulesLatLng other) {
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(functions: [test]),
+  Match<FirestoreResource>(firestoreRoot, functions: [test]),
 ];
 
 abstract class GeoPointTest {

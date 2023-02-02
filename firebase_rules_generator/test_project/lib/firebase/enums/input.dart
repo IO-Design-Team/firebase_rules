@@ -11,7 +11,7 @@ bool test() {
 
 @FirebaseRules(service: Service.firestore, enums: [Test.map])
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(functions: [test]),
+  Match<FirestoreResource>(firestoreRoot, functions: [test]),
 ];
 
 enum Test {

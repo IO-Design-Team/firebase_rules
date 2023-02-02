@@ -51,32 +51,6 @@ final databaseRules = [];
 
 ```
 
-### Paths
-
-Path classes allow for type-safe access to path parameters
-
-<!-- embedme readme/paths.dart -->
-```dart
-import 'package:firebase_rules/firebase.dart';
-
-/// Path classes should be `abstract` and extend [FirebasePath]. Since this
-/// code isn't actually going to run, implementations are unnecessary.
-abstract class UsersPath extends FirebasePath {
-  /// Path parameters should be strings
-  String get userId;
-
-  /// Create a path using literals and interpolate the path parameters. The
-  /// generator will convert this to a firebase path.
-  @override
-  String get path => '/users/$userId';
-}
-
-abstract class User {
-  String get userId;
-}
-
-```
-
 ### Matches
 
 Now we can start defining Match statements
@@ -84,34 +58,43 @@ Now we can start defining Match statements
 <!-- embedme readme/match.dart -->
 ```dart
 import 'package:firebase_rules/firebase.dart';
-import 'paths.dart';
+import 'shared.dart';
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  /// Always start with this match. [FirestoreRoot] is the root of Firestore.
-  Match<FirestoreRoot, FirestoreResource>(
+  /// Always start with this match. [firestoreRoot] is the root of Firestore.
+  Match<FirestoreResource>(
+    firestoreRoot,
+
     /// Match statements give access to type-safe contextual information:
-    /// - [path] is the path class of this match
+    /// - [path] is the wildcard segment of the path if there is one
     /// - [request] gives access to the [Request] object
     /// - [resource] gives access to the [Resource] object
     ///
-    /// The [path] parameter can have any name, but [request] and [resource]
-    /// must not  be renamed
-    matches: (path, request, resource) => [
+    /// The [path] parameter name must match the name of the wildcard.
+    /// The [request] and [resource] parameters must not  be renamed.
+    matches: (database, request, resource) => [
       /// Subsequent matches should use typed [FirestoreResource] objects.
       /// This makes the [request] and [resource] parameters type-safe.
-      Match<UsersPath, FirestoreResource<User>>(),
+      Match<FirestoreResource<User>>(
+        /// Paths are only allowed to contain one wildcard. If you need more
+        /// wildcards, nest matches.
+        '/users/{userId}',
+      ),
     ],
   ),
 ];
 
 @FirebaseRules(service: Service.storage)
 final storageRules = [
-  /// Always start with this match. [StorageRoot] is the root of Storage.
-  Match<StorageRoot, StorageResource>(
+  /// Always start with this match. [storageRoot] is the root of Storage.
+  Match<StorageResource>(
+    storageRoot,
     matches: (path, request, resource) => [
       /// All storage matches use [StorageResource] objects
-      Match<UsersPath, StorageResource>(),
+      Match<StorageResource>(
+        '/images/{imageId}',
+      ),
     ],
   ),
 ];
@@ -125,15 +108,17 @@ Rules are why we're here
 <!-- embedme readme/rules.dart -->
 ```dart
 import 'package:firebase_rules/firebase.dart';
-import 'paths.dart';
+import 'shared.dart';
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(
+  Match<FirestoreResource>(
+    firestoreRoot,
     matches: (path, request, resource) => [
-      Match<UsersPath, FirestoreResource<User>>(
-        rules: (usersPath, request, resource) => [
-          Allow([Operation.read], resource.data.userId == usersPath.userId)
+      Match<FirestoreResource<User>>(
+        '/users/{userId}',
+        rules: (userId, request, resource) => [
+          Allow([Operation.read], resource.data.userId.rules() == userId),
         ],
       ),
     ],
@@ -186,7 +171,9 @@ bool isSignedIn(RulesRequest request) {
 
 @FirebaseRules(service: Service.firestore)
 final rules = [
-  Match<FirestoreRoot, FirestoreResource>(
+  Match<FirestoreResource>(
+    firestoreRoot,
+
     /// Functions are scoped to matches, but must be declared as top-level
     /// functions
     functions: [isSignedIn],
@@ -202,27 +189,28 @@ Any of the function arguments of a match statement can be split out for organiza
 <!-- embedme readme/organization.dart -->
 ```dart
 import 'package:firebase_rules/firebase.dart';
-import 'paths.dart';
+import 'shared.dart';
 
 /// Match parameter functions can be split out for organization. However, these
 /// must be declared in the same file. Note that match functions cannot contain
 /// a body.
 List<Match> detached(
-  FirestoreRoot root,
+  RulesString database,
   RulesRequest<FirestoreResource> request,
   FirestoreResource resource,
 ) =>
     [
-      Match<UsersPath, FirestoreResource<User>>(
-        rules: (usersPath, request, resource) => [
-          Allow([Operation.read], resource.data.userId == usersPath.userId)
+      Match<FirestoreResource<User>>(
+        '/users/{userId}',
+        rules: (userId, request, resource) => [
+          Allow([Operation.read], resource.data.userId.rules() == userId)
         ],
       ),
     ];
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(matches: detached),
+  Match<FirestoreResource>(firestoreRoot, matches: detached),
 ];
 
 ```
@@ -242,9 +230,11 @@ import 'package:firebase_rules/firebase.dart';
   enums: [Test.map],
 )
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(
+  Match<FirestoreResource>(
+    firestoreRoot,
     matches: (path, request, resource) => [
-      Match<TestPath, FirestoreResource<TestResource>>(
+      Match<FirestoreResource<TestResource>>(
+        '/test',
         rules: (path, request, resource) => [
           Allow([Operation.read], resource.data.test == Test.a),
         ],
@@ -252,11 +242,6 @@ final firestoreRules = [
     ],
   ),
 ];
-
-abstract class TestPath extends FirebasePath {
-  @override
-  String get path => '/test';
-}
 
 enum Test {
   a,
@@ -302,6 +287,8 @@ import 'package:firebase_rules/database.dart';
 final databaseRules = [
   Match(
     r'rules/users/$userId',
+
+    /// The path parameter must match the wildcard name
     read: (userId) => auth != null && auth?.uid == userId,
     write: (userId) => userId == 'user1'.rules(),
     validate: (userId) => !data.exists(),

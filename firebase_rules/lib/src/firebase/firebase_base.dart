@@ -42,15 +42,11 @@ enum Service {
 }
 
 /// A callback that provides information about the current rules context
-typedef ContextualCallback<T, U extends FirebasePath,
-        V extends FirebaseResource>
-    = List<T> Function(U path, RulesRequest<V> request, V resource);
-
-/// A service path that provides access to path parameters
-abstract class FirebasePath {
-  /// The path string for code generation
-  String get path;
-}
+typedef ContextualCallback<T, U extends FirebaseResource> = List<T> Function(
+  RulesString path,
+  RulesRequest<U> request,
+  U resource,
+);
 
 /// Service operations
 enum Operation {
@@ -89,16 +85,27 @@ class Allow {
 }
 
 /// A firebase rules match statement
-class Match<T extends FirebasePath, U extends FirebaseResource> {
+class Match<T extends FirebaseResource> {
+  /// The Firebase path
+  ///
+  /// One `{wildcard}` is allowed per path
+  final String path;
+
   /// Functions to place in this context
   final List<Function>? functions;
 
   /// Rules for this context
-  final ContextualCallback<Allow, T, U>? rules;
+  ///
+  /// The [path] parameter name must match the name of the wildcard.
+  /// The [request] and [resource] parameters must not  be renamed.
+  final ContextualCallback<Allow, T>? rules;
 
   /// Nested matches for this context
-  final ContextualCallback<Match, T, U>? matches;
+  ///
+  /// The [path] parameter name must match the name of the wildcard.
+  /// The [request] and [resource] parameters must not  be renamed.
+  final ContextualCallback<Match, T>? matches;
 
   /// Constructor
-  Match({this.functions, this.rules, this.matches});
+  Match(this.path, {this.functions, this.rules, this.matches});
 }

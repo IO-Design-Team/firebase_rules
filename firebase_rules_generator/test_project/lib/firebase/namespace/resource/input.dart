@@ -30,7 +30,7 @@ bool test2(StorageResource resource) {
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(functions: [test1, test2]),
+  Match<FirestoreResource>(firestoreRoot, functions: [test1, test2]),
 ];
 
 abstract class ResourceTest {

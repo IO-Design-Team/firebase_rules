@@ -1,13 +1,15 @@
 import 'package:firebase_rules/firebase.dart';
-import 'paths.dart';
+import 'shared.dart';
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(
+  Match<FirestoreResource>(
+    firestoreRoot,
     matches: (path, request, resource) => [
-      Match<UsersPath, FirestoreResource<User>>(
-        rules: (usersPath, request, resource) => [
-          Allow([Operation.read], resource.data.userId == usersPath.userId)
+      Match<FirestoreResource<User>>(
+        '/users/{userId}',
+        rules: (userId, request, resource) => [
+          Allow([Operation.read], resource.data.userId.rules() == userId),
         ],
       ),
     ],

@@ -14,7 +14,7 @@ bool test(FirestoreResource<BlobTest> resource) {
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(functions: [test]),
+  Match<FirestoreResource>(firestoreRoot, functions: [test]),
 ];
 
 abstract class BlobTest {

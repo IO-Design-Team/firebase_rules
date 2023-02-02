@@ -7,9 +7,11 @@ import 'package:firebase_rules/firebase.dart';
   enums: [Test.map],
 )
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(
+  Match<FirestoreResource>(
+    firestoreRoot,
     matches: (path, request, resource) => [
-      Match<TestPath, FirestoreResource<TestResource>>(
+      Match<FirestoreResource<TestResource>>(
+        '/test',
         rules: (path, request, resource) => [
           Allow([Operation.read], resource.data.test == Test.a),
         ],
@@ -17,11 +19,6 @@ final firestoreRules = [
     ],
   ),
 ];
-
-abstract class TestPath extends FirebasePath {
-  @override
-  String get path => '/test';
-}
 
 enum Test {
   a,

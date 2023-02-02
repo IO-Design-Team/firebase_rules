@@ -5,7 +5,8 @@ import 'package:firebase_rules_test/firebase/split/input2.dart';
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(
+  Match<FirestoreResource>(
+    firestoreRoot,
     functions: [isNotAnonymous],
     rules: detachedRules,
     matches: detachedMatches,

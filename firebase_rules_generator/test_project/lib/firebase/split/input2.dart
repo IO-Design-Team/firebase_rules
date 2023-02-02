@@ -7,7 +7,7 @@ bool isNotAnonymous(RulesRequest request) =>
     request.auth!.token.signInProvider != RulesSignInProvider.anonymous;
 
 List<Allow> detachedRules(
-  FirebasePath path,
+  RulesString database,
   RulesRequest<FirestoreResource> request,
   FirestoreResource resource,
 ) =>
@@ -16,20 +16,13 @@ List<Allow> detachedRules(
     ];
 
 List<Match> detachedMatches(
-  FirebasePath path,
+  RulesString database,
   RulesRequest<FirestoreResource> request,
   FirestoreResource resource,
 ) =>
     [
-      Match<UsersPath, FirestoreResource<User>>(rules: detachedRules),
+      Match<FirestoreResource<User>>('/users/{userId}', rules: detachedRules),
     ];
-
-abstract class UsersPath extends FirebasePath {
-  String get userId;
-
-  @override
-  String get path => '/users/$userId';
-}
 
 abstract class User {
   String get userId;

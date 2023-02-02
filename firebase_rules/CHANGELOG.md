@@ -6,6 +6,7 @@
 - `firestore.get<T>()` and `firestore.getAfter<T>()` now properly return a `FirestoreResource<T>`
 - The conversion to rules types is now `.rules()` instead of `.rules` to allow for casting iterables and maps
 - Enum conversion maps can now be passed into the `FirebaseRules` annotation
+- Paths are now just a string parameter on a match. Wildcards are all strings anyways, and this is more flexible.
 
 ## 0.0.1+2
 - Readme fixes

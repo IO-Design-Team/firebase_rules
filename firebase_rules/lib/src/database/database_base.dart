@@ -15,8 +15,8 @@ typedef ContextualCallback<T> = T Function(RulesString location);
 class Match {
   /// The path
   ///
-  /// One `$location` wild card is allowed at the end of the path. Path
-  /// segments will be expanded automatically.
+  /// One `$location` wild card is allowed per path. Path segments will be
+  /// expanded automatically.
   final String path;
 
   /// Read

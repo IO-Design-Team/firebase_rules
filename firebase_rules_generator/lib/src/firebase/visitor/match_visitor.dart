@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
-import 'package:collection/collection.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
 import 'package:firebase_rules_generator/src/common/visitor.dart';
 import 'package:firebase_rules_generator/src/firebase/visitor/function_visitor.dart';
@@ -10,19 +10,23 @@ import 'package:source_gen/source_gen.dart';
 
 /// Visit Match nodes
 Stream<String> visitMatch(Context context, AstNode node) async* {
-  final path = await _getPath(context, node);
-
-  yield 'match $path {'.indent(context.indent);
-
-  final arguments =
-      node.childEntities.whereType<ArgumentList>().single.childEntities;
-  // Argument lists have beginning and end tokens
-  if (arguments.length - 2 == 0) {
-    throw InvalidGenerationSourceError(
-      'Match missing arguments: ${node.toSource()}',
-    );
+  final arguments = (node as MethodInvocation).argumentList.arguments;
+  final pathArgument = arguments.first;
+  final String path;
+  if (pathArgument is SimpleStringLiteral) {
+    path = pathArgument.value;
+  } else if (pathArgument is SimpleIdentifier) {
+    final pathElement =
+        await context.get<TopLevelVariableElement>(pathArgument.name);
+    final ast =
+        await context.resolver.astNodeFor(pathElement) as VariableDeclaration;
+    final pathString = ast.initializer as SimpleStringLiteral;
+    path = pathString.value;
+  } else {
+    throw InvalidGenerationSourceError('Invalid match path ${node.toSource()}');
   }
 
+  yield 'match $path {'.indent(context.indent);
   yield* _visitFunctions(context, arguments);
   yield* visitParameter(
     context,
@@ -74,29 +78,4 @@ void _validateParameterFunction(FunctionExpression function) {
       'Resource parameter misnamed: $resourceParameter}',
     );
   }
-}
-
-Future<String> _getPath(Context context, AstNode node) async {
-  final typeArguments =
-      node.childEntities.whereType<TypeArgumentList>().firstOrNull;
-  if (typeArguments == null) {
-    throw InvalidGenerationSourceError(
-      'Match missing type annotations: ${node.toSource()}',
-    );
-  }
-
-  final pathName = typeArguments.arguments[0].toSource();
-  final pathElement = await context.get(pathName);
-
-  final ast = await context.resolver.astNodeFor(pathElement);
-  final pathMethod = ast!.childEntities
-      .whereType<MethodDeclaration>()
-      .where((e) => e.name.toString() == 'path');
-  final pathString = pathMethod.single.body.childEntities
-      .whereType<StringLiteral>()
-      .single
-      .toSource();
-  return pathString
-      .substring(1, pathString.length - 1)
-      .replaceAllMapped(RegExp(r'\$([^\/]+)'), (m) => '{${m[1]}}');
 }

@@ -10,27 +10,24 @@ bool isOwner(RulesRequest request, RulesString uid) {
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  Match<FirestoreRoot, FirestoreResource>(
+  Match<FirestoreResource>(
+    firestoreRoot,
     functions: [isSignedIn, isOwner],
     rules: (path, request, resource) => [
       Allow([Operation.read], request.auth?.uid == 'god'.rules()),
     ],
     matches: (path, request, resource) => [
-      Match<UsersPath, FirestoreResource<User>>(
-        rules: (users, request, resource) => [
+      Match<FirestoreResource<User>>(
+        '/users/{userId}',
+        rules: (userId, request, resource) => [
           Allow([Operation.read], isSignedIn(request)),
-          Allow(
-            [Operation.create, Operation.update],
-            isOwner(request, users.userId.rules()),
-          ),
+          Allow([Operation.create, Operation.update], isOwner(request, userId)),
         ],
       ),
-      Match<ContentPath, FirestoreResource<Content>>(
-        rules: (content, request, resource) => [
-          Allow(
-            [Operation.read],
-            isSignedIn(request) && resource.data.public,
-          ),
+      Match<FirestoreResource<Content>>(
+        '/content/{contentId}',
+        rules: (contentId, request, resource) => [
+          Allow([Operation.read], isSignedIn(request) && resource.data.public),
           Allow(
             [Operation.write],
             rules.firestore
@@ -40,7 +37,7 @@ final firestoreRules = [
                     .data
                     .contentIds
                     .rules<RulesString>()
-                    .contains(content.contentId.rules()) &&
+                    .contains(contentId) &&
                 rules.firestore.exists(
                   rules.path(
                     '/users/${request.auth?.uid}'.rules(),
@@ -59,20 +56,6 @@ abstract class User {
   Blob get profileImage;
 }
 
-abstract class UsersPath extends FirebasePath {
-  String get userId;
-
-  @override
-  String get path => '/users/$userId';
-}
-
 abstract class Content {
   bool get public;
-}
-
-abstract class ContentPath extends FirebasePath {
-  String get contentId;
-
-  @override
-  String get path => '/content/$contentId';
 }

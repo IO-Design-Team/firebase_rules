@@ -1,32 +1,41 @@
 import 'package:firebase_rules/firebase.dart';
-import 'paths.dart';
+import 'shared.dart';
 
 @FirebaseRules(service: Service.firestore)
 final firestoreRules = [
-  /// Always start with this match. [FirestoreRoot] is the root of Firestore.
-  Match<FirestoreRoot, FirestoreResource>(
+  /// Always start with this match. [firestoreRoot] is the root of Firestore.
+  Match<FirestoreResource>(
+    firestoreRoot,
+
     /// Match statements give access to type-safe contextual information:
-    /// - [path] is the path class of this match
+    /// - [path] is the wildcard segment of the path if there is one
     /// - [request] gives access to the [Request] object
     /// - [resource] gives access to the [Resource] object
     ///
-    /// The [path] parameter can have any name, but [request] and [resource]
-    /// must not  be renamed
-    matches: (path, request, resource) => [
+    /// The [path] parameter name must match the name of the wildcard.
+    /// The [request] and [resource] parameters must not  be renamed.
+    matches: (database, request, resource) => [
       /// Subsequent matches should use typed [FirestoreResource] objects.
       /// This makes the [request] and [resource] parameters type-safe.
-      Match<UsersPath, FirestoreResource<User>>(),
+      Match<FirestoreResource<User>>(
+        /// Paths are only allowed to contain one wildcard. If you need more
+        /// wildcards, nest matches.
+        '/users/{userId}',
+      ),
     ],
   ),
 ];
 
 @FirebaseRules(service: Service.storage)
 final storageRules = [
-  /// Always start with this match. [StorageRoot] is the root of Storage.
-  Match<StorageRoot, StorageResource>(
+  /// Always start with this match. [storageRoot] is the root of Storage.
+  Match<StorageResource>(
+    storageRoot,
     matches: (path, request, resource) => [
       /// All storage matches use [StorageResource] objects
-      Match<UsersPath, StorageResource>(),
+      Match<StorageResource>(
+        '/images/{imageId}',
+      ),
     ],
   ),
 ];

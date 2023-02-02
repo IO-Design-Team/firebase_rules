@@ -23,12 +23,12 @@ class Context {
       : paths = {},
         indent = 2;
 
-  /// Get the first resolvable element with the given [name]
-  Future<Element> get(String name) {
+  /// Get the first resolvable element with the given [name] and type [T]
+  Future<T> get<T extends Element>(String name) {
     return resolver.libraries
-        .map((e) => e.exportNamespace.get(name))
-        .where((e) => e != null)
-        .cast<Element>()
+        .expand((e) => e.topLevelElements.where((e) => e.name == name))
+        .where((e) => e is T)
+        .cast<T>()
         .first;
   }
 

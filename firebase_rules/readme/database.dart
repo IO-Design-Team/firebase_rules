@@ -4,6 +4,8 @@ import 'package:firebase_rules/database.dart';
 final databaseRules = [
   Match(
     r'rules/users/$userId',
+
+    /// The path parameter must match the wildcard name
     read: (userId) => auth != null && auth?.uid == userId,
     write: (userId) => userId == 'user1'.rules(),
     validate: (userId) => !data.exists(),

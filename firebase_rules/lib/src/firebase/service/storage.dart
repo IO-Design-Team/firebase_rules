@@ -2,13 +2,7 @@ import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules/src/firebase/service/base.dart';
 
 /// The root of Storage
-abstract class StorageRoot extends FirebasePath {
-  /// The current bucket
-  String get bucket;
-
-  @override
-  String get path => '/b/$bucket/o';
-}
+const storageRoot = '/b/{bucket}/o';
 
 /// The resource variable contains the metadata of a file being uploaded or the
 /// updated metadata for an existing file. This is related to the resource
