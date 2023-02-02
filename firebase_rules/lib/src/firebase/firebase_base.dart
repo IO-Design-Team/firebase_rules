@@ -43,7 +43,7 @@ enum Service {
 
 /// A callback that provides information about the current rules context
 typedef ContextualCallback<T, U extends FirebaseResource> = List<T> Function(
-  RulesString path,
+  RulesString _,
   RulesRequest<U> request,
   U resource,
 );
