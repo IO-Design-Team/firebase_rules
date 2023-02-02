@@ -155,7 +155,7 @@ abstract class RulesMethods {
   /// A raw rules string if type-safe code is impractical
   ///
   /// Avoid if possible
-  bool raw(String expression) => throw UnimplementedError();
+  T raw<T>(String expression) => throw UnimplementedError();
 
   /// Access to [RulesDurationMethods]
   RulesDurationMethods get duration;

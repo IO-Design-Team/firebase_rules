@@ -5,6 +5,7 @@ service cloud.firestore {
       let a = foo.bar.baz == 'qux';
       let b = foo.bar.baz == 123;
       let c = foo.bar.rules == 'asdf';
+      let d = foo.bar.baz;
       return true;
     }
   }

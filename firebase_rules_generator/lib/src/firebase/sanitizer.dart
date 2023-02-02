@@ -1,5 +1,4 @@
 import 'package:firebase_rules/firebase.dart';
-import 'package:firebase_rules_generator/src/common/context.dart';
 import 'package:firebase_rules_generator/src/common/sanitizer.dart';
 import 'package:firebase_rules_generator/src/firebase/revived_firebase_rules.dart';
 
@@ -97,9 +96,9 @@ String transformIgnoringRaws(
   List<String Function(String input)> transforms,
 ) {
   final raws = <String>[];
-  input =
-      input.replaceAllMapped(RegExp(r'''rules\.raw\(['"](.+?)['"]\)'''), (m) {
-    raws.add(m[1]!);
+  input = input.replaceAllMapped(
+      RegExp(r'''rules\.raw(<.+?>)?\(['"](.+?)['"]\)'''), (m) {
+    raws.add(m[2]!);
     return '{RulesRawPlaceholder${raws.length - 1}}';
   });
 

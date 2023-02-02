@@ -7,6 +7,8 @@ bool test() {
   final b = rules.raw('foo.bar.baz == 123');
   // Make sure raws are completely ignored during sanitization
   final c = rules.raw("foo.bar.rules == 'asdf'");
+  // Make sure types are stripped
+  final d = rules.raw<RulesString>('foo.bar.baz');
   return true;
 }
 

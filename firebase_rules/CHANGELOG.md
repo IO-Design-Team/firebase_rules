@@ -8,6 +8,7 @@
 - Enum conversion maps can now be passed into the `FirebaseRules` annotation
 - Paths are now just a string parameter on a match. Wildcards are all strings anyways, and this is more flexible.
 - Adds a globally accessible `request` object if type-safe access to the resource is not required
+- `rules.raw()` is now `rules.raw<T>()` to allow for returning any type
 
 ## 0.0.1+2
 - Readme fixes
