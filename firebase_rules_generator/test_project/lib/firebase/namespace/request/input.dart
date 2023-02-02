@@ -31,9 +31,9 @@ bool test1(RulesRequest request) {
 }
 
 bool test2(RulesRequest request) {
-  final a = request.auth?.token.identities[RulesIdentityProvider.email]?[0];
-  final b = request.auth?.token.identities[RulesIdentityProvider.phone]?[0];
-  final c = request.auth?.token.identities[RulesIdentityProvider.google]?[0];
+  final a = request.auth?.token.identities[RulesIdentityProvider.email]![0];
+  final b = request.auth?.token.identities[RulesIdentityProvider.phone]![0];
+  final c = request.auth?.token.identities[RulesIdentityProvider.google]![0];
   final d = request.auth?.token.identities[RulesIdentityProvider.facebook]?[0];
   final e = request.auth?.token.identities[RulesIdentityProvider.github]?[0];
   final f = request.auth?.token.identities[RulesIdentityProvider.twitter]?[0];

@@ -15,7 +15,7 @@ service cloud.firestore {
     }
     match /content/{contentId} {
       allow read: if isSignedIn(request) && resource.data.public;
-      allow write: if contentId in get(path('/databases/$(database)/documents/users/$(request.auth.uid)')).data.contentIds && exists(path('/databases/(default)/documents/users/$(request.auth.uid)'));
+      allow write: if contentId in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.contentIds && exists(/databases/(default)/documents/users/$(request.auth.uid));
     }
   }
 }

@@ -1,6 +1,6 @@
 name: firebase_rules_convert
 description: A bridge to bring cloud_firestore_platform_interface types into firebase_rules
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/IO-Design-Team/firebase_rules/tree/master/firebase_rules_convert
 
 environment:
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_rules: ^0.0.1
+  firebase_rules: ^0.1.0
   cloud_firestore_platform_interface: ^5.10.1
 
 dev_dependencies:

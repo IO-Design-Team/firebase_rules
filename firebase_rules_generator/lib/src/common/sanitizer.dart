@@ -14,8 +14,11 @@ String removeRulesPrefixesAndSuffixes(String input) => input
     .replaceAll(RegExp(r'\brules\.'), '');
 
 /// Strip null safety
-String stripNullSafety(String input) =>
-    input.replaceAll('?.', '.').replaceAll('?[', '[').replaceAll('!.', '.');
+String stripNullSafety(String input) => input
+    .replaceAll('?.', '.')
+    .replaceAll(']?', ']')
+    .replaceAll('!.', '.')
+    .replaceAll(']!', ']');
 
 /// Translate raw strings
 String translateRawStrings(String input) => input
