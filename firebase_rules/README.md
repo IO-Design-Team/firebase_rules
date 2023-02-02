@@ -164,8 +164,11 @@ Top-level functions can be used as functions rules
 ```dart
 import 'package:firebase_rules/firebase.dart';
 
-bool isSignedIn(RulesRequest request) {
+bool isSignedIn() {
   /// Null-safety operators will be stripped by the generator
+  /// 
+  /// There is a globally available [request] object if type-safe access to
+  /// [RulesRequest.resource] is not required.
   return request.auth?.uid != null;
 }
 

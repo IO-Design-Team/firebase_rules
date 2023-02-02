@@ -124,3 +124,7 @@ abstract class RulesRequest<T extends FirebaseResource> {
   /// time will be equal to the server timestamp.
   RulesTimestamp get time;
 }
+
+/// Use this global request object if you do not require type-safe access to
+/// [RulesRequest.resource]
+RulesRequest get request => throw UnimplementedError();
