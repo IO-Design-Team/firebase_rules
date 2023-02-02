@@ -11,10 +11,14 @@ class FirebaseRules {
   /// The firebase service these rules are for
   final Service service;
 
+  /// Maps of enums to their string values for code generation
+  final List<Map<Enum, String>> enums;
+
   /// Constructor
   const FirebaseRules({
     this.rulesVersion = '2',
     required this.service,
+    this.enums = const [],
   });
 }
 

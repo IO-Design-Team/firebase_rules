@@ -1,9 +1,10 @@
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
 import 'package:firebase_rules_generator/src/common/sanitizer.dart';
+import 'package:firebase_rules_generator/src/firebase/revived_firebase_rules.dart';
 
 /// Sanitize rules files
-String sanitizeRules(FirebaseRules annotation, String input) {
+String sanitizeRules(RevivedFirebaseRules annotation, String input) {
   return transformIgnoringRaws(input, [
     removeRulesPrefixesAndSuffixes,
     stripNullSafety,
@@ -69,6 +70,7 @@ String sanitizeRules(FirebaseRules annotation, String input) {
           'RulesIdentityProvider': RulesIdentityProvider.values,
           'RulesSignInProvider': RulesSignInProvider.values,
         }),
+    (input) => translateUserEnums(input, annotation.enums),
     translateAuthVariables,
     (input) => input.replaceAll(
           'resource.firestoreResourceName',

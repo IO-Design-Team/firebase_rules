@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
 import 'package:firebase_rules_generator/src/common/generator.dart';
+import 'package:firebase_rules_generator/src/firebase/revived_firebase_rules.dart';
 import 'package:firebase_rules_generator/src/firebase/sanitizer.dart';
 import 'package:firebase_rules_generator/src/firebase/util.dart';
 import 'package:firebase_rules_generator/src/firebase/visitor/match_visitor.dart';
@@ -45,10 +47,20 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
   }
 
   /// Reconstruct the [FirebaseRules] object from the annotation
-  FirebaseRules reviveAnnotation(ConstantReader annotation) {
-    return FirebaseRules(
+  RevivedFirebaseRules reviveAnnotation(ConstantReader annotation) {
+    return RevivedFirebaseRules(
       rulesVersion: annotation.read('rulesVersion').stringValue,
       service: readEnum(annotation.read('service'), Service.values)!,
+      enums: annotation.read('enums').listValue.map(reviveEnum),
     );
+  }
+
+  /// Revive a Map<Enum, String> to a Map<String, String> from a [DartObject]
+  Map<String, String> reviveEnum(DartObject value) {
+    return value.toMapValue()!.cast<DartObject, DartObject>().map((k, v) {
+      final enumType = k.type;
+      final enumValue = k.getField('_name')!.toStringValue();
+      return MapEntry('$enumType.$enumValue', v.toStringValue()!);
+    });
   }
 }

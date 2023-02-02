@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function test() {
+      let a = 'a';
+      let b = 'b';
+      let c = 'c';
+      return true;
+    }
+  }
+}

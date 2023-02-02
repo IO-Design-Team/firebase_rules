@@ -40,6 +40,16 @@ String translateEnums(String input, Map<String, List<Enum>> enums) {
   return input;
 }
 
+/// Translate user enums
+String translateUserEnums(String input, Iterable<Map<String, String>> enums) {
+  for (final enumMap in enums) {
+    for (final entry in enumMap.entries) {
+      input = input.replaceAll(entry.key, "'${entry.value}'");
+    }
+  }
+  return input;
+}
+
 /// Translate auth variables
 String translateAuthVariables(String input) => input
     .replaceAll('auth.token.emailVerified', 'auth.token.email_verified')
