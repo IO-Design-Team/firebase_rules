@@ -9,9 +9,9 @@ void testFirebaseRulesBuilder(String name, {dynamic skip}) {
   test(
     'firebase/$name',
     () async {
-      final input =
-          File('test_project/lib/firebase/$name/input.dart').readAsStringSync();
-      final output = File('test_project/lib/firebase/$name/output.rules')
+      final input = File('../test_project/lib/firebase/$name/input.dart')
+          .readAsStringSync();
+      final output = File('../test_project/lib/firebase/$name/output.rules')
           .readAsStringSync();
       await testBuilder(
         firebaseRules(BuilderOptions.empty),

@@ -1,4 +1,4 @@
-name: firebase_rules_test
+name: test_project
 publish_to: none
 
 environment:
@@ -16,6 +16,6 @@ dev_dependencies:
 
 dependency_overrides:
   firebase_rules:
-    path: ../../firebase_rules
+    path: ../firebase_rules
   firebase_rules_convert:
-    path: ../../firebase_rules_convert
+    path: ../firebase_rules_convert

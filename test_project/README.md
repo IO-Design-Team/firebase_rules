@@ -1,0 +1,1 @@
+Since the generator cannot transitively depend on flutter (even in dev_dependencies), this project holds all the test files for generation
