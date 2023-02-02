@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function test1(resource) {
-      let a = resource['__name__'] == path('/databases/(default)/documents/collection/$(resource.id)');
+      let a = resource['__name__'] == /databases/(default)/documents/collection/$(resource.id);
       let b = resource.data.asdf;
       return true;
     }

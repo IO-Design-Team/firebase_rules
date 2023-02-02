@@ -49,7 +49,7 @@ String sanitizeRules(RevivedFirebaseRules annotation, String input) {
     (input) => input
             // Convert `contains` to `x in y`
             .replaceAllMapped(
-          RegExp(r'(!)?(\b.+?|\[.+?|\{.+?)\.contains\((.+?)\)'),
+          RegExp(r'(!)?(\S+?|\[.+?|\{.+?)\.contains\((.+?)\)'),
           (m) {
             if (m[1] != null) {
               return '!(${m[3]} in ${m[2]})';
