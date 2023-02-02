@@ -40,6 +40,9 @@ String sanitizeRules(RevivedFirebaseRules annotation, String input) {
             }
             return 'path(\'$path\')';
           },
+        ).replaceAllMapped(
+          RegExp(r"path\('(.+?)'\)(\.bind\((.+?)\))?"),
+          (m) => m[2] != null ? '(${m[1]}).bind(${m[3]})' : m[1]!,
         ),
     (input) => input
         // Convert `contains` to `x in y`
