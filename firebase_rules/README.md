@@ -158,7 +158,7 @@ void example() {
 
 ### Functions
 
-Top-level functions can be used as functions rules
+Top-level functions can be used as rules functions
 
 <!-- embedme readme/functions.dart -->
 ```dart
