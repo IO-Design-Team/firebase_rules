@@ -1,3 +1,6 @@
+## 0.1.1
+- Dependency upgrades
+
 ## 0.1.0
 - Updates to support `firebase_rules` changes
 - Translate `r"..."` to `"..."` instead of `'...'`

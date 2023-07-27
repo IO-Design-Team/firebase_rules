@@ -1,13 +1,13 @@
 name: firebase_rules_generator
 description: The `build_runner` generator for the `firebase_rules` package
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/IO-Design-Team/firebase_rules/tree/master/firebase_rules_generator
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  analyzer: ^5.2.0
+  analyzer: ^6.0.0
   build: ^2.3.1
   source_gen: ^1.2.6
   firebase_rules: ^0.1.0
