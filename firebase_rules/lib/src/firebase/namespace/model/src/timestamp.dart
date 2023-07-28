@@ -46,3 +46,9 @@ abstract class RulesTimestamp {
   /// Get the year value of the timestamp.
   int year();
 }
+
+/// Access to [RulesTimestamp] methods
+extension RulesDateTimeExtension on DateTime {
+  /// Convert [DateTime] to [Timestamp]
+  RulesTimestamp rules() => throw UnimplementedError();
+}

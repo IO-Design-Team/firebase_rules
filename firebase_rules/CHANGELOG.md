@@ -1,3 +1,6 @@
+## 0.1.1
+- Adds extension to `DateTime` to allow access to `RulesTimestamp` methods
+
 ## 0.1.0+1
 - Documentation updates
 
