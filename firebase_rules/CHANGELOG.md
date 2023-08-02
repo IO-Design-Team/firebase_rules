@@ -1,3 +1,7 @@
+## 0.1.2
+- Adds extension on `Object` to allow converting any `Object` to a `RulesMap<String, dynamic>`
+- The `RulesSet` methods `hasAll`, `hasAny`, `hasOnly` now accept either a `RulesSet` or `RulesList`
+
 ## 0.1.1
 - Adds extension to `DateTime` to allow access to `RulesTimestamp` methods
 

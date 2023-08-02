@@ -1,5 +1,7 @@
+import 'package:firebase_rules/src/firebase/namespace/model/src/iterable.dart';
+
 /// A set is an unordered collection. A set cannot contain duplicate items.
-abstract class RulesSet<T> {
+abstract class RulesSet<T> extends RulesIterable<T> {
   RulesSet._();
 
   /// Check if value v exists in set x.
@@ -14,15 +16,15 @@ abstract class RulesSet<T> {
 
   /// Test whether the set calling hasAll() contains all of the items in the
   /// comparison set passed to hasAll().
-  bool hasAll(RulesSet<T> other);
+  bool hasAll(RulesIterable<T> other);
 
   /// Test whether the set calling hasAny() contains any of the items in the set
   /// or list passed to hasAny().
-  bool hasAny(RulesSet<T> other);
+  bool hasAny(RulesIterable<T> other);
 
   /// Test whether the set calling hasOnly() contains only the items in the
   /// comparison set or list passed to hasOnly().
-  bool hasOnly(RulesSet<T> other);
+  bool hasOnly(RulesIterable<T> other);
 
   /// Returns a set that is the intersection between the set calling
   /// intersection() and the set passed to intersection(). That is, returns a

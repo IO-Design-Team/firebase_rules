@@ -1,7 +1,8 @@
 import 'package:firebase_rules/src/firebase/namespace/model/model.dart';
+import 'package:firebase_rules/src/firebase/namespace/model/src/iterable.dart';
 
 /// List type. Items are not necessarily homogenous.
-abstract class RulesList<T> {
+abstract class RulesList<T> extends RulesIterable<T> {
   RulesList._();
 
   /// Index operator, get value index i

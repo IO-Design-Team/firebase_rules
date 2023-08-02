@@ -23,3 +23,9 @@ extension RulesStringExtension on String {
   /// Access to [RulesString] methods
   RulesString rules() => throw UnimplementedError();
 }
+
+/// Convert any [Object] to a [RulesMap]
+extension RulesObjectExtension on Object {
+  /// Convert any [Object] to a [RulesMap]
+  RulesMap<String, dynamic> rules() => throw UnimplementedError();
+}
