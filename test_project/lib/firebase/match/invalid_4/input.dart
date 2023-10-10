@@ -4,7 +4,7 @@ import 'package:firebase_rules/firebase.dart';
 final firestoreRules = [
   Match<FirestoreResource>(
     firestoreRoot,
-    // Invalid wildcard parameter (should be `database`)
-    matches: (asdf, request, resource) => [],
+    // Invalid response parameter
+    rules: (database, request, asdf) => [],
   ),
 ];

@@ -5,5 +5,7 @@ service cloud.firestore {
     match /test/{id} {
       allow read: if id == 'asdf' && resource.data.asdf == 123;
     }
+    match /other/stuff {
+    }
   }
 }

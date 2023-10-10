@@ -19,6 +19,11 @@ final firestoreRules = [
           ),
         ],
       ),
+      Match<FirestoreResource>(
+        '/other/stuff',
+        rules: (_, request, resource) => [],
+        matches: (_, request, resource) => [],
+      ),
     ],
   ),
 ];

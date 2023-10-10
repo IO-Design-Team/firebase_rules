@@ -5,6 +5,6 @@ final firestoreRules = [
   Match<FirestoreResource>(
     firestoreRoot,
     // Invalid wildcard parameter (should be `database`)
-    matches: (asdf, request, resource) => [],
+    rules: (asdf, request, resource) => [],
   ),
 ];
