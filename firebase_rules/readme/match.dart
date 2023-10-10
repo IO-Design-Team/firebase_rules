@@ -24,7 +24,7 @@ final firestoreRules = [
         '/users/{userId}',
 
         /// The [userId] parameter matches the `userId` wildcard
-        rules: (userId, reqquest, resource) => [],
+        rules: (userId, request, resource) => [],
       ),
       Match<FirestoreResource>(
         '/other/stuff',

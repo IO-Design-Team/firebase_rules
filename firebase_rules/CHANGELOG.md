@@ -1,3 +1,6 @@
+## 0.1.3+1
+- Fix example typo
+
 ## 0.1.3
 - Documentation updates for generator changes
 
