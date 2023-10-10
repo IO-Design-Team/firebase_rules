@@ -34,7 +34,7 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     arguments,
     'rules',
     visitRule,
-    validate: _validateParameterFunction,
+    validate: (expression) => _validateParameterFunction(path, expression),
   );
   yield* visitParameter(
     context,
@@ -42,7 +42,7 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     arguments,
     'matches',
     visitMatch,
-    validate: _validateParameterFunction,
+    validate: (expression) => _validateParameterFunction(path, expression),
   );
 
   yield '}'.indent(context.indent);
@@ -64,18 +64,25 @@ Stream<String> _visitFunctions(
   }
 }
 
-void _validateParameterFunction(FunctionExpression function) {
-  final requestParameter = getParameterName(function, 1);
-  if (requestParameter != 'request') {
+void _validateParameterFunction(String path, FunctionExpression function) {
+  final String expectedWildcardParameterName;
+  final pathWildcards = RegExp(r'\{(\w+)\}').allMatches(path);
+  if (pathWildcards.length > 1) {
     throw InvalidGenerationSourceError(
-      'Request parameter misnamed: $requestParameter}',
+      'Path cannot contain more than one wildcard: $path',
     );
+  } else if (pathWildcards.length == 1) {
+    expectedWildcardParameterName = pathWildcards.single[1]!;
+  } else {
+    expectedWildcardParameterName = '_';
   }
 
-  final resourceParameter = getParameterName(function, 2);
-  if (resourceParameter != 'resource') {
+  final expectedSignature =
+      '($expectedWildcardParameterName, request, resource)';
+  final actualSignature = function.parameters.toString();
+  if (expectedSignature != actualSignature) {
     throw InvalidGenerationSourceError(
-      'Resource parameter misnamed: $resourceParameter}',
+      'Invalid signature: $actualSignature\nExpected: $expectedSignature',
     );
   }
 }

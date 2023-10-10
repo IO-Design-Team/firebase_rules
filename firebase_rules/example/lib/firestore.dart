@@ -13,10 +13,10 @@ final firestoreRules = [
   Match<FirestoreResource>(
     firestoreRoot,
     functions: [isSignedIn, isOwner],
-    rules: (path, request, resource) => [
+    rules: (database, request, resource) => [
       Allow([Operation.read], request.auth?.uid == 'god'.rules()),
     ],
-    matches: (path, request, resource) => [
+    matches: (database, request, resource) => [
       Match<FirestoreResource<User>>(
         '/users/{userId}',
         rules: (userId, request, resource) => [

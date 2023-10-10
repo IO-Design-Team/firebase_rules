@@ -66,12 +66,13 @@ final firestoreRules = [
     firestoreRoot,
 
     /// Match statements give access to type-safe contextual information:
-    /// - [path] is the wildcard segment of the path if there is one
+    /// - The first parameter is the wildcard. Use `_` if there is no wildcard.
     /// - [request] gives access to the [Request] object
     /// - [resource] gives access to the [Resource] object
     ///
-    /// The [path] parameter name must match the name of the wildcard.
-    /// The [request] and [resource] parameters must not  be renamed.
+    /// The wildcard parameter must match the the path wildcard
+    /// The wildcard for [firestoreRoot] is `database`
+    /// The [request] and [resource] parameters must not be renamed
     matches: (database, request, resource) => [
       /// Subsequent matches should use typed [FirestoreResource] objects.
       /// This makes the [request] and [resource] parameters type-safe.
@@ -79,6 +80,13 @@ final firestoreRules = [
         /// Paths are only allowed to contain one wildcard. If you need more
         /// wildcards, nest matches.
         '/users/{userId}',
+        /// The [userId] parameter matches the `userId` wildcard
+        rules: (userId, reqquest, resource) => [],
+      ),
+      Match<FirestoreResource>(
+        '/other/stuff',
+        /// Since there is no wildcard in this path, use `_`
+        rules: (_, request, resource) => [],
       ),
     ],
   ),
@@ -89,7 +97,8 @@ final storageRules = [
   /// Always start with this match. [storageRoot] is the root of Storage.
   Match<StorageResource>(
     storageRoot,
-    matches: (path, request, resource) => [
+    /// The wildcard for [storageRoot] is `bucket`
+    matches: (bucket, request, resource) => [
       /// All storage matches use [StorageResource] objects
       Match<StorageResource>(
         '/images/{imageId}',
@@ -113,7 +122,7 @@ import 'shared.dart';
 final firestoreRules = [
   Match<FirestoreResource>(
     firestoreRoot,
-    matches: (path, request, resource) => [
+    matches: (database, request, resource) => [
       Match<FirestoreResource<User>>(
         '/users/{userId}',
         rules: (userId, request, resource) => [
@@ -236,10 +245,10 @@ import 'package:firebase_rules/firebase.dart';
 final firestoreRules = [
   Match<FirestoreResource>(
     firestoreRoot,
-    matches: (path, request, resource) => [
+    matches: (database, request, resource) => [
       Match<FirestoreResource<TestResource>>(
         '/test',
-        rules: (path, request, resource) => [
+        rules: (_, request, resource) => [
           Allow([Operation.read], resource.data.test == Test.a),
         ],
       ),

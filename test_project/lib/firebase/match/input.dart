@@ -6,10 +6,10 @@ import 'package:firebase_rules/firebase.dart';
 final firestoreRules = [
   Match<FirestoreResource>(
     firestoreRoot,
-    rules: (path, request, resource) => [
+    rules: (database, request, resource) => [
       Allow([Operation.read, Operation.write], request.auth != null),
     ],
-    matches: (path, request, resource) => [
+    matches: (database, request, resource) => [
       Match<FirestoreResource<TestResource>>(
         '/test/{id}',
         rules: (id, request, resource) => [

@@ -5,7 +5,7 @@ import 'shared.dart';
 final firestoreRules = [
   Match<FirestoreResource>(
     firestoreRoot,
-    matches: (path, request, resource) => [
+    matches: (database, request, resource) => [
       Match<FirestoreResource<User>>(
         '/users/{userId}',
         rules: (userId, request, resource) => [
