@@ -17,5 +17,5 @@ final rules = [
     /// Functions are scoped to matches, but must be declared as top-level
     /// functions
     functions: [isSignedIn],
-  )
+  ),
 ];

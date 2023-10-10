@@ -13,7 +13,7 @@ List<Match> detached(
       Match<FirestoreResource<User>>(
         '/users/{userId}',
         rules: (userId, request, resource) => [
-          Allow([Operation.read], resource.data.userId.rules() == userId)
+          Allow([Operation.read], resource.data.userId.rules() == userId),
         ],
       ),
     ];

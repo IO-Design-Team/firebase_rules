@@ -7,7 +7,7 @@ final firestoreRules = [
   Match<FirestoreResource>(
     firestoreRoot,
     rules: (path, request, resource) => [
-      Allow([Operation.read, Operation.write], request.auth != null)
+      Allow([Operation.read, Operation.write], request.auth != null),
     ],
     matches: (path, request, resource) => [
       Match<FirestoreResource<TestResource>>(

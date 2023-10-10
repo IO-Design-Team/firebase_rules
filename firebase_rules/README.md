@@ -181,7 +181,7 @@ final rules = [
     /// Functions are scoped to matches, but must be declared as top-level
     /// functions
     functions: [isSignedIn],
-  )
+  ),
 ];
 
 ```
@@ -207,7 +207,7 @@ List<Match> detached(
       Match<FirestoreResource<User>>(
         '/users/{userId}',
         rules: (userId, request, resource) => [
-          Allow([Operation.read], resource.data.userId.rules() == userId)
+          Allow([Operation.read], resource.data.userId.rules() == userId),
         ],
       ),
     ];

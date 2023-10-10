@@ -55,5 +55,5 @@ final databaseRules = [
     validate: (_) =>
         newData.isString() &&
         newData.val().matches(r'/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i'),
-  )
+  ),
 ];
