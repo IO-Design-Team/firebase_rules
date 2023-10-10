@@ -22,11 +22,13 @@ final firestoreRules = [
         /// Paths are only allowed to contain one wildcard. If you need more
         /// wildcards, nest matches.
         '/users/{userId}',
+
         /// The [userId] parameter matches the `userId` wildcard
         rules: (userId, reqquest, resource) => [],
       ),
       Match<FirestoreResource>(
         '/other/stuff',
+
         /// Since there is no wildcard in this path, use `_`
         rules: (_, request, resource) => [],
       ),
@@ -39,6 +41,7 @@ final storageRules = [
   /// Always start with this match. [storageRoot] is the root of Storage.
   Match<StorageResource>(
     storageRoot,
+
     /// The wildcard for [storageRoot] is `bucket`
     matches: (bucket, request, resource) => [
       /// All storage matches use [StorageResource] objects

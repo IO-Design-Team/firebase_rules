@@ -5,6 +5,6 @@ final firestoreRules = [
   Match<FirestoreResource>(
     // Invalid number of wildcards
     '/{too}/{many}',
-    matches:(too, request, resource) => [],
+    matches: (too, request, resource) => [],
   ),
 ];
