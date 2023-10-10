@@ -8,6 +8,7 @@ import 'package:test/test.dart';
 void testRulesBuilder(
   String slug, {
   required Builder builder,
+  required String outputExtension,
   dynamic skip,
   bool expectThrows = false,
 }) {
@@ -16,14 +17,15 @@ void testRulesBuilder(
     () async {
       final input =
           File('../test_project/lib/$slug/input.dart').readAsStringSync();
-      final outputFile = File('../test_project/lib/$slug/output.rules');
+      final outputFile =
+          File('../test_project/lib/$slug/output$outputExtension');
       final future = testBuilder(
         builder,
         {'test|test.dart': input},
         reader: await PackageAssetReader.currentIsolate(),
         outputs: expectThrows
             ? null
-            : {'test|test.rules': outputFile.readAsStringSync()},
+            : {'test|test$outputExtension': outputFile.readAsStringSync()},
       );
 
       if (expectThrows) {

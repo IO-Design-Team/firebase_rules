@@ -11,6 +11,7 @@ void testDatabaseRulesBuilder(
   testRulesBuilder(
     'database/$name',
     builder: databaseRules(BuilderOptions.empty),
+    outputExtension: '.rules.json',
     expectThrows: expectThrows,
     skip: skip,
   );

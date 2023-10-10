@@ -12,6 +12,11 @@
             ".write": "root.child('users').child($userId).child($contractId).val() != null",
           },
         },
+        "other": {
+          "stuff": {
+            ".read": "auth != null",
+          },
+        },
       },
     },
   },

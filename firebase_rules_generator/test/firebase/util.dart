@@ -11,6 +11,7 @@ void testFirebaseRulesBuilder(
   testRulesBuilder(
     'firebase/$name',
     builder: firebaseRules(BuilderOptions.empty),
+    outputExtension: '.rules',
     expectThrows: expectThrows,
     skip: skip,
   );

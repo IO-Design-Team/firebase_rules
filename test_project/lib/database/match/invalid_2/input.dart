@@ -5,6 +5,6 @@ final databaseRules = [
   Match(
     r'rules/$uid',
     // Invalid wildcard
-    read: (asdf) => false,
+    write: (asdf) => false,
   ),
 ];

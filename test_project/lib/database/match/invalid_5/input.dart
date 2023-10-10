@@ -3,7 +3,7 @@ import 'package:firebase_rules/database.dart';
 @DatabaseRules()
 final databaseRules = [
   Match(
-    r'rules/$uid',
+    r'rules/no/wildcard',
     // Invalid wildcard
     read: (asdf) => false,
   ),
