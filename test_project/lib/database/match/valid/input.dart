@@ -19,6 +19,10 @@ final databaseRules = [
             root.child('users'.rules()).child(userId).child(contractId).val() !=
             null,
       ),
+      Match(
+        r'other/stuff',
+        read: (_) => auth != null,
+      ),
     ],
   ),
 ];

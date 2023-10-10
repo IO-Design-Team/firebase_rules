@@ -3,6 +3,7 @@ import 'package:firebase_rules/database.dart';
 @DatabaseRules()
 final databaseRules = [
   Match(
+    /// First match must start with `rules`
     r'rules/users/$userId',
 
     /// The path parameter must match the wildcard name
