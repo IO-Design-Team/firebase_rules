@@ -1,3 +1,6 @@
+## 0.1.3
+- Documentation updates for generator changes
+
 ## 0.1.2
 - Adds extension on `Object` to allow converting any `Object` to a `RulesMap<String, dynamic>`
 - The `RulesSet` methods `hasAll`, `hasAny`, `hasOnly` now accept either a `RulesSet` or `RulesList`

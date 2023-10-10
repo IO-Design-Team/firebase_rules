@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/validator.dart';
 import 'package:firebase_rules_generator/src/common/visitor.dart';
 import 'package:firebase_rules_generator/src/firebase/visitor/function_visitor.dart';
 import 'package:firebase_rules_generator/src/firebase/visitor/rule_visitor.dart';
@@ -26,6 +27,13 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     throw InvalidGenerationSourceError('Invalid match path ${node.toSource()}');
   }
 
+  void validate(FunctionExpression expression) => validateFunctionParameters(
+        path: path,
+        wildcardMatcher: r'\{(\w+)\}',
+        function: expression,
+        createExpectedSignature: (wildcard) => '($wildcard, request, resource)',
+      );
+
   yield 'match $path {'.indent(context.indent);
   yield* _visitFunctions(context, arguments);
   yield* visitParameter(
@@ -34,7 +42,7 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     arguments,
     'rules',
     visitRule,
-    validate: (expression) => _validateParameterFunction(path, expression),
+    validate: validate,
   );
   yield* visitParameter(
     context,
@@ -42,7 +50,7 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     arguments,
     'matches',
     visitMatch,
-    validate: (expression) => _validateParameterFunction(path, expression),
+    validate: validate,
   );
 
   yield '}'.indent(context.indent);
@@ -61,28 +69,5 @@ Stream<String> _visitFunctions(
     final functionElement = await context.get(element.name);
     final function = await context.resolver.astNodeFor(functionElement);
     yield* visitFunction(context.dive(), function as FunctionDeclaration);
-  }
-}
-
-void _validateParameterFunction(String path, FunctionExpression function) {
-  final String expectedWildcardParameterName;
-  final pathWildcards = RegExp(r'\{(\w+)\}').allMatches(path);
-  if (pathWildcards.length > 1) {
-    throw InvalidGenerationSourceError(
-      'Path cannot contain more than one wildcard: $path',
-    );
-  } else if (pathWildcards.length == 1) {
-    expectedWildcardParameterName = pathWildcards.single[1]!;
-  } else {
-    expectedWildcardParameterName = '_';
-  }
-
-  final expectedSignature =
-      '($expectedWildcardParameterName, request, resource)';
-  final actualSignature = function.parameters.toString();
-  if (expectedSignature != actualSignature) {
-    throw InvalidGenerationSourceError(
-      'Invalid signature: $actualSignature\nExpected: $expectedSignature',
-    );
   }
 }

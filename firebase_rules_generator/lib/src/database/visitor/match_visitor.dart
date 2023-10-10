@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/validator.dart';
 import 'package:firebase_rules_generator/src/common/visitor.dart';
 import 'package:firebase_rules_generator/src/database/sanitizer.dart';
 import 'package:firebase_rules_generator/src/common/util.dart';
@@ -28,12 +29,20 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     );
   }
 
+  void validate(FunctionExpression expression) => validateFunctionParameters(
+        path: path,
+        wildcardMatcher: r'\$(\w+)',
+        function: expression,
+        createExpectedSignature: (wildcard) => '($wildcard)',
+      );
+
   yield* visitParameter(
     context,
     node,
     arguments,
     'read',
     (context, node) => _visitRule('read', context, node),
+    validate: validate,
   );
   yield* visitParameter(
     context,
@@ -41,6 +50,7 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     arguments,
     'write',
     (context, node) => _visitRule('write', context, node),
+    validate: validate,
   );
   yield* visitParameter(
     context,
@@ -48,9 +58,17 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
     arguments,
     'validate',
     (context, node) => _visitRule('validate', context, node),
+    validate: validate,
   );
   yield* _visitIndexOn(context.dive(), arguments);
-  yield* visitParameter(context, node, arguments, 'matches', visitMatch);
+  yield* visitParameter(
+    context,
+    node,
+    arguments,
+    'matches',
+    visitMatch,
+    validate: validate,
+  );
 
   for (var i = 0; i < segments.length; i++) {
     yield '},'.indent(context.indent - i * 2);

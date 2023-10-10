@@ -1,3 +1,6 @@
+## 0.2.0
+- BREAKING: Proper `matches` and `rules` function signatures are now enforced
+
 ## 0.1.1
 - Dependency upgrades
 

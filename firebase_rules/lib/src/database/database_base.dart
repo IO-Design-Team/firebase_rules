@@ -9,7 +9,7 @@ class DatabaseRules {
 }
 
 /// A callback that provides information about the current rules context
-typedef ContextualCallback<T> = T Function(RulesString location);
+typedef ContextualCallback<T> = T Function(RulesString _);
 
 /// Database match statement
 class Match {
