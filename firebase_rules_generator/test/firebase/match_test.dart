@@ -1,5 +1,6 @@
 import 'util.dart';
 
 void main() {
-  testFirebaseRulesBuilder('match');
+  testFirebaseRulesBuilder('match/valid');
+  testFirebaseRulesBuilder('match/invalid_1', expectThrows: true);
 }
