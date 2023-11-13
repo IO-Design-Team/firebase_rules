@@ -84,8 +84,11 @@ class Allow {
   Allow(this.operations, this.condition);
 }
 
+/// Base class used for analysis
+abstract class FirebaseMatch {}
+
 /// A firebase rules match statement
-class Match<T extends FirebaseResource> {
+class Match<T extends FirebaseResource> extends FirebaseMatch {
   /// The Firebase path
   ///
   /// One `{wildcard}` is allowed per path

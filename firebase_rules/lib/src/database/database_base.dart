@@ -11,8 +11,11 @@ class DatabaseRules {
 /// A callback that provides information about the current rules context
 typedef ContextualCallback<T> = T Function(RulesString _);
 
+/// Base class used for analysis
+abstract class DatabaseMatch {}
+
 /// Database match statement
-class Match {
+class Match extends DatabaseMatch {
   /// The path
   ///
   /// One `$location` wild card is allowed per path. Path segments will be

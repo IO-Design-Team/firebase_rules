@@ -29,7 +29,7 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
 
   void validate(FunctionExpression expression) => validateFunctionParameters(
         path: path,
-        wildcardMatcher: r'\{(\w+)\}',
+        wildcardMatcher: r'{(\w+)}',
         function: expression,
         createExpectedSignature: (wildcard) => '($wildcard, request, resource)',
       );

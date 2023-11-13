@@ -12,7 +12,7 @@ class _FirebaseRulesLinter extends PluginBase {
 }
 
 
-// TODO: Convert dart types to rules types
 // TODO: Undeclared enum
 // TODO: Undeclared function
-// TODO: Avoid raws
+// TODO: Avoid raw rules
+// TODO: Too many wildscards in path
