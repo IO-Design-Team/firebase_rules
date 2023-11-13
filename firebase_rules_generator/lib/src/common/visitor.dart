@@ -15,8 +15,7 @@ String getParameterName(FunctionExpression function, int index) {
 AstNode? getNamedParameter(String name, Iterable<SyntacticEntity> arguments) {
   return arguments
       .whereType<NamedExpression>()
-      .where((e) => e.name.label.name == name)
-      .firstOrNull
+      .firstWhereOrNull((e) => e.name.label.name == name)
       ?.expression;
 }
 
