@@ -1,0 +1,14 @@
+name: firebase_rules_linter
+description: A linter for the firebase_rules package to prevent common issues
+version: 0.1.0
+
+environment:
+  sdk: ^3.1.4
+
+dependencies:
+  analyzer: ^6.0.0
+  analyzer_plugin: ^0.11.3
+  custom_lint_builder: ^0.5.6
+
+dev_dependencies:
+  rexios_lints: ^6.0.1

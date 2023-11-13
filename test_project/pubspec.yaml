@@ -13,9 +13,13 @@ dependencies:
 
 dev_dependencies:
   rexios_lints: ^6.0.1
+  custom_lint: ^0.5.6
+  firebase_rules_linter: ^0.0.0
 
 dependency_overrides:
   firebase_rules:
     path: ../firebase_rules
   firebase_rules_convert:
     path: ../firebase_rules_convert
+  firebase_rules_linter:
+    path: ../firebase_rules_linter
