@@ -5,14 +5,14 @@ import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:firebase_rules_linter/util.dart';
 
 /// Lint for invalid match function signatures
-class InvalidMatchFunctionSignature extends DartLintRule {
+class InvalidMatchFunction extends DartLintRule {
   static const _code = LintCode(
-    name: 'invalid_match_function_signature',
+    name: 'invalid_match_function',
     problemMessage: 'The given function does not have the expected signature',
   );
 
   /// Constructor
-  const InvalidMatchFunctionSignature() : super(code: _code);
+  const InvalidMatchFunction() : super(code: _code);
 
   /// Validate the given function's signature
   ///
