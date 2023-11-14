@@ -7,7 +7,7 @@ import 'package:firebase_rules_linter/util.dart';
 class UndeclaredFunction extends DartLintRule {
   static const _code = LintCode(
     name: 'undeclared_function',
-    problemMessage: 'This function is undeclared. Add it to the annotation.',
+    problemMessage: 'Declare functions in the FirebaseRules annotation',
     errorSeverity: ErrorSeverity.ERROR,
   );
 

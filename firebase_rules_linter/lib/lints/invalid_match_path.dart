@@ -7,8 +7,7 @@ import 'package:firebase_rules_linter/util.dart';
 class InvalidMatchPath extends DartLintRule {
   static const _code = LintCode(
     name: 'invalid_match_path',
-    problemMessage:
-        'The given path is invalid. Match paths can have at most one wildcard.',
+    problemMessage: 'Match paths can have at most one wildcard',
     errorSeverity: ErrorSeverity.ERROR,
   );
 

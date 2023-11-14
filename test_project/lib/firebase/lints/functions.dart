@@ -10,9 +10,21 @@ bool test() {
   return true;
 }
 
+// expect_lint: invalid_rules_function
+void test2() {}
+
+// expect_lint: invalid_rules_function
+bool test3({required String named}) {
+  return true;
+}
+
+// expect_lint: invalid_rules_function
+bool test4() => true;
+
 @FirebaseRules(
   service: Service.firestore,
   enums: [Test.map],
+  functions: [test2, test3, test4],
 )
 final firestoreRules = [
   Match<FirestoreResource>(

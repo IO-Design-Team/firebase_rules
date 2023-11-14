@@ -9,7 +9,8 @@ import 'package:source_helper/source_helper.dart';
 class UndeclaredEnum extends DartLintRule {
   static const _code = LintCode(
     name: 'undeclared_enum',
-    problemMessage: 'This enum is undeclared. Add a mapping to the annotaiton.',
+    problemMessage:
+        'Declare enum conversion maps in the FirebaseRules annotation',
     errorSeverity: ErrorSeverity.ERROR,
   );
 
