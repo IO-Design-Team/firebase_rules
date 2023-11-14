@@ -8,7 +8,7 @@ import 'package:firebase_rules_linter/util.dart';
 class InvalidRulesFunction extends DartLintRule {
   static const _code = LintCode(
     name: 'invalid_rules_function',
-    problemMessage: 'Rules functions have positional parameters',
+    problemMessage: 'Rules functions must have positional parameters',
     errorSeverity: ErrorSeverity.ERROR,
   );
 
