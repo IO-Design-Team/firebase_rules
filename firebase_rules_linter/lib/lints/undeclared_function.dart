@@ -38,7 +38,7 @@ class UndeclaredFunction extends DartLintRule {
 
       if (functions.contains(node.name.toString())) return;
 
-      reporter.reportErrorForNode(_code, node);
+      reporter.reportErrorForToken(_code, node.name);
     });
   }
 }

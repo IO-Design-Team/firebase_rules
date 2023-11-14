@@ -29,11 +29,13 @@ class InvalidRulesFunction extends DartLintRule {
       // This isn't a rules file
       if (annotation == null) return;
 
-      final parameters = node.functionExpression.parameters?.parameterElements
-          .whereType<ParameterElement>();
+      final parameters = node.functionExpression.parameters;
+      if (parameters == null) return;
 
-      if (parameters != null && parameters.where((e) => e.isNamed).isNotEmpty) {
-        reporter.reportErrorForNode(_code, node);
+      final parameterElements =
+          parameters.parameterElements.whereType<ParameterElement>();
+      if (parameterElements.where((e) => e.isNamed).isNotEmpty) {
+        reporter.reportErrorForNode(_code, parameters);
         return;
       }
     });
