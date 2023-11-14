@@ -13,10 +13,10 @@ class _FirebaseRulesLinter extends PluginBase {
         AvoidRawRules(),
         InvalidMatchFunction(),
         InvalidMatchPath(),
+        UndeclaredEnum(),
       ];
 }
 
 
 // TODO: Undeclared enum
 // TODO: Undeclared function
-// TODO: Avoid raw rules

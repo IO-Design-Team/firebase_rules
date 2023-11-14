@@ -21,14 +21,20 @@ bool test() {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(
+  service: Service.firestore,
+  functions: [test],
+)
 final firestoreRules = [
-  Match<FirestoreResource>(firestoreRoot, functions: [test]),
+  Match<FirestoreResource>(firestoreRoot),
 ];
 
-@FirebaseRules(service: Service.storage)
+@FirebaseRules(
+  service: Service.storage,
+  functions: [test],
+)
 final storageRules = [
-  Match<FirestoreResource>(firestoreRoot, functions: [test]),
+  Match<FirestoreResource>(firestoreRoot),
 ];
 
 abstract class TestResource {

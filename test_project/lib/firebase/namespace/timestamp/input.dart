@@ -22,7 +22,10 @@ bool test(RulesTimestamp one, RulesDuration two) {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(
+  service: Service.firestore,
+  functions: [test],
+)
 final firestoreRules = [
-  Match<FirestoreResource>(firestoreRoot, functions: [test]),
+  Match<FirestoreResource>(firestoreRoot),
 ];

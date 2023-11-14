@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
-import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/rules_context.dart';
 import 'package:firebase_rules_generator/src/common/validator.dart';
 import 'package:firebase_rules_generator/src/common/visitor.dart';
 import 'package:firebase_rules_generator/src/database/sanitizer.dart';
@@ -8,7 +8,7 @@ import 'package:firebase_rules_generator/src/common/util.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Visit Match nodes
-Stream<String> visitMatch(Context context, AstNode node) async* {
+Stream<String> visitMatch(RulesContext context, AstNode node) async* {
   final arguments = (node as MethodInvocation).argumentList.arguments;
   final path = (arguments.first as SimpleStringLiteral).value;
   final segments = path.split('/');
@@ -77,7 +77,7 @@ Stream<String> visitMatch(Context context, AstNode node) async* {
 
 /// Visit indexOn nodes
 Stream<String> _visitIndexOn(
-  Context context,
+  RulesContext context,
   List<SyntacticEntity> node,
 ) async* {
   final source = getNamedParameter('indexOn', node)?.toSource();
@@ -89,7 +89,7 @@ Stream<String> _visitIndexOn(
 /// Visit Rule nodes
 Stream<String> _visitRule(
   String operation,
-  Context context,
+  RulesContext context,
   AstNode node,
 ) async* {
   final expression = (node as ExpressionFunctionBody).expression;

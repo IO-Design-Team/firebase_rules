@@ -1,9 +1,9 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/rules_context.dart';
 import 'package:firebase_rules_generator/src/common/util.dart';
 
 /// Visit Rule nodes
-Stream<String> visitRule(Context context, AstNode node) async* {
+Stream<String> visitRule(RulesContext context, AstNode node) async* {
   final arguments =
       node.childEntities.whereType<ArgumentList>().single.arguments;
   final operationIdentifiers = arguments[0] as ListLiteral;

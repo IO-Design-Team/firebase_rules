@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:collection/collection.dart';
-import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/rules_context.dart';
 import 'package:source_gen/source_gen.dart';
 
 /// Get the parameter name of the given index
@@ -21,11 +21,11 @@ AstNode? getNamedParameter(String name, Iterable<SyntacticEntity> arguments) {
 
 /// Visit a function parameter
 Stream<String> visitParameter(
-  Context context,
+  RulesContext context,
   AstNode node,
   Iterable<SyntacticEntity> arguments,
   String name,
-  Stream<String> Function(Context context, AstNode element) visit, {
+  Stream<String> Function(RulesContext context, AstNode element) visit, {
   void Function(FunctionExpression function)? validate,
 }) async* {
   final expression = getNamedParameter(name, arguments);

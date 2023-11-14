@@ -5,7 +5,7 @@ import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase.dart';
-import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/rules_context.dart';
 import 'package:firebase_rules_generator/src/common/generator.dart';
 import 'package:firebase_rules_generator/src/firebase/revived_firebase_rules.dart';
 import 'package:firebase_rules_generator/src/firebase/sanitizer.dart';
@@ -32,7 +32,7 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
 
     // Generate functions
     final resolver = buildStep.resolver;
-    final context = Context.root(resolver);
+    final context = RulesContext.root(resolver, functions: revived.functions);
     final ast = await resolver.astNodeFor(element);
     final matches = ast!.childEntities.whereType<ListLiteral>().single.elements;
 
@@ -51,6 +51,10 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
     return RevivedFirebaseRules(
       rulesVersion: annotation.read('rulesVersion').stringValue,
       service: readEnum(annotation.read('service'), Service.values)!,
+      functions: annotation
+          .read('functions')
+          .listValue
+          .map((e) => e.toFunctionValue()!),
       enums: annotation.read('enums').listValue.map(reviveEnum),
     );
   }

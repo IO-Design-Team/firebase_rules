@@ -9,13 +9,14 @@ bool isSignedIn() {
   return request.auth?.uid != null;
 }
 
-@FirebaseRules(service: Service.firestore)
+@FirebaseRules(
+  service: Service.firestore,
+
+  /// Functions must be declared at a top level
+  functions: [isSignedIn],
+)
 final rules = [
   Match<FirestoreResource>(
     firestoreRoot,
-
-    /// Functions are scoped to matches, but must be declared as top-level
-    /// functions
-    functions: [isSignedIn],
   ),
 ];

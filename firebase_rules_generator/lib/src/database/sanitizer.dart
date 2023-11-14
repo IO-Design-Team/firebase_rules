@@ -1,5 +1,5 @@
 import 'package:firebase_rules/database.dart';
-import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/rules_context.dart';
 import 'package:firebase_rules_generator/src/common/sanitizer.dart';
 
 /// Sanitize rules files
@@ -26,7 +26,7 @@ String sanitizeRules(String input) {
 }
 
 /// Sanitize path parameter prefixes from rules
-String sanitizePaths(Context context, String input) {
+String sanitizePaths(RulesContext context, String input) {
   var sanitized = input;
   for (final path in context.paths) {
     sanitized = sanitized.replaceAll(RegExp(r'\b' + path + r'\b'), '\$$path');

@@ -11,6 +11,9 @@ class FirebaseRules {
   /// The firebase service these rules are for
   final Service service;
 
+  /// Functions used in these rules
+  final List<Function> functions;
+
   /// Maps of enums to their string values for code generation
   final List<Map<Enum, String>> enums;
 
@@ -18,6 +21,7 @@ class FirebaseRules {
   const FirebaseRules({
     this.rulesVersion = '2',
     required this.service,
+    this.functions = const [],
     this.enums = const [],
   });
 }
@@ -94,9 +98,6 @@ class Match<T extends FirebaseResource> extends FirebaseMatch {
   /// One `{wildcard}` is allowed per path
   final String path;
 
-  /// Functions to place in this context
-  final List<Function>? functions;
-
   /// Rules for this context
   ///
   /// The [path] parameter name must match the name of the wildcard.
@@ -110,5 +111,5 @@ class Match<T extends FirebaseResource> extends FirebaseMatch {
   final ContextualCallback<Match, T>? matches;
 
   /// Constructor
-  Match(this.path, {this.functions, this.rules, this.matches});
+  Match(this.path, {this.rules, this.matches});
 }

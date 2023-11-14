@@ -9,9 +9,13 @@ bool test() {
   return true;
 }
 
-@FirebaseRules(service: Service.firestore, enums: [Test.map])
+@FirebaseRules(
+  service: Service.firestore,
+  functions: [test],
+  enums: [Test.map],
+)
 final firestoreRules = [
-  Match<FirestoreResource>(firestoreRoot, functions: [test]),
+  Match<FirestoreResource>(firestoreRoot),
 ];
 
 enum Test {

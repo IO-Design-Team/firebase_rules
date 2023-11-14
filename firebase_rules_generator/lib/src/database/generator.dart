@@ -4,7 +4,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/database.dart';
-import 'package:firebase_rules_generator/src/common/context.dart';
+import 'package:firebase_rules_generator/src/common/rules_context.dart';
 import 'package:firebase_rules_generator/src/common/generator.dart';
 import 'package:firebase_rules_generator/src/database/sanitizer.dart';
 import 'package:firebase_rules_generator/src/database/visitor/match_visitor.dart';
@@ -27,7 +27,7 @@ class DatabaseRulesGenerator extends GeneratorForAnnotation<DatabaseRules>
     final resolver = buildStep.resolver;
     final ast = await resolver.astNodeFor(element);
     final matches = ast!.childEntities.whereType<ListLiteral>().single.elements;
-    final context = Context.root(resolver);
+    final context = RulesContext.root(resolver);
 
     for (final match in matches) {
       await for (final line in visitMatch(context, match)) {
