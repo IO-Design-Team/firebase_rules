@@ -17,6 +17,5 @@ class _FirebaseRulesLinter extends PluginBase {
       ];
 }
 
-
 // TODO: Undeclared enum
 // TODO: Undeclared function
