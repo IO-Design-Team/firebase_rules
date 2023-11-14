@@ -3,7 +3,7 @@ import 'package:firebase_rules_linter/lints/avoid_raw_rules.dart';
 import 'package:firebase_rules_linter/lints/invalid_match_function.dart';
 import 'package:firebase_rules_linter/lints/invalid_match_path.dart';
 import 'package:firebase_rules_linter/lints/invalid_rules_function.dart';
-import 'package:firebase_rules_linter/lints/undeclared_enum.dart';
+import 'package:firebase_rules_linter/lints/undeclared_enum_value.dart';
 import 'package:firebase_rules_linter/lints/undeclared_function.dart';
 
 /// Create the linter plugin
@@ -16,7 +16,7 @@ class _FirebaseRulesLinter extends PluginBase {
         InvalidMatchFunction(),
         InvalidMatchPath(),
         InvalidRulesFunction(),
-        UndeclaredEnum(),
+        UndeclaredEnumValue(),
         UndeclaredFunction(),
       ];
 }

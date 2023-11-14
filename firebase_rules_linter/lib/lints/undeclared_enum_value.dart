@@ -6,16 +6,16 @@ import 'package:firebase_rules_linter/util.dart';
 import 'package:source_helper/source_helper.dart';
 
 /// Lint to ensure that all enums have declared mappings
-class UndeclaredEnum extends DartLintRule {
+class UndeclaredEnumValue extends DartLintRule {
   static const _code = LintCode(
-    name: 'undeclared_enum',
+    name: 'undeclared_enum_value',
     problemMessage:
-        'Declare enum conversion maps in the FirebaseRules annotation',
+        'This enum value has no mapping. Declare enum conversion maps in the FirebaseRules annotation.',
     errorSeverity: ErrorSeverity.ERROR,
   );
 
   /// Constructor
-  const UndeclaredEnum() : super(code: _code);
+  const UndeclaredEnumValue() : super(code: _code);
 
   @override
   void run(
@@ -45,8 +45,16 @@ class UndeclaredEnum extends DartLintRule {
         return;
       }
 
-      final types = enumMaps.map((e) => e.keys.firstOrNull?.type);
-      if (types.contains(type)) return;
+      final keys = enumMaps.expand(
+        (e) => e.keys.map((e) {
+          final enumType = e.type;
+          final enumValue = e.getField('_name')!.toStringValue();
+          return '$enumType.$enumValue';
+        }),
+      );
+      final nodeType = type.element!.name;
+      final nodeValue = node.name;
+      if (keys.contains('$nodeType.$nodeValue')) return;
 
       reporter.reportErrorForNode(_code, node);
     });
