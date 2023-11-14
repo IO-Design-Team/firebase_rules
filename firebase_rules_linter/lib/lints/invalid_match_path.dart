@@ -1,3 +1,4 @@
+import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:firebase_rules_linter/util.dart';
@@ -8,6 +9,7 @@ class InvalidMatchPath extends DartLintRule {
     name: 'invalid_match_path',
     problemMessage:
         'The given path is invalid. Match paths can have at most one wildcard.',
+    errorSeverity: ErrorSeverity.ERROR,
   );
 
   /// Constructor

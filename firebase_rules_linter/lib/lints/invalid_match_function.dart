@@ -9,6 +9,7 @@ class InvalidMatchFunction extends DartLintRule {
   static const _code = LintCode(
     name: 'invalid_match_function',
     problemMessage: 'The given function does not have the expected signature',
+    errorSeverity: ErrorSeverity.ERROR,
   );
 
   /// Constructor
