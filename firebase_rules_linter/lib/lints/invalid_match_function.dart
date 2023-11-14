@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
+import 'package:collection/collection.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:firebase_rules_linter/util.dart';
 
@@ -71,7 +72,10 @@ class InvalidMatchFunction extends DartLintRule {
         'write',
         'validate',
       }) {
-        final node = getNamedParameter(arguments: arguments, name: parameter);
+        final node = arguments
+            .whereType<NamedExpression>()
+            .firstWhereOrNull((e) => e.name.label.name == parameter)
+            ?.expression;
         if (node == null || node is! FunctionExpression) continue;
 
         final expectedSignature = validateSignature(

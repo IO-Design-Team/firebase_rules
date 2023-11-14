@@ -14,6 +14,10 @@ The benefits:
 - Realtime Database rules are not really type-safe, but you do get the benefit of having code completion
 
 ## Installation
+
+It is recommended to create rules in a dedicated project to prevent issues
+
+pubspec.yaml
 ```yaml
 dependencies:
   firebase_rules: latest
@@ -21,8 +25,20 @@ dependencies:
   firebase_rules_convert: latest
 
 dev_dependencies:
-    build_runner: latest
-    firebase_rules_generator: latest
+  build_runner: latest
+  firebase_rules_generator: latest
+
+  # To use `firebase_rules_linter`
+  custom_lint: latest
+  firebase_rules_linter: latest
+```
+
+analysis_options.yaml
+```yaml
+# To use `firebase_rules_linter`
+analyzer:
+  plugins:
+    - custom_lint
 ```
 
 ## Usage

@@ -55,12 +55,12 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
           .read('functions')
           .listValue
           .map((e) => e.toFunctionValue()!),
-      enums: annotation.read('enums').listValue.map(reviveEnum),
+      enums: annotation.read('enums').listValue.map(reviveEnumMap),
     );
   }
 
   /// Revive a Map<Enum, String> to a Map<String, String> from a [DartObject]
-  Map<String, String> reviveEnum(DartObject value) {
+  Map<String, String> reviveEnumMap(DartObject value) {
     return value.toMapValue()!.cast<DartObject, DartObject>().map((k, v) {
       final enumType = k.type;
       final enumValue = k.getField('_name')!.toStringValue();

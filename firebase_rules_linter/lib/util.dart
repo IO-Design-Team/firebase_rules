@@ -1,7 +1,14 @@
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/syntactic_entity.dart';
-import 'package:collection/collection.dart';
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
+
+/// Type checker for any `firebase_rules` type
+const libraryTypeChecker = TypeChecker.fromPackage('firebase_rules');
+
+/// Type checker for `FirebaseRules`
+const firebaseRulesTypeChecker =
+    TypeChecker.fromName('FirebaseRules', packageName: 'firebase_rules');
 
 /// Type checker for `FirebaseMatch`
 const firebaseMatchChecker =
@@ -10,17 +17,6 @@ const firebaseMatchChecker =
 /// Type checker for `DatabaseMatch`
 const databaseMatchChecker =
     TypeChecker.fromName('DatabaseMatch', packageName: 'firebase_rules');
-
-/// Get a parameter by name
-AstNode? getNamedParameter({
-  required Iterable<SyntacticEntity> arguments,
-  required String name,
-}) {
-  return arguments
-      .whereType<NamedExpression>()
-      .firstWhereOrNull((e) => e.name.label.name == name)
-      ?.expression;
-}
 
 /// Resolve a match path
 String? resolveMatchPath({required NodeList<Expression> arguments}) {
@@ -37,5 +33,14 @@ String? resolveMatchPath({required NodeList<Expression> arguments}) {
   }
 
   // The path is invalid
+  return null;
+}
+
+/// Get the first `FirebaseRules` annotation in a file
+DartObject? getFirebaseRulesAnnotation(ResolvedUnitResult resolved) {
+  for (final element in resolved.libraryElement.topLevelElements) {
+    final annotation = firebaseRulesTypeChecker.firstAnnotationOfExact(element);
+    if (annotation != null) return annotation;
+  }
   return null;
 }

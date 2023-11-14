@@ -19,3 +19,4 @@ class _FirebaseRulesLinter extends PluginBase {
 
 // TODO: Undeclared enum
 // TODO: Undeclared function
+// TODO: Invalid function call (calling a function on a non-rules type)
