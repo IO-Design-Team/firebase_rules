@@ -2,6 +2,7 @@ A type-safe Firebase rules generator for Firestore, Storage, and Realtime Databa
 
 ## Features
 - Create rules for Firestore, Storage, and Realtime Database in a type-safe environment
+- Custom lint rules to catch issues before deployment
 - Mimics the Firebase rules syntax for easy migration
 
 The benefits:

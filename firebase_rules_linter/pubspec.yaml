@@ -3,7 +3,7 @@ description: A linter for the firebase_rules package to prevent common issues
 version: 0.1.0
 
 environment:
-  sdk: ^3.1.4
+  sdk: ">=2.18.0 <4.0.0"
 
 dependencies:
   analyzer: ^6.0.0
