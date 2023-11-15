@@ -25,7 +25,7 @@ class UndeclaredEnumValue extends DartLintRule {
   ) async {
     final resolved = await resolver.getResolvedUnitResult();
 
-    context.registry.addSimpleIdentifier((node) {
+    context.registry.addPrefixedIdentifier((node) {
       final type = node.staticType;
       if (type == null ||
           !type.isEnum ||
@@ -52,9 +52,7 @@ class UndeclaredEnumValue extends DartLintRule {
           return '$enumType.$enumValue';
         }),
       );
-      final nodeType = type.element!.name;
-      final nodeValue = node.name;
-      if (keys.contains('$nodeType.$nodeValue')) return;
+      if (keys.contains(node.toSource())) return;
 
       reporter.reportErrorForNode(_code, node);
     });
