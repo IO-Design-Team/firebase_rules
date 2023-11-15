@@ -51,13 +51,13 @@ Stream<String> visitParameter(
 
   validate?.call(function);
 
-  final pathParameter = getParameterName(function, 0);
+  final wildcard = getParameterName(function, 0);
   final elements = function.body.childEntities
       .whereType<ListLiteral>()
       .firstOrNull
       ?.elements;
 
-  final newContext = context.dive(clean: cleanContext, paths: {pathParameter});
+  final newContext = context.dive(clean: cleanContext, wildcards: {wildcard});
   if (elements == null) {
     yield* visit(newContext, function.body);
   } else {

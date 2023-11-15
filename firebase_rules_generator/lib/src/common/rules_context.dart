@@ -6,8 +6,8 @@ class RulesContext {
   /// The resolver
   final Resolver resolver;
 
-  /// All paths available in the current context
-  final Set<String> paths;
+  /// All wildcards available in the current context
+  final Set<String> wildcards;
 
   /// The current indentation level
   final int indent;
@@ -19,7 +19,7 @@ class RulesContext {
 
   RulesContext._(
     this.resolver, {
-    required this.paths,
+    required this.wildcards,
     required this.indent,
   }) : functions = const [];
 
@@ -27,7 +27,7 @@ class RulesContext {
   RulesContext.root(
     this.resolver, {
     this.functions = const [],
-  })  : paths = {},
+  })  : wildcards = {},
         indent = 2;
 
   /// Get the first resolvable element with the given [name] and type [T]
@@ -39,17 +39,17 @@ class RulesContext {
         .first;
   }
 
-  /// Dive deeper into the context with additional paths and indentation
+  /// Dive deeper into the context with additional wildcards and indentation
   ///
   /// A clean dive will overwrite existing context
-  RulesContext dive({bool clean = false, Set<String>? paths}) {
-    final newPaths = {
-      if (!clean) ...this.paths,
-      ...?paths?.where((e) => e != '_'),
+  RulesContext dive({bool clean = false, Set<String>? wildcards}) {
+    final newWildcards = {
+      if (!clean) ...this.wildcards,
+      ...?wildcards?.where((e) => e != '_'),
     };
     return RulesContext._(
       resolver,
-      paths: newPaths,
+      wildcards: newWildcards,
       indent: indent + 2,
     );
   }

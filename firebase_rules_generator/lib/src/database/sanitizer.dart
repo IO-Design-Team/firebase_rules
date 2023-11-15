@@ -28,8 +28,9 @@ String sanitizeRules(String input) {
 /// Sanitize path parameter prefixes from rules
 String sanitizePaths(RulesContext context, String input) {
   var sanitized = input;
-  for (final path in context.paths) {
-    sanitized = sanitized.replaceAll(RegExp(r'\b' + path + r'\b'), '\$$path');
+  for (final wildcard in context.wildcards) {
+    sanitized =
+        sanitized.replaceAll(RegExp(r'\b' + wildcard + r'\b'), '\$$wildcard');
   }
   return sanitized;
 }

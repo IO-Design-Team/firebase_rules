@@ -25,19 +25,18 @@ class InvalidMatchFunction extends DartLintRule {
     required FunctionExpression function,
     required String Function(String wildcard) createExpectedSignature,
   }) {
-    final String expectedWildcardParameterName;
-    final pathWildcards = RegExp(wildcardMatcher).allMatches(path);
-    if (pathWildcards.length > 1) {
+    final String expectedWildcard;
+    final wildcards = RegExp(wildcardMatcher).allMatches(path);
+    if (wildcards.length > 1) {
       // The path is invalid. This is handled by another lint.
       return null;
-    } else if (pathWildcards.length == 1) {
-      expectedWildcardParameterName = pathWildcards.single[1]!;
+    } else if (wildcards.length == 1) {
+      expectedWildcard = wildcards.single[1]!;
     } else {
-      expectedWildcardParameterName = '_';
+      expectedWildcard = '_';
     }
 
-    final expectedSignature =
-        createExpectedSignature(expectedWildcardParameterName);
+    final expectedSignature = createExpectedSignature(expectedWildcard);
     final actualSignature = function.parameters.toString();
     if (expectedSignature != actualSignature) {
       return expectedSignature;
