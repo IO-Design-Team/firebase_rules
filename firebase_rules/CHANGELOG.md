@@ -1,5 +1,5 @@
 ## 0.2.0
-- Functions are now part of the annotation instead of Matches
+- BREAKING: Functions are now part of the annotation instead of Matches
 - Adds documentation to support the new `firebase_rules_linter`
 
 ## 0.1.3+1

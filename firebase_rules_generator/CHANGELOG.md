@@ -1,3 +1,6 @@
+## 0.2.1
+- Support for `firebase_rules: ^0.2.0`
+
 ## 0.2.0
 - BREAKING: Proper function signatures are now enforced
 
