@@ -1,6 +1,6 @@
 name: firebase_rules_convert
 description: A bridge to bring cloud_firestore_platform_interface types into firebase_rules
-version: 0.1.1
+version: 0.1.2
 homepage: https://github.com/IO-Design-Team/firebase_rules/tree/master/firebase_rules_convert
 
 environment:

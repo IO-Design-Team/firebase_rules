@@ -1,3 +1,6 @@
+## 0.1.2
+- Upgrades `firebase_rules`
+
 ## 0.1.1
 - Upgrades `cloud_firestore_platform_interface` to `^6.0.0`
 
