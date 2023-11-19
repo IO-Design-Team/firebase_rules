@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  firebase_rules: ^0.1.0
+  firebase_rules: ^0.2.0
   cloud_firestore_platform_interface: ^6.0.0
 
 dev_dependencies:
