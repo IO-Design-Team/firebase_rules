@@ -30,7 +30,7 @@ class AvoidRawRules extends DartLintRule {
           node.methodName.name != 'raw' ||
           !rulesMethodsTypeChecker.isExactlyType(targetType)) return;
 
-      reporter.reportErrorForNode(_code, node);
+      reporter.atNode(node, _code);
     });
   }
 }
