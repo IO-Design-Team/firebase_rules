@@ -36,7 +36,7 @@ class InvalidMatchPath extends DartLintRule {
       final wildcards =
           RegExp(isFirebaseMatch ? r'{(\w+)}' : r'\$(\w+)').allMatches(path);
       if (wildcards.length > 1) {
-        reporter.atNode(arguments.first, _code);
+        reporter.deprecatedReportErrorForNode(_code, arguments.first);
       }
     });
   }

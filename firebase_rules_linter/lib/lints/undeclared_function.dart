@@ -32,13 +32,13 @@ class UndeclaredFunction extends DartLintRule {
           ?.toListValue()
           ?.map((e) => e.toFunctionValue()!.name);
       if (functions == null) {
-        reporter.atNode(node, _code);
+        reporter.deprecatedReportErrorForNode(_code, node);
         return;
       }
 
       if (functions.contains(node.name.toString())) return;
 
-      reporter.atToken(node.name, _code);
+      reporter.deprecatedReportErrorForToken(_code, node.name);
     });
   }
 }

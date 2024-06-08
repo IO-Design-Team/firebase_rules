@@ -1,6 +1,10 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:analyzer/diagnostic/diagnostic.dart';
+import 'package:analyzer/error/error.dart';
+import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 
 /// Type checker for any `firebase_rules` type
@@ -43,4 +47,30 @@ DartObject? getFirebaseRulesAnnotation(ResolvedUnitResult resolved) {
     if (annotation != null) return annotation;
   }
   return null;
+}
+
+// TODO: Remove when Flutter supports meta version 1.14.0
+/// Wrapper to contain necessary deprected calls
+extension DeprecatedErrorReporterExtension on ErrorReporter {
+  /// deprecatedReportErrorForNode
+  void deprecatedReportErrorForNode(
+    ErrorCode errorCode,
+    AstNode node, [
+    List<Object>? arguments,
+    List<DiagnosticMessage>? contextMessages,
+    Object? data,
+  ]) =>
+      // ignore: deprecated_member_use
+      reportErrorForNode(errorCode, node, arguments, contextMessages, data);
+
+  /// deprecatedReportErrorForToken
+  void deprecatedReportErrorForToken(
+    ErrorCode errorCode,
+    Token token, [
+    List<Object>? arguments,
+    List<DiagnosticMessage>? contextMessages,
+    Object? data,
+  ]) =>
+      // ignore: deprecated_member_use
+      reportErrorForToken(errorCode, token, arguments, contextMessages, data);
 }

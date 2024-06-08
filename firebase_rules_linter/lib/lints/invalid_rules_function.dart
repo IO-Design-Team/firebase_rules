@@ -35,7 +35,7 @@ class InvalidRulesFunction extends DartLintRule {
       final parameterElements =
           parameters.parameterElements.whereType<ParameterElement>();
       if (parameterElements.where((e) => e.isNamed).isNotEmpty) {
-        reporter.atNode(parameters, _code);
+        reporter.deprecatedReportErrorForNode(_code, parameters);
         return;
       }
     });
