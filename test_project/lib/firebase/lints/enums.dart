@@ -2,13 +2,14 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-bool test() {
+bool test(TestClass obj) {
   // expect_lint: undeclared_enum_value
-  final a = Test.a;
+  final a = TestEnum.a;
   // expect_lint: undeclared_enum_value
-  final b = Test.b;
+  final b = TestEnum.b;
   // expect_lint: undeclared_enum_value
-  final c = Test.c;
+  final c = TestEnum.c;
+  obj.test;
   return true;
 }
 
@@ -20,17 +21,23 @@ final firestoreRules = [
   Match<FirestoreResource>(firestoreRoot),
 ];
 
-enum Test {
+enum TestEnum {
   a,
   b,
   c;
 
   static const map = {
     // expect_lint: undeclared_enum_value
-    Test.a: 'a',
+    TestEnum.a: 'a',
     // expect_lint: undeclared_enum_value
-    Test.b: 'b',
+    TestEnum.b: 'b',
     // expect_lint: undeclared_enum_value
-    Test.c: 'c',
+    TestEnum.c: 'c',
   };
+}
+
+class TestClass {
+  final TestEnum test;
+
+  TestClass(this.test);
 }
