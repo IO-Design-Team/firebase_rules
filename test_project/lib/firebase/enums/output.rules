@@ -1,10 +1,11 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function test() {
+    function test(obj) {
       let a = 'a';
       let b = 'b';
       let c = 'c';
+      let d = obj.test;
       return true;
     }
   }

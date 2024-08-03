@@ -1,3 +1,6 @@
+## 0.1.4
+- Only lint enum values, not enum fields
+
 ## 0.1.3
 - Fixes dependency constraint issues
 

@@ -2,30 +2,37 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-bool test() {
-  final a = Test.a;
-  final b = Test.b;
-  final c = Test.c;
+bool test(TestClass obj) {
+  final a = TestEnum.a;
+  final b = TestEnum.b;
+  final c = TestEnum.c;
+  final d = obj.test;
   return true;
 }
 
 @FirebaseRules(
   service: Service.firestore,
   functions: [test],
-  enums: [Test.map],
+  enums: [TestEnum.map],
 )
 final firestoreRules = [
   Match<FirestoreResource>(firestoreRoot),
 ];
 
-enum Test {
+enum TestEnum {
   a,
   b,
   c;
 
   static const map = {
-    Test.a: 'a',
-    Test.b: 'b',
-    Test.c: 'c',
+    TestEnum.a: 'a',
+    TestEnum.b: 'b',
+    TestEnum.c: 'c',
   };
+}
+
+class TestClass {
+  final TestEnum test;
+
+  TestClass(this.test);
 }
