@@ -27,10 +27,11 @@ class UndeclaredEnumValue extends DartLintRule {
 
     context.registry.addPrefixedIdentifier((node) {
       // This is kind of hacky, but I couldn't find a better way
-      // This should match any enum value (ex TestEnum.a)
-      final isEnumValue = RegExp(r'^[A-Z_][A-Za-z0-9]*\.[a-z_][A-Za-z0-9]*$')
-          .hasMatch(node.toSource());
-      if (!isEnumValue) return;
+      // This should match any possible enum value (ex TestEnum.a)
+      final couldBeEnumValue =
+          RegExp(r'^[A-Z_][A-Za-z0-9]*\.[a-z_][A-Za-z0-9]*$')
+              .hasMatch(node.toSource());
+      if (!couldBeEnumValue) return;
 
       final type = node.staticType;
       if (type == null ||
