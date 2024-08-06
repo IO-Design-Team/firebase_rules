@@ -1,6 +1,6 @@
 name: firebase_rules_linter
 description: A linter for the firebase_rules package to prevent common issues
-version: 0.1.4
+version: 0.1.5
 homepage: https://github.com/IO-Design-Team/firebase_rules/tree/master/firebase_rules_linter
 
 environment:

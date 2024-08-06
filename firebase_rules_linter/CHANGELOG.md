@@ -1,3 +1,6 @@
+## 0.1.5
+- Fixes analysis issues
+
 ## 0.1.4
 - Only lint enum values, not enum fields
 
