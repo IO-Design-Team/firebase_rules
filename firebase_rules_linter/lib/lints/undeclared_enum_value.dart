@@ -48,7 +48,7 @@ class UndeclaredEnumValue extends DartLintRule {
           ?.toListValue()
           ?.map((e) => e.toMapValue()!.cast<DartObject, DartObject>());
       if (enumMaps == null) {
-        reporter.deprecatedReportErrorForNode(_code, node);
+        reporter.atNode(node, _code);
         return;
       }
 
@@ -61,7 +61,7 @@ class UndeclaredEnumValue extends DartLintRule {
       );
       if (keys.contains(node.toSource())) return;
 
-      reporter.deprecatedReportErrorForNode(_code, node);
+      reporter.atNode(node, _code);
     });
   }
 }

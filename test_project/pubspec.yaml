@@ -12,7 +12,7 @@ dependencies:
   firebase_rules_convert: ^0.0.0
 
 dev_dependencies:
-  rexios_lints: ^7.0.0
+  rexios_lints: ^8.0.0
   custom_lint: ^0.6.2
   firebase_rules_linter: ^0.0.0
 

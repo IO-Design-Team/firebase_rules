@@ -1,7 +1,6 @@
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
-import 'package:firebase_rules_linter/util.dart';
 
 /// Lint for avoiding raw rules
 class AvoidRawRules extends DartLintRule {
@@ -31,7 +30,7 @@ class AvoidRawRules extends DartLintRule {
           node.methodName.name != 'raw' ||
           !rulesMethodsTypeChecker.isExactlyType(targetType)) return;
 
-      reporter.deprecatedReportErrorForNode(_code, node);
+      reporter.atNode(node, _code);
     });
   }
 }
