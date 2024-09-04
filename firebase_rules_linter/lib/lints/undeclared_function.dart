@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -22,23 +23,24 @@ class UndeclaredFunction extends DartLintRule {
   ) async {
     final resolved = await resolver.getResolvedUnitResult();
 
-    context.registry.addFunctionDeclaration((node) {
+    context.registry.addMethodInvocation((node) {
       final annotation = getFirebaseRulesAnnotation(resolved);
       // This isn't a rules file
       if (annotation == null) return;
+
+      if (node.childEntities.length != 2) return;
+      final functionName = node.childEntities.first;
+      if (functionName is! SimpleIdentifier) return;
 
       final functions = annotation
           .getField('functions')
           ?.toListValue()
           ?.map((e) => e.toFunctionValue()!.name);
-      if (functions == null) {
-        reporter.atNode(node, _code);
+      if (functions != null && functions.contains(functionName.name)) {
         return;
       }
 
-      if (functions.contains(node.name.toString())) return;
-
-      reporter.atToken(node.name, _code);
+      reporter.atNode(functionName, _code);
     });
   }
 }

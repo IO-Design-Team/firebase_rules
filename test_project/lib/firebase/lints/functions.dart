@@ -3,7 +3,6 @@
 
 import 'package:firebase_rules/firebase.dart';
 
-// expect_lint: undeclared_function
 bool test() {
   final a = Test.a;
   final b = Test.b;
@@ -16,16 +15,22 @@ bool test2({required String named}) {
   return true;
 }
 
+bool test3() {
+  return true;
+}
+
 @FirebaseRules(
   service: Service.firestore,
   enums: [Test.map],
-  functions: [test2],
+  functions: [test2, test3],
 )
 final firestoreRules = [
   Match<FirestoreResource>(
     firestoreRoot,
     rules: (database, request, resource) => [
+      // expect_lint: undeclared_function
       Allow([Operation.read], test()),
+      Allow([Operation.write], test3()),
     ],
   ),
 ];
