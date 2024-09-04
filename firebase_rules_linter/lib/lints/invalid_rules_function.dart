@@ -21,14 +21,11 @@ class InvalidRulesFunction extends DartLintRule {
     ErrorReporter reporter,
     CustomLintContext context,
   ) async {
-    final resolved = await resolver.getResolvedUnitResult();
-    context.sharedState;
+    final annotation = await getFirebaseRulesAnnotation(resolver);
+    // This isn't a rules file
+    if (annotation == null) return;
 
     context.registry.addFunctionDeclaration((node) {
-      final annotation = getFirebaseRulesAnnotation(resolved);
-      // This isn't a rules file
-      if (annotation == null) return;
-
       final parameters = node.functionExpression.parameters;
       if (parameters == null) return;
 

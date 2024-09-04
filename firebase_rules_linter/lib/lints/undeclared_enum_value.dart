@@ -23,7 +23,9 @@ class UndeclaredEnumValue extends DartLintRule {
     ErrorReporter reporter,
     CustomLintContext context,
   ) async {
-    final resolved = await resolver.getResolvedUnitResult();
+    final annotation = await getFirebaseRulesAnnotation(resolver);
+    // This isn't a rules file
+    if (annotation == null) return;
 
     context.registry.addPrefixedIdentifier((node) {
       // This is kind of hacky, but I couldn't find a better way
@@ -38,10 +40,6 @@ class UndeclaredEnumValue extends DartLintRule {
           !type.isEnum ||
           // Ignore built-in enums
           libraryTypeChecker.isAssignableFromType(type)) return;
-
-      final annotation = getFirebaseRulesAnnotation(resolved);
-      // This isn't a rules file
-      if (annotation == null) return;
 
       final enumMaps = annotation
           .getField('enums')

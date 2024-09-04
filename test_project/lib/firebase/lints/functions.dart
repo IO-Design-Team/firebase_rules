@@ -2,6 +2,7 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:firebase_rules/firebase.dart';
+import 'package:test_project/firebase/lints/split.dart';
 
 bool test() {
   final a = Test.a;
@@ -29,8 +30,10 @@ final firestoreRules = [
     firestoreRoot,
     rules: (database, request, resource) => [
       // expect_lint: undeclared_function
-      Allow([Operation.read], test()),
-      Allow([Operation.write], test3()),
+      Allow([Operation.get], test()),
+      Allow([Operation.list], test3()),
+      // expect_lint: undeclared_function
+      Allow([Operation.create], test4()),
     ],
   ),
 ];

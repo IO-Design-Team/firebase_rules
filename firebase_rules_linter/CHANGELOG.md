@@ -1,3 +1,8 @@
+## 0.1.6
+
+- Adds `no_set_literals` since the rules language does not support them
+- The `undeclared_function` rule now marks invocations instead of declarations
+
 ## 0.1.5
 - Fixes analysis issues
 

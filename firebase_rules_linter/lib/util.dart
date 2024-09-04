@@ -1,4 +1,3 @@
-import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -37,7 +36,10 @@ String? resolveMatchPath({required NodeList<Expression> arguments}) {
 }
 
 /// Get the first `FirebaseRules` annotation in a file
-DartObject? getFirebaseRulesAnnotation(ResolvedUnitResult resolved) {
+Future<DartObject?> getFirebaseRulesAnnotation(
+  CustomLintResolver resolver,
+) async {
+  final resolved = await resolver.getResolvedUnitResult();
   for (final element in resolved.libraryElement.topLevelElements) {
     final annotation = firebaseRulesTypeChecker.firstAnnotationOfExact(element);
     if (annotation != null) return annotation;

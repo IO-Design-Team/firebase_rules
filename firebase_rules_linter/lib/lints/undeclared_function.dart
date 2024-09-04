@@ -21,13 +21,11 @@ class UndeclaredFunction extends DartLintRule {
     ErrorReporter reporter,
     CustomLintContext context,
   ) async {
-    final resolved = await resolver.getResolvedUnitResult();
+    final annotation = await getFirebaseRulesAnnotation(resolver);
+    // This isn't a rules file
+    if (annotation == null) return;
 
     context.registry.addMethodInvocation((node) {
-      final annotation = getFirebaseRulesAnnotation(resolved);
-      // This isn't a rules file
-      if (annotation == null) return;
-
       if (node.childEntities.length != 2) return;
       final functionName = node.childEntities.first;
       if (functionName is! SimpleIdentifier) return;
