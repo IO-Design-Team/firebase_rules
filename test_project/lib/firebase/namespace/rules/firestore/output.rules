@@ -15,14 +15,14 @@ service cloud.firestore {
 
 rules_version = '2';
 service firebase.storage {
-  match /databases/{database}/documents {
+  match /b/{bucket}/o {
     function test() {
-      let a = firestore.exists(/databases/$(database)/documents/path/to/resource);
-      let b = firestore.existsAfter(/databases/$(database)/documents/path/to/resource);
-      let c = firestore.get(/databases/$(database)/documents/path/to/resource);
+      let a = firestore.exists(/databases/(default)/documents/path/to/resource);
+      let b = firestore.existsAfter(/databases/(default)/documents/path/to/resource);
+      let c = firestore.get(/databases/(default)/documents/path/to/resource);
       let d = firestore.get(/databases/(default)/documents/path/to/resource).data.asdf;
-      let e = firestore.getAfter(/databases/$(database)/documents/path/to/resource);
-      let f = firestore.getAfter(/databases/$(database)/documents/path/to/resource).data.asdf;
+      let e = firestore.getAfter(/databases/(default)/documents/path/to/resource);
+      let f = firestore.getAfter(/databases/(default)/documents/path/to/resource).data.asdf;
       return true;
     }
   }

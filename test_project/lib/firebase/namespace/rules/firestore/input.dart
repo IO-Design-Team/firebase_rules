@@ -35,7 +35,7 @@ final firestoreRules = [
   functions: [test],
 )
 final storageRules = [
-  Match<FirestoreResource>(firestoreRoot),
+  Match<StorageResource>(storageRoot),
 ];
 
 abstract class TestResource {
