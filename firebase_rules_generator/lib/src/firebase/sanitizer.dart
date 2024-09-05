@@ -30,14 +30,20 @@ String sanitizeRules(RevivedFirebaseRules annotation, String input) {
             .replaceAllMapped(
           RegExp(r"path\('(.+?)'(, database: '(.+?)')?\)"),
           (m) {
-            final database = m[3];
-            final String path;
-            if (database == null) {
-              path = '/databases/\$(database)/documents${m[1]}';
+            final databaseParam = m[3];
+            final String database;
+            if (databaseParam == null) {
+              if (annotation.service == Service.firestore) {
+                // Use the database wildcard for Firestore rules
+                database = '\$(database)';
+              } else {
+                // Otherwise use the default database
+                database = '(default)';
+              }
             } else {
-              path = '/databases/($database)/documents${m[1]}';
+              database = '($databaseParam)';
             }
-            return 'path(\'$path\')';
+            return 'path(\'/databases/$database/documents${m[1]}\')';
           },
         )
             // Convert path strings to raw paths
