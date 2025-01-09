@@ -55,7 +55,7 @@ abstract class StorageResource extends FirebaseResource {
   /// The content type
   RulesString get contentType;
 
-  /// A Map<String, String> containing additional developer provided metadata
+  /// A `Map<String, String>` containing additional developer provided metadata
   /// fields.
   RulesMap<RulesString, RulesString> get metadata;
 }

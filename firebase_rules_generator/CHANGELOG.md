@@ -1,3 +1,8 @@
+## 0.2.3
+
+- Supports analyzer 7
+- Fixes analysis issues
+
 ## 0.2.2
 
 - Uses the `default` Firestore database if none is specified in Storage rules

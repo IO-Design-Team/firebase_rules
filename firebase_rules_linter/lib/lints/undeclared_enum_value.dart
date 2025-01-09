@@ -39,7 +39,9 @@ class UndeclaredEnumValue extends DartLintRule {
       if (type == null ||
           !type.isEnum ||
           // Ignore built-in enums
-          libraryTypeChecker.isAssignableFromType(type)) return;
+          libraryTypeChecker.isAssignableFromType(type)) {
+        return;
+      }
 
       final enumMaps = annotation
           .getField('enums')

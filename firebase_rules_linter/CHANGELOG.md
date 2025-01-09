@@ -1,3 +1,8 @@
+## 0.1.8
+
+- Supports analyzer 7
+- Fixes analysis issues
+
 ## 0.1.7
 
 - Bump `custom_lint_builder` to `0.7.0`

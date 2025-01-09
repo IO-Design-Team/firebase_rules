@@ -1,4 +1,4 @@
-include: package:rexios_lints/dart/core.yaml
+include: package:rexios_lints/dart/core_extra.yaml
 
 analyzer:
   plugins:

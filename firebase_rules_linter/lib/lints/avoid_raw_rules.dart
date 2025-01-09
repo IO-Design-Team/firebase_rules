@@ -28,7 +28,9 @@ class AvoidRawRules extends DartLintRule {
       final targetType = node.target?.staticType;
       if (targetType == null ||
           node.methodName.name != 'raw' ||
-          !rulesMethodsTypeChecker.isExactlyType(targetType)) return;
+          !rulesMethodsTypeChecker.isExactlyType(targetType)) {
+        return;
+      }
 
       reporter.atNode(node, _code);
     });

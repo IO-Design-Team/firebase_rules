@@ -59,7 +59,7 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
     );
   }
 
-  /// Revive a Map<Enum, String> to a Map<String, String> from a [DartObject]
+  /// Revive a `Map<Enum, String>` to a `Map<String, String>` from a [DartObject]
   Map<String, String> reviveEnumMap(DartObject value) {
     return value.toMapValue()!.cast<DartObject, DartObject>().map((k, v) {
       final enumType = k.type;
