@@ -4,6 +4,7 @@ import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:test/test.dart';
+import 'package:path/path.dart' as path;
 
 void testRulesBuilder(
   String slug, {
@@ -16,9 +17,11 @@ void testRulesBuilder(
     slug,
     () async {
       final input =
-          File('../test_project/lib/$slug/input.dart').readAsStringSync();
-      final outputFile =
-          File('../test_project/lib/$slug/output$outputExtension');
+          File(path.join('..', 'test_project', 'lib', slug, 'input.dart'))
+              .readAsStringSync();
+      final outputFile = File(
+        path.join('..', 'test_project', 'lib', slug, 'output$outputExtension'),
+      );
       final future = testBuilder(
         builder,
         {'test|test.dart': input},
