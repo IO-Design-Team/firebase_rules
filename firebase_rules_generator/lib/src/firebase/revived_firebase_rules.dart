@@ -1,7 +1,9 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:firebase_rules/firebase.dart';
+import 'package:meta/meta.dart';
 
 /// Revived FirebaseRules annotation
+@immutable
 class RevivedFirebaseRules {
   /// rulesVersion
   final String rulesVersion;

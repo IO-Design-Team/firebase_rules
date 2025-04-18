@@ -1,7 +1,9 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
+import 'package:meta/meta.dart';
 
 /// Information about the current rules context
+@immutable
 class RulesContext {
   /// The resolver
   final Resolver resolver;
@@ -17,7 +19,7 @@ class RulesContext {
   /// Can only be set in the root context
   final Iterable<ExecutableElement> functions;
 
-  RulesContext._(
+  const RulesContext._(
     this.resolver, {
     required this.wildcards,
     required this.indent,

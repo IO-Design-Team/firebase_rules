@@ -1,5 +1,6 @@
 import 'package:firebase_rules/database.dart';
 import 'package:meta/meta_meta.dart';
+import 'package:meta/meta.dart';
 
 /// Database Rules annotation
 @Target({TargetKind.topLevelVariable})
@@ -15,6 +16,7 @@ typedef ContextualCallback<T> = T Function(RulesString _);
 abstract class DatabaseMatch {}
 
 /// Database match statement
+@immutable
 class Match extends DatabaseMatch {
   /// The path
   ///

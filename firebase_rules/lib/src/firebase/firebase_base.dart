@@ -1,9 +1,11 @@
 import 'package:firebase_rules/src/firebase/namespace/model/model.dart';
 import 'package:firebase_rules/src/firebase/service/base.dart';
 import 'package:meta/meta_meta.dart';
+import 'package:meta/meta.dart';
 
 /// Firebase Rules annotation
 @Target({TargetKind.topLevelVariable})
+@immutable
 class FirebaseRules {
   /// The rules version. Defaults to 2.
   final String rulesVersion;
@@ -77,6 +79,7 @@ enum Operation {
 }
 
 /// A firebase allow rule
+@immutable
 class Allow {
   /// Permitted operations
   final List<Operation> operations;
@@ -85,13 +88,14 @@ class Allow {
   final bool condition;
 
   /// Constructor
-  Allow(this.operations, this.condition);
+  const Allow(this.operations, this.condition);
 }
 
 /// Base class used for analysis
 abstract class FirebaseMatch {}
 
 /// A firebase rules match statement
+@immutable
 class Match<T extends FirebaseResource> extends FirebaseMatch {
   /// The Firebase path
   ///
