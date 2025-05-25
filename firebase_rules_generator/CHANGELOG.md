@@ -1,3 +1,7 @@
+## 0.2.4
+
+- Ignores analyzer deprecations
+
 ## 0.2.3
 
 - Supports analyzer 7

@@ -1,3 +1,7 @@
+## 0.1.10
+
+- Ignores analyzer deprecations
+
 ## 0.1.9
 
 - Updates `analyzer_plugin` to `0.13.0`
