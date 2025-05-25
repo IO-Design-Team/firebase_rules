@@ -30,6 +30,9 @@ class InvalidRulesFunction extends DartLintRule {
       if (parameters == null) return;
 
       final parameterElements =
+
+          /// TODO: Fix with analyzer 8
+          /// ignore: deprecated_member_use
           parameters.parameterElements.whereType<ParameterElement>();
       if (parameterElements.where((e) => e.isNamed).isNotEmpty) {
         reporter.atNode(parameters, _code);

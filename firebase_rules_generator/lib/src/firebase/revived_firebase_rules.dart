@@ -12,6 +12,8 @@ class RevivedFirebaseRules {
   final Service service;
 
   /// functions
+  /// TODO: Fix with analyzer 8
+  /// ignore: deprecated_member_use
   final Iterable<ExecutableElement> functions;
 
   /// enums

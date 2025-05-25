@@ -17,6 +17,8 @@ class RulesContext {
   /// Functions to write in this context
   ///
   /// Can only be set in the root context
+  /// TODO: Fix with analyzer 8
+  /// ignore: deprecated_member_use
   final Iterable<ExecutableElement> functions;
 
   const RulesContext._(
@@ -33,6 +35,8 @@ class RulesContext {
         indent = 2;
 
   /// Get the first resolvable element with the given [name] and type [T]
+  /// TODO: Fix with analyzer 8
+  /// ignore: deprecated_member_use
   Future<T> get<T extends Element>(String name) {
     return resolver.libraries
         .expand((e) => e.topLevelElements.where((e) => e.name == name))

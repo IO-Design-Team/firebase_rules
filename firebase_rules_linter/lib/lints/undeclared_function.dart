@@ -33,6 +33,9 @@ class UndeclaredFunction extends DartLintRule {
       final functions = annotation
           .getField('functions')
           ?.toListValue()
+
+          /// TODO: Fix with analyzer 8
+          /// ignore: deprecated_member_use
           ?.map((e) => e.toFunctionValue()!.name);
       if (functions != null && functions.contains(functionName.name)) {
         return;

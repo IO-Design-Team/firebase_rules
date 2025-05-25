@@ -18,6 +18,8 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
     with RulesGenerator {
   @override
   Future<String> generateForAnnotatedElement(
+    /// TODO: Fix with analyzer 8
+    /// ignore: deprecated_member_use
     Element element,
     ConstantReader annotation,
     BuildStep buildStep,
@@ -54,6 +56,9 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
       functions: annotation
           .read('functions')
           .listValue
+
+          /// TODO: Fix with analyzer 8
+          /// ignore: deprecated_member_use
           .map((e) => e.toFunctionValue()!),
       enums: annotation.read('enums').listValue.map(reviveEnumMap),
     );

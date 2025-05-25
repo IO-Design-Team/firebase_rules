@@ -17,6 +17,9 @@ Stream<String> visitMatch(RulesContext context, AstNode node) async* {
     path = pathArgument.value;
   } else if (pathArgument is SimpleIdentifier) {
     final pathElement =
+
+        /// TODO: Fix with analyzer 8
+        /// ignore: deprecated_member_use
         await context.get<TopLevelVariableElement>(pathArgument.name);
     final ast =
         await context.resolver.astNodeFor(pathElement) as VariableDeclaration;
