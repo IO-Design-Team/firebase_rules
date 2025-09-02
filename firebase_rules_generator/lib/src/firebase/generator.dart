@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/rules_context.dart';
@@ -18,9 +18,7 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
     with RulesGenerator {
   @override
   Future<String> generateForAnnotatedElement(
-    /// TODO: Fix with analyzer 8
-    /// ignore: deprecated_member_use
-    Element element,
+    Element2 element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {
@@ -35,7 +33,7 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
     // Generate functions
     final resolver = buildStep.resolver;
     final context = RulesContext.root(resolver, functions: revived.functions);
-    final ast = await resolver.astNodeFor(element);
+    final ast = await resolver.astNodeFor(element.firstFragment);
     final matches = ast!.childEntities.whereType<ListLiteral>().single.elements;
 
     for (final match in matches) {
@@ -56,10 +54,7 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
       functions: annotation
           .read('functions')
           .listValue
-
-          /// TODO: Fix with analyzer 8
-          /// ignore: deprecated_member_use
-          .map((e) => e.toFunctionValue()!),
+          .map((e) => e.toFunctionValue2()!),
       enums: annotation.read('enums').listValue.map(reviveEnumMap),
     );
   }

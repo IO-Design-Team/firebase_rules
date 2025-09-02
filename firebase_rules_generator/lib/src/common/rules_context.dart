@@ -1,4 +1,4 @@
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:build/build.dart';
 import 'package:meta/meta.dart';
 
@@ -17,9 +17,7 @@ class RulesContext {
   /// Functions to write in this context
   ///
   /// Can only be set in the root context
-  /// TODO: Fix with analyzer 8
-  /// ignore: deprecated_member_use
-  final Iterable<ExecutableElement> functions;
+  final Iterable<ExecutableElement2> functions;
 
   const RulesContext._(
     this.resolver, {
@@ -35,11 +33,12 @@ class RulesContext {
         indent = 2;
 
   /// Get the first resolvable element with the given [name] and type [T]
-  /// TODO: Fix with analyzer 8
-  /// ignore: deprecated_member_use
-  Future<T> get<T extends Element>(String name) {
+  Future<T> get<T extends Element2>(String name) {
     return resolver.libraries
-        .expand((e) => e.topLevelElements.where((e) => e.name == name))
+        .expand<Element2>(
+          (e) => [...e.topLevelFunctions, ...e.topLevelVariables],
+        )
+        .where((e) => e.name3 == name)
         .where((e) => e is T)
         .cast<T>()
         .first;

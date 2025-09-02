@@ -7,15 +7,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore_platform_interface: ^6.0.1
+  cloud_firestore_platform_interface: ^7.0.0
   firebase_rules: ^0.0.0
   firebase_rules_convert: ^0.0.0
 
 dev_dependencies:
-  rexios_lints: ^11.0.6
+  rexios_lints: ^15.0.0
   build_runner: ^2.3.3
   firebase_rules_generator: ^0.0.0
-  custom_lint: ^0.7.0
+  custom_lint: ^0.8.0
   firebase_rules_linter: ^0.0.0
 
 dependency_overrides:

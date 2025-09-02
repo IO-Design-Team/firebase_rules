@@ -10,4 +10,4 @@ dependencies:
   meta: ^1.8.0
 
 dev_dependencies:
-  rexios_lints: ^11.0.6
+  rexios_lints: ^15.0.0

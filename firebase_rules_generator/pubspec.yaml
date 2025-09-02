@@ -8,15 +8,15 @@ environment:
 
 dependencies:
   analyzer: ^7.1.0
-  build: ^2.3.1
-  source_gen: ^2.0.0
+  build: ^3.1.0
+  source_gen: ^4.0.0
   firebase_rules: ^0.2.0
   collection: ^1.16.0
   path: ^1.9.1
   meta: ^1.16.0
 
 dev_dependencies:
-  rexios_lints: ^11.0.6
+  rexios_lints: ^15.0.0
   test: ^1.22.2
-  build_test: ^2.1.6
+  build_test: ^3.3.3
   build_runner: ^2.3.3

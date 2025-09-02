@@ -25,7 +25,6 @@ void testRulesBuilder(
       final future = testBuilder(
         builder,
         {'test|test.dart': input},
-        reader: await PackageAssetReader.currentIsolate(),
         outputs: expectThrows
             ? null
             : {'test|test$outputExtension': outputFile.readAsStringSync()},

@@ -1,4 +1,4 @@
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -29,12 +29,9 @@ class InvalidRulesFunction extends DartLintRule {
       final parameters = node.functionExpression.parameters;
       if (parameters == null) return;
 
-      final parameterElements =
-
-          /// TODO: Fix with analyzer 8
-          /// ignore: deprecated_member_use
-          parameters.parameterElements.whereType<ParameterElement>();
-      if (parameterElements.where((e) => e.isNamed).isNotEmpty) {
+      final parameterFragments =
+          parameters.parameterFragments.whereType<FormalParameterFragment>();
+      if (parameterFragments.where((e) => e.name2 != null).isNotEmpty) {
         reporter.atNode(parameters, _code);
         return;
       }

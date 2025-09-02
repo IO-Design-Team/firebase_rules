@@ -39,8 +39,8 @@ Stream<String> visitParameter(
   } else if (expression is SimpleIdentifier) {
     // If this is a reference to a function, find the function declaration
     final element = await context.get(expression.name);
-    final ast =
-        await context.resolver.astNodeFor(element) as FunctionDeclaration;
+    final ast = await context.resolver.astNodeFor(element.firstFragment)
+        as FunctionDeclaration;
     function = ast.functionExpression;
     cleanContext = true;
   } else {

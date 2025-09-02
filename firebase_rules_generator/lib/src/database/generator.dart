@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/database.dart';
 import 'package:firebase_rules_generator/src/common/rules_context.dart';
@@ -15,9 +15,7 @@ class DatabaseRulesGenerator extends GeneratorForAnnotation<DatabaseRules>
     with RulesGenerator {
   @override
   Future<String> generateForAnnotatedElement(
-    /// TODO: Fix with analyzer 8
-    /// ignore: deprecated_member_use
-    Element element,
+    Element2 element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {
@@ -27,7 +25,7 @@ class DatabaseRulesGenerator extends GeneratorForAnnotation<DatabaseRules>
     buffer.writeln('{');
 
     final resolver = buildStep.resolver;
-    final ast = await resolver.astNodeFor(element);
+    final ast = await resolver.astNodeFor(element.firstFragment);
     final matches = ast!.childEntities.whereType<ListLiteral>().single.elements;
     final context = RulesContext.root(resolver);
 

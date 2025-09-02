@@ -41,9 +41,7 @@ Future<DartObject?> getFirebaseRulesAnnotation(
 ) async {
   final resolved = await resolver.getResolvedUnitResult();
 
-  /// TODO: Fix with analyzer 8
-  /// ignore: deprecated_member_use
-  for (final element in resolved.libraryElement.topLevelElements) {
+  for (final element in resolved.libraryElement2.topLevelVariables) {
     final annotation = firebaseRulesTypeChecker.firstAnnotationOfExact(element);
     if (annotation != null) return annotation;
   }
