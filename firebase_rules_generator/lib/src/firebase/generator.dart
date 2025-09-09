@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/firebase.dart';
 import 'package:firebase_rules_generator/src/common/rules_context.dart';
@@ -18,7 +18,7 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
     with RulesGenerator {
   @override
   Future<String> generateForAnnotatedElement(
-    Element2 element,
+    Element element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {
@@ -54,7 +54,7 @@ class FirebaseRulesGenerator extends GeneratorForAnnotation<FirebaseRules>
       functions: annotation
           .read('functions')
           .listValue
-          .map((e) => e.toFunctionValue2()!),
+          .map((e) => e.toFunctionValue()!),
       enums: annotation.read('enums').listValue.map(reviveEnumMap),
     );
   }

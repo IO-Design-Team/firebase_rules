@@ -11,7 +11,7 @@ class UndeclaredEnumValue extends DartLintRule {
     name: 'undeclared_enum_value',
     problemMessage:
         'This enum value has no mapping. Declare enum conversion maps in the FirebaseRules annotation.',
-    errorSeverity: ErrorSeverity.ERROR,
+    errorSeverity: DiagnosticSeverity.ERROR,
   );
 
   /// Constructor
@@ -20,7 +20,7 @@ class UndeclaredEnumValue extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) async {
     final annotation = await getFirebaseRulesAnnotation(resolver);

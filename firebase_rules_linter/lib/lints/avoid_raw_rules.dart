@@ -8,7 +8,7 @@ class AvoidRawRules extends DartLintRule {
     name: 'avoid_raw_rules',
     problemMessage:
         'Do not use raw rules unless necessary. Please create a GitHub issue for this use-case.',
-    errorSeverity: ErrorSeverity.WARNING,
+    errorSeverity: DiagnosticSeverity.WARNING,
   );
 
   /// Type checker for `RulesMethods`
@@ -21,7 +21,7 @@ class AvoidRawRules extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addMethodInvocation((node) {

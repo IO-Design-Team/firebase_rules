@@ -41,7 +41,7 @@ Future<DartObject?> getFirebaseRulesAnnotation(
 ) async {
   final resolved = await resolver.getResolvedUnitResult();
 
-  for (final element in resolved.libraryElement2.topLevelVariables) {
+  for (final element in resolved.libraryElement.topLevelVariables) {
     final annotation = firebaseRulesTypeChecker.firstAnnotationOfExact(element);
     if (annotation != null) return annotation;
   }

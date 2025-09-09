@@ -1,3 +1,4 @@
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -10,7 +11,7 @@ class NoSetLiterals extends DartLintRule {
     problemMessage: 'The rules language does not support set literals',
     correctionMessage:
         'Use a list literal instead. Ex: [1, 2, 3].rules().toSet()',
-    errorSeverity: ErrorSeverity.ERROR,
+    errorSeverity: DiagnosticSeverity.ERROR,
   );
 
   static const _setChecker = TypeChecker.fromName('Set');
@@ -21,7 +22,7 @@ class NoSetLiterals extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) async {
     final annotation = await getFirebaseRulesAnnotation(resolver);
@@ -50,8 +51,8 @@ class _UseListLiteralFix extends DartFix {
     CustomLintResolver resolver,
     ChangeReporter reporter,
     CustomLintContext context,
-    AnalysisError analysisError,
-    List<AnalysisError> others,
+    Diagnostic analysisError,
+    List<Diagnostic> others,
   ) {
     context.registry.addSetOrMapLiteral((node) {
       if (!analysisError.sourceRange.intersects(node.sourceRange)) return;

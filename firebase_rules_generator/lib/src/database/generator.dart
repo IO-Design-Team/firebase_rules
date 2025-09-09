@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:firebase_rules/database.dart';
 import 'package:firebase_rules_generator/src/common/rules_context.dart';
@@ -15,7 +15,7 @@ class DatabaseRulesGenerator extends GeneratorForAnnotation<DatabaseRules>
     with RulesGenerator {
   @override
   Future<String> generateForAnnotatedElement(
-    Element2 element,
+    Element element,
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {

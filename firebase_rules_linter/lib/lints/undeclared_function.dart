@@ -9,7 +9,7 @@ class UndeclaredFunction extends DartLintRule {
   static const _code = LintCode(
     name: 'undeclared_function',
     problemMessage: 'Declare functions in the FirebaseRules annotation',
-    errorSeverity: ErrorSeverity.ERROR,
+    errorSeverity: DiagnosticSeverity.ERROR,
   );
 
   /// Constructor
@@ -18,7 +18,7 @@ class UndeclaredFunction extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) async {
     final annotation = await getFirebaseRulesAnnotation(resolver);
@@ -33,7 +33,7 @@ class UndeclaredFunction extends DartLintRule {
       final functions = annotation
           .getField('functions')
           ?.toListValue()
-          ?.map((e) => e.toFunctionValue2()!.name3);
+          ?.map((e) => e.toFunctionValue()!.name);
       if (functions != null && functions.contains(functionName.name)) {
         return;
       }

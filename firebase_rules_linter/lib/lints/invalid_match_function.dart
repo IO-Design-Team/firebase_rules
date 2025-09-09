@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:collection/collection.dart';
@@ -10,7 +11,7 @@ class InvalidMatchFunction extends DartLintRule {
   static const _code = LintCode(
     name: 'invalid_match_function',
     problemMessage: 'The given function does not have the expected signature',
-    errorSeverity: ErrorSeverity.ERROR,
+    errorSeverity: DiagnosticSeverity.ERROR,
   );
 
   /// Constructor
@@ -48,7 +49,7 @@ class InvalidMatchFunction extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addInstanceCreationExpression((node) {
@@ -106,8 +107,8 @@ class _UseExpectedSignatureFix extends DartFix {
     CustomLintResolver resolver,
     ChangeReporter reporter,
     CustomLintContext context,
-    AnalysisError analysisError,
-    List<AnalysisError> others,
+    Diagnostic analysisError,
+    List<Diagnostic> others,
   ) {
     context.registry.addInstanceCreationExpression((node) {
       if (!analysisError.sourceRange.intersects(node.sourceRange)) return;

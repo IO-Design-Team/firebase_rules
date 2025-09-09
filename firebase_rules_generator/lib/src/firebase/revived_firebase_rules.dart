@@ -1,4 +1,4 @@
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:firebase_rules/firebase.dart';
 import 'package:meta/meta.dart';
 
@@ -12,7 +12,7 @@ class RevivedFirebaseRules {
   final Service service;
 
   /// functions
-  final Iterable<ExecutableElement2> functions;
+  final Iterable<ExecutableElement> functions;
 
   /// enums
   final Iterable<Map<String, String>> enums;

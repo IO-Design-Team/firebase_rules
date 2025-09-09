@@ -1,4 +1,4 @@
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/error/error.dart' hide LintCode;
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
@@ -9,7 +9,7 @@ class InvalidRulesFunction extends DartLintRule {
   static const _code = LintCode(
     name: 'invalid_rules_function',
     problemMessage: 'Rules functions must have positional parameters',
-    errorSeverity: ErrorSeverity.ERROR,
+    errorSeverity: DiagnosticSeverity.ERROR,
   );
 
   /// Constructor
@@ -18,7 +18,7 @@ class InvalidRulesFunction extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) async {
     final annotation = await getFirebaseRulesAnnotation(resolver);
@@ -31,7 +31,7 @@ class InvalidRulesFunction extends DartLintRule {
 
       final parameterFragments =
           parameters.parameterFragments.whereType<FormalParameterFragment>();
-      if (parameterFragments.where((e) => e.name2 != null).isNotEmpty) {
+      if (parameterFragments.where((e) => e.element.isNamed).isNotEmpty) {
         reporter.atNode(parameters, _code);
         return;
       }

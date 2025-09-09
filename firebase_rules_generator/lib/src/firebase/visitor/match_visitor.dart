@@ -1,5 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:firebase_rules_generator/src/common/rules_context.dart';
 import 'package:firebase_rules_generator/src/common/validator.dart';
 import 'package:firebase_rules_generator/src/common/visitor.dart';
@@ -17,7 +17,7 @@ Stream<String> visitMatch(RulesContext context, AstNode node) async* {
     path = pathArgument.value;
   } else if (pathArgument is SimpleIdentifier) {
     final pathElement =
-        await context.get<TopLevelVariableElement2>(pathArgument.name);
+        await context.get<TopLevelVariableElement>(pathArgument.name);
     final ast = await context.resolver.astNodeFor(pathElement.firstFragment)
         as VariableDeclaration;
     final pathString = ast.initializer as SimpleStringLiteral;
@@ -58,7 +58,7 @@ Stream<String> visitMatch(RulesContext context, AstNode node) async* {
 /// Visit indexOn nodes
 Stream<String> _visitFunctions(RulesContext context) async* {
   for (final element in context.functions) {
-    final functionElement = await context.get(element.name3!);
+    final functionElement = await context.get(element.name!);
     final function =
         await context.resolver.astNodeFor(functionElement.firstFragment);
     yield* visitFunction(context.dive(), function as FunctionDeclaration);

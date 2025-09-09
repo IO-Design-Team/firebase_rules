@@ -1,4 +1,4 @@
-import 'package:analyzer/dart/element/element2.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:meta/meta.dart';
 
@@ -17,7 +17,7 @@ class RulesContext {
   /// Functions to write in this context
   ///
   /// Can only be set in the root context
-  final Iterable<ExecutableElement2> functions;
+  final Iterable<ExecutableElement> functions;
 
   const RulesContext._(
     this.resolver, {
@@ -33,12 +33,12 @@ class RulesContext {
         indent = 2;
 
   /// Get the first resolvable element with the given [name] and type [T]
-  Future<T> get<T extends Element2>(String name) {
+  Future<T> get<T extends Element>(String name) {
     return resolver.libraries
-        .expand<Element2>(
+        .expand<Element>(
           (e) => [...e.topLevelFunctions, ...e.topLevelVariables],
         )
-        .where((e) => e.name3 == name)
+        .where((e) => e.name == name)
         .where((e) => e is T)
         .cast<T>()
         .first;

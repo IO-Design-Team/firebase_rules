@@ -8,7 +8,7 @@ class InvalidMatchPath extends DartLintRule {
   static const _code = LintCode(
     name: 'invalid_match_path',
     problemMessage: 'Match paths can have at most one wildcard',
-    errorSeverity: ErrorSeverity.ERROR,
+    errorSeverity: DiagnosticSeverity.ERROR,
   );
 
   /// Constructor
@@ -17,7 +17,7 @@ class InvalidMatchPath extends DartLintRule {
   @override
   void run(
     CustomLintResolver resolver,
-    ErrorReporter reporter,
+    DiagnosticReporter reporter,
     CustomLintContext context,
   ) {
     context.registry.addInstanceCreationExpression((node) {
