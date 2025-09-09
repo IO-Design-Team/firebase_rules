@@ -1,3 +1,9 @@
+## 0.2.5
+
+- Supports `analyzer` 8
+- Supports `build` 4
+- Supports `source_gen` 4
+
 ## 0.2.4
 
 - Ignores analyzer deprecations

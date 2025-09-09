@@ -1,3 +1,8 @@
+## 0.1.11
+
+- Supports `analyzer` 8
+- Supports `custom_lint_builder` 0.8.0
+
 ## 0.1.10
 
 - Ignores analyzer deprecations
