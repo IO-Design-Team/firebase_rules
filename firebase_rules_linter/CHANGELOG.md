@@ -1,3 +1,8 @@
+## 0.2.0
+
+- All rules rewritten for the new plugin system
+- Requires Dart `3.10.0`
+
 ## 0.1.11
 
 - Supports `analyzer` 8
