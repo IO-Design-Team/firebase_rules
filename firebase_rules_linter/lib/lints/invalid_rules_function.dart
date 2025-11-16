@@ -29,8 +29,8 @@ class InvalidRulesFunction extends DartLintRule {
       final parameters = node.functionExpression.parameters;
       if (parameters == null) return;
 
-      final parameterFragments =
-          parameters.parameterFragments.whereType<FormalParameterFragment>();
+      final parameterFragments = parameters.parameterFragments
+          .whereType<FormalParameterFragment>();
       if (parameterFragments.where((e) => e.element.isNamed).isNotEmpty) {
         reporter.atNode(parameters, _code);
         return;

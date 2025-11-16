@@ -1,38 +1,60 @@
-import 'package:analyzer/error/error.dart' hide LintCode;
-import 'package:analyzer/error/listener.dart';
-import 'package:custom_lint_builder/custom_lint_builder.dart';
+import 'package:analyzer/analysis_rule/analysis_rule.dart';
+import 'package:analyzer/analysis_rule/rule_context.dart';
+import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/error/error.dart';
+import 'package:firebase_rules_linter/util.dart';
+import 'package:meta/meta.dart';
+import 'package:source_gen/source_gen.dart';
 
 /// Lint for avoiding raw rules
-class AvoidRawRules extends DartLintRule {
-  static const _code = LintCode(
-    name: 'avoid_raw_rules',
-    problemMessage:
-        'Do not use raw rules unless necessary. Please create a GitHub issue for this use-case.',
-    errorSeverity: DiagnosticSeverity.WARNING,
+class AvoidRawRules extends AnalysisRule {
+  /// avoid_raw_rules
+  static const code = LintCode(
+    'avoid_raw_rules',
+    'Do not use raw rules unless necessary. Please create a GitHub issue for this use-case.',
+    severity: DiagnosticSeverity.WARNING,
   );
 
-  /// Type checker for `RulesMethods`
-  static const rulesMethodsTypeChecker =
-      TypeChecker.fromName('RulesMethods', packageName: 'firebase_rules');
-
   /// Constructor
-  const AvoidRawRules() : super(code: _code);
+  AvoidRawRules() : super(name: code.name, description: code.problemMessage);
 
   @override
-  void run(
-    CustomLintResolver resolver,
-    DiagnosticReporter reporter,
-    CustomLintContext context,
-  ) {
-    context.registry.addMethodInvocation((node) {
-      final targetType = node.target?.staticType;
-      if (targetType == null ||
-          node.methodName.name != 'raw' ||
-          !rulesMethodsTypeChecker.isExactlyType(targetType)) {
-        return;
-      }
+  LintCode get diagnosticCode => code;
 
-      reporter.atNode(node, _code);
-    });
+  @override
+  void registerNodeProcessors(
+    RuleVisitorRegistry registry,
+    RuleContext context,
+  ) {
+    final visitor = _Visitor(this, context);
+    registry.addMethodInvocation(this, visitor);
+  }
+}
+
+@immutable
+class _Visitor extends SimpleAstVisitor<void> {
+  /// Type checker for `RulesMethods`
+  static const rulesMethodsTypeChecker = TypeChecker.typeNamed(
+    TypeNamed('RulesMethods'),
+    inPackage: 'firebase_rules',
+  );
+
+  final AnalysisRule rule;
+  final RuleContext context;
+
+  const _Visitor(this.rule, this.context);
+
+  @override
+  void visitMethodInvocation(MethodInvocation node) {
+    final targetType = node.target?.staticType;
+    if (targetType == null ||
+        node.methodName.name != 'raw' ||
+        !rulesMethodsTypeChecker.isExactlyType(targetType)) {
+      return;
+    }
+
+    rule.reportAtNode(node);
   }
 }

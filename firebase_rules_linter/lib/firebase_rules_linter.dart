@@ -13,12 +13,12 @@ PluginBase createPlugin() => _FirebaseRulesLinter();
 class _FirebaseRulesLinter extends PluginBase {
   @override
   List<LintRule> getLintRules(CustomLintConfigs configs) => [
-        AvoidRawRules(),
-        InvalidMatchFunction(),
-        InvalidMatchPath(),
-        InvalidRulesFunction(),
-        NoSetLiterals(),
-        UndeclaredEnumValue(),
-        UndeclaredFunction(),
-      ];
+    AvoidRawRules(),
+    InvalidMatchFunction(),
+    InvalidMatchPath(),
+    InvalidRulesFunction(),
+    NoSetLiterals(),
+    UndeclaredEnumValue(),
+    UndeclaredFunction(),
+  ];
 }

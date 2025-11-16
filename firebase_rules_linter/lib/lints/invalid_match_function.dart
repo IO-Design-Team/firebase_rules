@@ -87,11 +87,7 @@ class InvalidMatchFunction extends DartLintRule {
               : '($wildcard)',
         );
         if (expectedSignature != null) {
-          reporter.atNode(
-            node.parameters!,
-            code,
-            data: expectedSignature,
-          );
+          reporter.atNode(node.parameters!, code, data: expectedSignature);
         }
       }
     });

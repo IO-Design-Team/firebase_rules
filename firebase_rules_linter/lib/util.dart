@@ -1,21 +1,25 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/constant/value.dart';
-import 'package:custom_lint_builder/custom_lint_builder.dart';
-
-/// Type checker for any `firebase_rules` type
-const libraryTypeChecker = TypeChecker.fromPackage('firebase_rules');
+import 'package:meta/meta.dart';
+import 'package:source_gen/source_gen.dart';
 
 /// Type checker for `FirebaseRules`
-const firebaseRulesTypeChecker =
-    TypeChecker.fromName('FirebaseRules', packageName: 'firebase_rules');
+const firebaseRulesTypeChecker = TypeChecker.typeNamed(
+  TypeNamed('FirebaseRules'),
+  inPackage: 'firebase_rules',
+);
 
 /// Type checker for `FirebaseMatch`
-const firebaseMatchChecker =
-    TypeChecker.fromName('FirebaseMatch', packageName: 'firebase_rules');
+const firebaseMatchChecker = TypeChecker.typeNamed(
+  TypeNamed('FirebaseMatch'),
+  inPackage: 'firebase_rules',
+);
 
 /// Type checker for `DatabaseMatch`
-const databaseMatchChecker =
-    TypeChecker.fromName('DatabaseMatch', packageName: 'firebase_rules');
+const databaseMatchChecker = TypeChecker.typeNamed(
+  TypeNamed('DatabaseMatch'),
+  inPackage: 'firebase_rules',
+);
 
 /// Resolve a match path
 String? resolveMatchPath({required NodeList<Expression> arguments}) {
@@ -46,4 +50,19 @@ Future<DartObject?> getFirebaseRulesAnnotation(
     if (annotation != null) return annotation;
   }
   return null;
+}
+
+/// Create a Type class whose toString() method returns the name
+///
+/// Workaround for TypeChecker.typeNamed() not accepting a String.
+@immutable
+class TypeNamed implements Type {
+  /// The name of the type
+  final String name;
+
+  /// Constructor
+  const TypeNamed(this.name);
+
+  @override
+  String toString() => name;
 }
