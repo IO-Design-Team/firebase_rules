@@ -132,7 +132,7 @@ class UseExpectedSignature extends ResolvedCorrectionProducer {
   @override
   Future<void> compute(ChangeBuilder builder) async {
     final function = node.parent;
-    final match = function?.parent?.parent;
+    final match = function?.parent?.parent?.parent;
     if (function == null ||
         match == null ||
         function is! FunctionExpression ||
