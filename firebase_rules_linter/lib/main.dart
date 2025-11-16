@@ -6,6 +6,7 @@ import 'package:firebase_rules_linter/lints/invalid_match_path.dart';
 import 'package:firebase_rules_linter/lints/invalid_rules_function.dart';
 import 'package:firebase_rules_linter/lints/no_set_literals.dart';
 import 'package:firebase_rules_linter/lints/undeclared_enum_value.dart';
+import 'package:firebase_rules_linter/lints/undeclared_function.dart';
 
 /// The firebase_rules_linter analyzer plugin
 final plugin = FirebaseRulesLinterPlugin();
@@ -25,6 +26,7 @@ class FirebaseRulesLinterPlugin extends Plugin {
       ..registerWarningRule(InvalidRulesFunction())
       ..registerWarningRule(NoSetLiterals())
       ..registerFixForRule(NoSetLiterals.code, UseListLiteral.new)
-      ..registerWarningRule(UndeclaredEnumValue());
+      ..registerWarningRule(UndeclaredEnumValue())
+      ..registerWarningRule(UndeclaredFunction());
   }
 }
