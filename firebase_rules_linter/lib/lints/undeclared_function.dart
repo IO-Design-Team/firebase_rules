@@ -1,44 +1,67 @@
+import 'package:analyzer/analysis_rule/analysis_rule.dart';
+import 'package:analyzer/analysis_rule/rule_context.dart';
+import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/error/error.dart' hide LintCode;
-import 'package:analyzer/error/listener.dart';
-import 'package:custom_lint_builder/custom_lint_builder.dart';
-import 'package:firebase_rules_linter/util.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/error/error.dart';
+import 'package:firebase_rules_linter/utils.dart';
+import 'package:meta/meta.dart';
 
 /// Lint to ensure that all enums have declared mappings
-class UndeclaredFunction extends DartLintRule {
-  static const _code = LintCode(
-    name: 'undeclared_function',
-    problemMessage: 'Declare functions in the FirebaseRules annotation',
-    errorSeverity: DiagnosticSeverity.ERROR,
+class UndeclaredFunction extends AnalysisRule {
+  /// undeclared_function
+  static const code = LintCode(
+    'undeclared_function',
+    'Declare functions in the FirebaseRules annotation',
+    severity: DiagnosticSeverity.ERROR,
   );
 
   /// Constructor
-  const UndeclaredFunction() : super(code: _code);
+  UndeclaredFunction()
+    : super(name: code.name, description: code.problemMessage);
 
   @override
-  void run(
-    CustomLintResolver resolver,
-    DiagnosticReporter reporter,
-    CustomLintContext context,
-  ) async {
-    final annotation = await getFirebaseRulesAnnotation(resolver);
+  LintCode get diagnosticCode => code;
+
+  @override
+  void registerNodeProcessors(
+    RuleVisitorRegistry registry,
+    RuleContext context,
+  ) {
+    final visitor = _Visitor(this, context);
+    registry.addMethodInvocation(this, visitor);
+  }
+}
+
+@immutable
+class _Visitor extends SimpleAstVisitor<void> {
+  final AnalysisRule rule;
+  final RuleContext context;
+
+  const _Visitor(this.rule, this.context);
+
+  @override
+  void visitMethodInvocation(MethodInvocation node) {
+    final library = context.libraryElement;
+    if (library == null) return;
+
+    final annotation = getFirebaseRulesAnnotation(library);
     // This isn't a rules file
     if (annotation == null) return;
 
-    context.registry.addMethodInvocation((node) {
-      if (node.childEntities.length != 2) return;
-      final functionName = node.childEntities.first;
-      if (functionName is! SimpleIdentifier) return;
+    if (node.childEntities.length != 2) return;
+    final functionName = node.childEntities.first;
+    if (functionName is! SimpleIdentifier) return;
 
-      final functions = annotation
-          .getField('functions')
-          ?.toListValue()
-          ?.map((e) => e.toFunctionValue()!.name);
-      if (functions != null && functions.contains(functionName.name)) {
-        return;
-      }
+    final functions = annotation
+        .getField('functions')
+        ?.toListValue()
+        ?.map((e) => e.toFunctionValue()?.name)
+        .nonNulls;
+    if (functions != null && functions.contains(functionName.name)) {
+      return;
+    }
 
-      reporter.atNode(functionName, _code);
-    });
+    rule.reportAtNode(functionName);
   }
 }
