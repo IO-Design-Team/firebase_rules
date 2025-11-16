@@ -1,17 +1,20 @@
 A type-safe Firebase rules generator for Firestore, Storage, and Realtime Database
 
 ## Features
+
 - Create rules for Firestore, Storage, and Realtime Database in a type-safe environment
 - Custom lint rules to catch issues before deployment
 - Mimics the Firebase rules syntax for easy migration
 
 The benefits:
+
 - Type-safe access to your data model. Get errors if rules don't match the model.
 - Code completion for the rules language. No more guessing what functions are available.
 - Rules are easier to read and maintain
 - Add comments to Realtime Database rules
 
 ## Limitations
+
 - Realtime Database rules are not really type-safe, but you do get the benefit of having code completion
 
 ## Installation
@@ -19,6 +22,7 @@ The benefits:
 It is recommended to create rules in a dedicated project to prevent issues
 
 pubspec.yaml
+
 ```yaml
 dependencies:
   firebase_rules: latest
@@ -28,18 +32,14 @@ dependencies:
 dev_dependencies:
   build_runner: latest
   firebase_rules_generator: latest
-
-  # To use `firebase_rules_linter`
-  custom_lint: latest
-  firebase_rules_linter: latest
 ```
 
 analysis_options.yaml
+
 ```yaml
 # To use `firebase_rules_linter`
-analyzer:
-  plugins:
-    - custom_lint
+plugins:
+  firebase_rules_linter: latest
 ```
 
 ## Usage
@@ -49,6 +49,7 @@ analyzer:
 The starting point of all rules is the annotation. Firestore, Storage, and Database rules should be defined in their own files to prevent conflicts.
 
 <!-- embedme readme/annotation.dart -->
+
 ```dart
 import 'package:firebase_rules/database.dart';
 import 'package:firebase_rules/firebase.dart';
@@ -72,6 +73,7 @@ final databaseRules = [];
 Now we can start defining Match statements
 
 <!-- embedme readme/match.dart -->
+
 ```dart
 import 'package:firebase_rules/firebase.dart';
 import 'shared.dart';
@@ -134,6 +136,7 @@ final storageRules = [
 Rules are why we're here
 
 <!-- embedme readme/rules.dart -->
+
 ```dart
 import 'package:firebase_rules/firebase.dart';
 import 'shared.dart';
@@ -160,6 +163,7 @@ final firestoreRules = [
 This package contains a reimplementation of the Firebase rules language in Dart. These calls are translated to the correct Firebase rules syntax by the generator.
 
 <!-- embedme readme/language.dart -->
+
 ```dart
 import 'package:firebase_rules/firebase.dart';
 
@@ -190,6 +194,7 @@ void example() {
 Top-level functions can be used as rules functions
 
 <!-- embedme readme/functions.dart -->
+
 ```dart
 import 'package:firebase_rules/firebase.dart';
 
@@ -221,6 +226,7 @@ final rules = [
 Any of the function arguments of a match statement can be split out for organization
 
 <!-- embedme readme/organization.dart -->
+
 ```dart
 import 'package:firebase_rules/firebase.dart';
 import 'shared.dart';
@@ -254,6 +260,7 @@ final firestoreRules = [
 Enums can be replaced with raw strings by the generator
 
 <!-- embedme readme/enums.dart -->
+
 ```dart
 import 'package:firebase_rules/firebase.dart';
 
@@ -308,10 +315,12 @@ For every `rules.dart` file, this will generate a `rules.rules` file in the same
 ## Realtime Database
 
 Database rules are similar to Firestore and Storage rules, but they have a few differences:
+
 - The first match must start with `rules`. That is the root of the database.
 - Wildcards are denoted with `$`
 
 <!-- embedme readme/database.dart -->
+
 ```dart
 import 'package:firebase_rules/database.dart';
 

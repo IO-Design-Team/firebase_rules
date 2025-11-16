@@ -1,5 +1,5 @@
 include: package:rexios_lints/dart/core_extra.yaml
 
-analyzer:
-  plugins:
-    - custom_lint
+plugins:
+  firebase_rules_linter:
+    path: ../firebase_rules_linter
