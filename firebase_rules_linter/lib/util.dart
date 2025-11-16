@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:meta/meta.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -40,12 +41,8 @@ String? resolveMatchPath({required NodeList<Expression> arguments}) {
 }
 
 /// Get the first `FirebaseRules` annotation in a file
-Future<DartObject?> getFirebaseRulesAnnotation(
-  CustomLintResolver resolver,
-) async {
-  final resolved = await resolver.getResolvedUnitResult();
-
-  for (final element in resolved.libraryElement.topLevelVariables) {
+DartObject? getFirebaseRulesAnnotation(LibraryElement library) {
+  for (final element in library.topLevelVariables) {
     final annotation = firebaseRulesTypeChecker.firstAnnotationOfExact(element);
     if (annotation != null) return annotation;
   }
