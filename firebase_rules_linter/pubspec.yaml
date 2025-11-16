@@ -17,3 +17,5 @@ dependencies:
 
 dev_dependencies:
   rexios_lints: ^17.0.0
+  analyzer_testing: ^0.1.2
+  test_reflective_loader: ^0.4.0
