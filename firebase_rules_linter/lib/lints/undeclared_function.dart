@@ -4,7 +4,7 @@ import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
-import 'package:firebase_rules_linter/utils.dart';
+import 'package:firebase_rules_linter/util.dart';
 import 'package:meta/meta.dart';
 
 /// Lint to ensure that all enums have declared mappings
