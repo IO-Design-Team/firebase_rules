@@ -1,40 +1,55 @@
+import 'package:analyzer/analysis_rule/analysis_rule.dart';
+import 'package:analyzer/analysis_rule/rule_context.dart';
+import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/error/error.dart' hide LintCode;
-import 'package:analyzer/error/listener.dart';
-import 'package:custom_lint_builder/custom_lint_builder.dart';
-import 'package:firebase_rules_linter/util.dart';
+import 'package:analyzer/error/error.dart';
+import 'package:meta/meta.dart';
 
 /// Lint to ensure that all enums have declared mappings
-class InvalidRulesFunction extends DartLintRule {
-  static const _code = LintCode(
-    name: 'invalid_rules_function',
-    problemMessage: 'Rules functions must have positional parameters',
-    errorSeverity: DiagnosticSeverity.ERROR,
+class InvalidRulesFunction extends AnalysisRule {
+  /// invalid_rules_function
+  static const code = LintCode(
+    'invalid_rules_function',
+    'Rules functions must have positional parameters',
+    severity: DiagnosticSeverity.ERROR,
   );
 
   /// Constructor
-  const InvalidRulesFunction() : super(code: _code);
+  InvalidRulesFunction()
+    : super(name: code.name, description: code.problemMessage);
 
   @override
-  void run(
-    CustomLintResolver resolver,
-    DiagnosticReporter reporter,
-    CustomLintContext context,
-  ) async {
-    final annotation = await getFirebaseRulesAnnotation(resolver);
-    // This isn't a rules file
-    if (annotation == null) return;
+  LintCode get diagnosticCode => code;
 
-    context.registry.addFunctionDeclaration((node) {
-      final parameters = node.functionExpression.parameters;
-      if (parameters == null) return;
+  @override
+  void registerNodeProcessors(
+    RuleVisitorRegistry registry,
+    RuleContext context,
+  ) {
+    final visitor = _Visitor(this, context);
+    registry.addFunctionDeclaration(this, visitor);
+  }
+}
 
-      final parameterFragments = parameters.parameterFragments
-          .whereType<FormalParameterFragment>();
-      if (parameterFragments.where((e) => e.element.isNamed).isNotEmpty) {
-        reporter.atNode(parameters, _code);
-        return;
-      }
-    });
+@immutable
+class _Visitor extends SimpleAstVisitor<void> {
+  final AnalysisRule rule;
+  final RuleContext context;
+
+  const _Visitor(this.rule, this.context);
+
+  @override
+  void visitFunctionDeclaration(FunctionDeclaration node) {
+    final parameters = node.functionExpression.parameters;
+    if (parameters == null) return;
+
+    final parameterFragments = parameters.parameterFragments
+        .whereType<FormalParameterFragment>();
+    if (parameterFragments.where((e) => e.element.isNamed).isNotEmpty) {
+      rule.reportAtNode(parameters);
+      return;
+    }
   }
 }
