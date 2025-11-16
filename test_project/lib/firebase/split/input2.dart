@@ -1,3 +1,6 @@
+// This is a test
+// ignore_for_file: rexios_lints/not_null_assertion
+
 import 'package:firebase_rules/firebase.dart';
 
 bool isNotAnonymous(RulesRequest request) =>
