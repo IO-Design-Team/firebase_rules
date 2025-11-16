@@ -5,10 +5,7 @@ import 'package:analyzer/analysis_rule/rule_context.dart';
 import 'package:analyzer/analysis_rule/rule_visitor_registry.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/error.dart';
-import 'package:analyzer/error/listener.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_core.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
@@ -41,9 +38,6 @@ class NoSetLiterals extends AnalysisRule {
     final visitor = _Visitor(this, context);
     registry.addSetOrMapLiteral(this, visitor);
   }
-
-  @override
-  List<Fix> getFixes() => [_UseListLiteralFix()];
 }
 
 @immutable

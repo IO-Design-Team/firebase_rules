@@ -4,6 +4,7 @@ import 'package:firebase_rules_linter/lints/avoid_raw_rules.dart';
 import 'package:firebase_rules_linter/lints/invalid_match_function.dart';
 import 'package:firebase_rules_linter/lints/invalid_match_path.dart';
 import 'package:firebase_rules_linter/lints/invalid_rules_function.dart';
+import 'package:firebase_rules_linter/lints/no_set_literals.dart';
 
 /// The firebase_rules_linter analyzer plugin
 final plugin = FirebaseRulesLinterPlugin();
@@ -20,6 +21,8 @@ class FirebaseRulesLinterPlugin extends Plugin {
       ..registerWarningRule(InvalidMatchFunction())
       ..registerFixForRule(InvalidMatchFunction.code, UseExpectedSignature.new)
       ..registerWarningRule(InvalidMatchPath())
-      ..registerWarningRule(InvalidRulesFunction());
+      ..registerWarningRule(InvalidRulesFunction())
+      ..registerWarningRule(NoSetLiterals())
+      ..registerFixForRule(NoSetLiterals.code, UseListLiteral.new);
   }
 }
