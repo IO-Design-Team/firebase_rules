@@ -59,10 +59,13 @@ class _Visitor extends SimpleAstVisitor<void> {
     if (!couldBeEnumValue) return;
 
     final type = node.staticType;
+    final libraryUri = type?.element?.library?.uri;
+
     if (type == null ||
         !type.isEnum ||
         // Ignore built-in enums
-        type.element?.library?.name == 'firebase_rules') {
+        libraryUri == null ||
+        libraryUri.toString().startsWith('package:firebase_rules/')) {
       return;
     }
 
