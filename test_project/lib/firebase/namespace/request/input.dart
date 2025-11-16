@@ -1,5 +1,5 @@
 // This is a test
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, rexios_lints/not_null_assertion
 
 import 'package:firebase_rules/firebase.dart';
 
