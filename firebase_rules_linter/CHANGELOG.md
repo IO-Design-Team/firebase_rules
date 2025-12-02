@@ -1,3 +1,7 @@
+## 0.2.1
+
+- Upgrades `analyzer` to version `9.0.0`
+
 ## 0.2.0
 
 - All rules rewritten for the new plugin system

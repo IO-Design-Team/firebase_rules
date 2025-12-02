@@ -1,13 +1,13 @@
 name: firebase_rules_linter
 description: A linter for the firebase_rules package to prevent common issues
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/IO-Design-Team/firebase_rules/tree/master/firebase_rules_linter
 
 environment:
   sdk: ^3.10.0
 
 dependencies:
-  analyzer: ^8.0.0
+  analyzer: ^9.0.0
   analyzer_plugin: ^0.13.7
   analysis_server_plugin: ^0.3.3
   collection: ^1.16.0
