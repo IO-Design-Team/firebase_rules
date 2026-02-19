@@ -24,7 +24,7 @@ class InvalidMatchFunction extends AnalysisRule {
 
   /// Constructor
   InvalidMatchFunction()
-    : super(name: code.name, description: code.problemMessage);
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;

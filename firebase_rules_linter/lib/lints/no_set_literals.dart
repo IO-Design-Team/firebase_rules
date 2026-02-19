@@ -25,7 +25,8 @@ class NoSetLiterals extends AnalysisRule {
   );
 
   /// Constructor
-  NoSetLiterals() : super(name: code.name, description: code.problemMessage);
+  NoSetLiterals()
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;

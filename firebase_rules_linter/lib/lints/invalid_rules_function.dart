@@ -18,7 +18,7 @@ class InvalidRulesFunction extends AnalysisRule {
 
   /// Constructor
   InvalidRulesFunction()
-    : super(name: code.name, description: code.problemMessage);
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;

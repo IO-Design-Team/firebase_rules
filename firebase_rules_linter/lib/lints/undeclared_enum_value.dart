@@ -20,7 +20,7 @@ class UndeclaredEnumValue extends AnalysisRule {
 
   /// Constructor
   UndeclaredEnumValue()
-    : super(name: code.name, description: code.problemMessage);
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;

@@ -18,7 +18,8 @@ class AvoidRawRules extends AnalysisRule {
   );
 
   /// Constructor
-  AvoidRawRules() : super(name: code.name, description: code.problemMessage);
+  AvoidRawRules()
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;

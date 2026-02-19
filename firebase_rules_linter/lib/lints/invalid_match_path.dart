@@ -17,7 +17,8 @@ class InvalidMatchPath extends AnalysisRule {
   );
 
   /// Constructor
-  InvalidMatchPath() : super(name: code.name, description: code.problemMessage);
+  InvalidMatchPath()
+    : super(name: code.lowerCaseName, description: code.problemMessage);
 
   @override
   LintCode get diagnosticCode => code;
