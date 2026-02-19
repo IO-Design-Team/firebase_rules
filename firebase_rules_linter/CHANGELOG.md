@@ -1,3 +1,8 @@
+## 0.2.2
+
+- Upgrades `analyzer` to version `10.0.0`
+- Upgrades `analyzer_plugin` to version `0.14.0`
+
 ## 0.2.1
 
 - Upgrades `analyzer` to version `9.0.0`

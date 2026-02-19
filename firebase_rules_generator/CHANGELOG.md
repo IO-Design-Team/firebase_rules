@@ -1,3 +1,7 @@
+## 0.2.7
+
+- Upgrades `analyzer` to version `10.0.0`
+
 ## 0.2.6
 
 - Upgrades `analyzer` to version `9.0.0`
