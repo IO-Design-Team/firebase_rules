@@ -1,3 +1,7 @@
+## 0.1.4
+
+- Upgrades `cloud_firestore_platform_interface` to `^8.0.0`
+
 ## 0.1.3
 
 - Upgrades `cloud_firestore_platform_interface` to `^7.0.0`
