@@ -2,9 +2,8 @@ import 'dart:io';
 
 import 'package:build/build.dart';
 import 'package:build_test/build_test.dart';
-import 'package:source_gen/source_gen.dart';
-import 'package:test/test.dart';
 import 'package:path/path.dart' as path;
+import 'package:test/test.dart';
 
 void testRulesBuilder(
   String slug, {
@@ -22,21 +21,19 @@ void testRulesBuilder(
       final outputFile = File(
         path.join('..', 'test_project', 'lib', slug, 'output$outputExtension'),
       );
-      final future = testBuilder(
+      final readerWriter = TestReaderWriter(rootPackage: 'test');
+      await readerWriter.testing.loadIsolateSources();
+      final result = await testBuilder(
         builder,
         {'test|test.dart': input},
         outputs: expectThrows
             ? null
             : {'test|test$outputExtension': outputFile.readAsStringSync()},
+        readerWriter: readerWriter,
       );
 
       if (expectThrows) {
-        await expectLater(
-          () async => await future,
-          throwsA(isA<InvalidGenerationSourceError>()),
-        );
-      } else {
-        await future;
+        expect(result.succeeded, isFalse);
       }
     },
     skip: skip,

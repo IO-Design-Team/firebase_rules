@@ -2,6 +2,6 @@ include: package:rexios_lints/dart/package_extra.yaml
 
 plugins:
   rexios_lints:
-    version: ^17.0.0
+    version: ^18.0.0
     diagnostics:
-      not_null_assertsion: false
+      not_null_assertion: false
