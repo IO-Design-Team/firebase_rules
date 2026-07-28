@@ -23,7 +23,7 @@ const databaseMatchChecker = TypeChecker.typeNamed(
 );
 
 /// Resolve a match path
-String? resolveMatchPath({required NodeList<Expression> arguments}) {
+String? resolveMatchPath({required NodeList<Argument> arguments}) {
   final pathArgument = arguments.first;
   if (pathArgument is SimpleStringLiteral) {
     return pathArgument.value;

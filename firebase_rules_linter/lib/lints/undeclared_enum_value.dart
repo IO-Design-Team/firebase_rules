@@ -7,7 +7,7 @@ import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:firebase_rules_linter/util.dart';
 import 'package:meta/meta.dart';
-import 'package:source_helper/source_helper.dart';
+import 'package:firebase_rules_linter/source_helper.dart';
 
 /// Lint to ensure that all enums have declared mappings
 class UndeclaredEnumValue extends AnalysisRule {

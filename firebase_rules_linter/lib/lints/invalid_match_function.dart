@@ -94,9 +94,9 @@ class _Visitor extends SimpleAstVisitor<void> {
 
     for (final parameter in {'matches', 'rules', 'read', 'write', 'validate'}) {
       final function = arguments
-          .whereType<NamedExpression>()
-          .firstWhereOrNull((e) => e.name.label.name == parameter)
-          ?.expression;
+          .whereType<NamedArgument>()
+          .firstWhereOrNull((e) => e.name.lexeme == parameter)
+          ?.argumentExpression;
       if (function == null || function is! FunctionExpression) continue;
 
       final expectedSignature = _validateSignature(
