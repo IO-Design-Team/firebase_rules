@@ -7,16 +7,16 @@ import 'package:source_gen/source_gen.dart';
 /// Get the parameter name of the given index
 String getParameterName(FunctionExpression function, int index) {
   final parameter = function.parameters!.childEntities.elementAt(index + 1)
-      as SimpleFormalParameter;
+      as RegularFormalParameter;
   return parameter.name!.toString();
 }
 
 /// Get a parameter by name
 AstNode? getNamedParameter(String name, Iterable<SyntacticEntity> arguments) {
   return arguments
-      .whereType<NamedExpression>()
-      .firstWhereOrNull((e) => e.name.label.name == name)
-      ?.expression;
+      .whereType<NamedArgument>()
+      .firstWhereOrNull((e) => e.name.lexeme == name)
+      ?.argumentExpression;
 }
 
 /// Visit a function parameter
