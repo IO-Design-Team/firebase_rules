@@ -1,3 +1,8 @@
+## 0.2.4
+
+- Upgrades `analyzer` to version `14.0.0`
+- Drops the `source_helper` dependency
+
 ## 0.2.3
 
 - Upgrades `analyzer` to version `12.0.0`
